@@ -38,6 +38,7 @@ class CategoryController extends Controller
         foreach ($list_category as $item) {
             $html_parent_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
             $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
+            // $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
         }
         return view('backend.category.create', compact('html_parent_id', 'html_sort_order'));
     }
@@ -52,7 +53,7 @@ class CategoryController extends Controller
         $category->metakey = $request->metakey;
         $category->metadesc = $request->metadesc;
         $category->parent_id = $request->parent_id;
-        $category->sort_order = $request->sort_order + 1;
+        $category->sort_order = $request->sort_order + '1'; //bỏ +1 đi là được
         $category->status = $request->status;
         $category->created_at = date('Y-m-d H:i:s');
         $category->created_by = 1;
@@ -101,7 +102,7 @@ class CategoryController extends Controller
                 $html_parent_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
             }
             if ($category->sort_order == $item->id) {
-                $html_sort_order .= '<option selected value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
+                $html_sort_order .= '<option selected value="' . $item->sort_order - 1 . '">Sau: ' . $item->name . '</option>';
             } else {
                 $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
             }
@@ -136,7 +137,7 @@ class CategoryController extends Controller
         $category->sort_order = $request->sort_order;
         $category->status = $request->status;
         $category->updated_at = date('Y-m-d H:i:s');
-        $category->created_by = 1;
+        $category->updated_by = 1;
         if ($category->save()) {
             if ($link = Link::where([['type', '=', 'category'], ['table_id', '=', $id]])->first()) {
                 $link->slug = $category->slug;

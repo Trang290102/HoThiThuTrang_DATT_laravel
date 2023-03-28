@@ -71,7 +71,10 @@
                    
                     <div class="mb-3">
                         <label for="image">Hình ảnh</label>
-                        <input type="file" name="image" id="image" class="form-control-file">  
+                        <input type="file" name="image" id="image" class="form-control-file">
+                        @if ($errors->has('image'))
+                          <div class="text-danger">{{$errors->first('image')}}</div>
+                        @endif 
                     </div> 
                     <div class="mb-3">
                         <label for="status">Trạng thái</label>

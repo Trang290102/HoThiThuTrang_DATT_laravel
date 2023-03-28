@@ -12,13 +12,20 @@ use App\Http\Controllers\backend\MenuController;
 use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\frontend\SiteController;
+use App\Http\Controllers\backend\AuthController;
+use App\Http\Middleware\LoginAdminMiddelware;
+use Illuminate\Auth\Middleware\Authenticate;
 
 Route::get('/', [SiteController::class, 'index'])->name('frontend.home');
 Route::get('lien-he', [LienheController::class, 'index'])->name('frontend.lien-he'); //link cố định( ví dụ)
+//Xử lý login
+Route::get('admin/login', [AuthController::class, 'getlogin'])->name('getlogin'); //link cố định( ví dụ)
+Route::post('admin/login', [AuthController::class, 'postlogin'])->name('postlogin'); //link cố định( ví dụ)
+Route::get('admin/logout', [AuthController::class, 'logout'])->name('logout'); //link cố định( ví dụ)
 
 
 //khai bao route cho quan ly
-route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('LoginAdmin')->group(function () {
     route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard'); //name dung de goi o view
 
     //category
@@ -64,7 +71,7 @@ route::prefix('admin')->group(function () {
     //page
     Route::resource('page', PageController::class);
     route::get('page_trash', [PageController::class, 'trash'])->name('page.trash');
-    route::prefix('post')->group(function () {
+    route::prefix('page')->group(function () {
         route::get('status/{page}', [PageController::class, 'status'])->name('page.status');
         route::get('delete/{page}', [PageController::class, 'delete'])->name('page.delete');
         route::get('restore/{page}', [PageController::class, 'restore'])->name('page.restore');

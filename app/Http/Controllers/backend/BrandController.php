@@ -91,8 +91,11 @@ class BrandController extends Controller
         $html_sort_order = '';
 
         foreach ($list_brand as $item) {
-            $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
-        }
+            if ($brand->sort_order == $item->id) {
+                $html_sort_order .= '<option selected value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
+            } else {
+                $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
+            }        }
         return view('backend.brand.edit', compact('brand', 'html_sort_order'));
     }
 
@@ -107,7 +110,7 @@ class BrandController extends Controller
         $brand->sort_order = $request->sort_order;
         $brand->status = $request->status;
         $brand->updated_at = date('Y-m-d H:i:s');
-        $brand->created_by = 1;
+        $brand->updated_by = 1;
         //upload image
         if ($request->has('image')) {
             $path_dir = "public/images/brand/";

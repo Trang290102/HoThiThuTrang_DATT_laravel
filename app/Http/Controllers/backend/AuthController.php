@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Controllers\backend;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Auth;
+
+
+class AuthController extends Controller
+{
+    public function getlogin()
+    {
+        return view('backend.auth.login');
+    }
+
+    public function postlogin(LoginRequest $request)
+    {
+        $username = $request->username;
+        $password = $request->password;
+        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            $data = ['email' => $username, 'password' => $password];
+        } else {
+            $data = ['name' => $username, 'password' => $password];
+        }
+        if (Auth::attempt($data)) {
+            // return redirect('admin');
+            echo "thanh cong";
+        } else {
+            // return redirect('admin/login');
+            echo "that bai";
+        }
+    }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('admin/login');
+    }
+}

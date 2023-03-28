@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostStoreRequest extends FormRequest
+class PageStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -24,10 +24,13 @@ class PostStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Bạn chưa nhập tên.',
-            'name.min' => 'Tên có ít nhất 2 ký tự.',
+            'title.required' => 'Bạn chưa nhập tiêu đề.',
+            'title.min' => 'Tên có ít nhất 2 ký tự.',
+            'detail.required' => 'Bạn chưa nhập nội dung.',
+            'detail.min' => 'Nội dung có ít nhất 2 ký tự.',
             'metakey.required' => 'Chưa nhập từ khóa tìm kiếm.',
             'metadesc.required' => 'Chưa nhập mô tả.',
+            'images.required' => 'Bạn chưa chọn hình ảnh, vui lòng chọn và thử lại.',
         ];
     }
 }

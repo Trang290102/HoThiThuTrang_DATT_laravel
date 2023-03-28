@@ -42,7 +42,7 @@
                 <div class="col-md-9">
                     <div class="mb-3">
                         <label for="name">Tên thương hiệu</label>
-                        <input type="text" name="name" value="{{ old('name') }}"" id="name" class="form-control" placeholder="Nhập tên thương hiệu"> 
+                        <input type="text" name="name" value="{{ old('name') }}" id="name" class="form-control" placeholder="Nhập tên thương hiệu"> 
                         @if ($errors->has('name'))
                           <div class="text-danger">{{$errors->first('name')}}</div>
                         @endif 

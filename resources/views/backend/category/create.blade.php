@@ -57,7 +57,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="metadesc">Mô tả</label>
-                        <textarea name="metadesc" id="metadesc" class="form-control"
+                        <textarea name="metadesc" id="metadesc" class="form-control" 
                         placeholder="Nhập mô tả">{{ old('metadesc') }}</textarea>
                         @if ($errors->has('metadesc'))
                         <div class="text-danger">{{$errors->first('metadesc')}}</div>
@@ -68,12 +68,14 @@
                     <div class="mb-3">
                         <label for="parent_id">Danh mục cha</label>
                         <select name="parent_id" id="parent_id" name="parent_id" class="form-control">
+                          <option value="0">--Danh mục cha--</option>
                             {{!! $html_parent_id !!}}
                         </select>
                     </div> 
                     <div class="mb-3">
                         <label for="sort_order">Vị trí</label>
                         <select name="sort_order" id="sort_order" name="sort_order" class="form-control">
+                          <option value="0">--Vị trí sắp xếp--</option>
                             {{!! $html_sort_order !!}}
                         </select>
                     </div> 
