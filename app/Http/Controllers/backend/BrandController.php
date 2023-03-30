@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use App\Models\Link;
-
 use App\Models\Brand;
 use App\Http\Requests\BrandStoreRequest;
 use App\Http\Requests\BrandUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class BrandController extends Controller
@@ -40,9 +40,9 @@ class BrandController extends Controller
         return view('backend.brand.create', compact('html_sort_order'));
     }
 
-
     public function store(BrandStoreRequest $request)
     {
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $brand = new Brand; //tạo mới mẫu tin
         $brand->name = $request->name;
@@ -52,7 +52,7 @@ class BrandController extends Controller
         $brand->sort_order = $request->sort_order + 1;
         $brand->status = $request->status;
         $brand->created_at = date('Y-m-d H:i:s');
-        $brand->created_by = 1;
+        $brand->created_by = $user_id;
         //upload image
         if ($request->has('image')) {
             $path_dir = "public/images/brand/";
@@ -95,12 +95,14 @@ class BrandController extends Controller
                 $html_sort_order .= '<option selected value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
             } else {
                 $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
-            }        }
+            }
+        }
         return view('backend.brand.edit', compact('brand', 'html_sort_order'));
     }
 
     public function update(BrandUpdateRequest $request, string $id)
     {
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $brand = Brand::find($id); //lấy mẫu tin
         $brand->name = $request->name;
@@ -110,7 +112,7 @@ class BrandController extends Controller
         $brand->sort_order = $request->sort_order;
         $brand->status = $request->status;
         $brand->updated_at = date('Y-m-d H:i:s');
-        $brand->updated_by = 1;
+        $brand->updated_by = $user_id;
         //upload image
         if ($request->has('image')) {
             $path_dir = "public/images/brand/";
@@ -161,6 +163,7 @@ class BrandController extends Controller
     #GET:admin/brand/status/{id}
     public function status($id)
     {
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
 
         $brand = Brand::find($id);
@@ -169,7 +172,7 @@ class BrandController extends Controller
         }
         $brand->status = ($brand->status == 1) ? 2 : 1;
         $brand->updated_at = date('Y-m-d H:i:s');
-        $brand->updated_by = 1;
+        $brand->updated_by = $user_id;
         $brand->save();
         return redirect()->route('brand.index')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }
@@ -177,14 +180,14 @@ class BrandController extends Controller
     public function delete($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id = Auth::user()->id;
         $brand = Brand::find($id);
         if ($brand == null) {
             return redirect()->route('brand.index')->with('message', ['type' => 'danger', 'msg' => 'Xóa vào thùng rác không thành công!']);
         }
         $brand->status = 0;
         $brand->updated_at = date('Y-m-d H:i:s');
-        $brand->updated_by = 1;
+        $brand->updated_by = $user_id;
         $brand->save();
         return redirect()->route('brand.index')->with('message', ['type' => 'success', 'msg' => 'Xóa vào thùng rác thành công!']);
     }
@@ -192,14 +195,14 @@ class BrandController extends Controller
     public function restore($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id = Auth::user()->id;
         $brand = Brand::find($id);
         if ($brand == null) {
             return redirect()->route('brand.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
         $brand->status = 2;
         $brand->updated_at = date('Y-m-d H:i:s');
-        $brand->updated_by = 1;
+        $brand->updated_by = $user_id;
         $brand->save();
         return redirect()->route('brand.trash')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }

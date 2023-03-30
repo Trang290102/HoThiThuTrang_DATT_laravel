@@ -17,6 +17,7 @@ use App\Models\ProductStore;
 
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class ProductController extends Controller
@@ -24,13 +25,21 @@ class ProductController extends Controller
     #GET:admin/product, admin/product/index
     public function index()
     {
-        $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')->where('status', '!=', 0)->orderBy('created_at', 'desc')->get();
+        $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
+            ->where('status', '!=', 0)
+            ->groupBy('httt_product_image.product_id')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('backend.product.index', compact('list_product'));
     }
     #GET:admin/product/trash
     public function trash()
     {
-        $list_product = Product::where('status', '=', 0)->orderBy('created_at', 'desc')->get();
+        $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
+            ->where('status', '=', 0)
+            ->groupBy('httt_product_image.product_id')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('backend.product.trash', compact('list_product'));
     }
 
@@ -55,7 +64,7 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id = Auth::user()->id;
         $product = new Product; //tạo mới mẫu tin
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
@@ -66,7 +75,7 @@ class ProductController extends Controller
         $product->metakey = $request->metakey;
         $product->metadesc = $request->metadesc;
         $product->created_at = date('Y-m-d H:i:s');
-        $product->created_by = 1;
+        $product->created_by = $user_id;
         $product->status = $request->status;
         if ($product->save()) {
             //upload image
@@ -102,7 +111,7 @@ class ProductController extends Controller
                 $product_store->price = $request->price;
                 $product_store->qty = $request->qty;
                 $product_store->created_at = date('Y-m-d H:i:s');
-                $product_store->created_by = 1;
+                $product_store->created_by = $user_id;
                 $product_store->save();
             }
         }
@@ -135,7 +144,7 @@ class ProductController extends Controller
     public function update(ProductUpdateRequest $request, string $id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id = Auth::user()->id;
         $product = Product::find($id); //lấy mẫu tin
         $product->name = $request->name;
         $product->slug = Str::slug($product->name = $request->name, '-');
@@ -145,7 +154,7 @@ class ProductController extends Controller
         $product->sort_order = $request->sort_order;
         $product->status = $request->status;
         $product->updated_at = date('Y-m-d H:i:s');
-        $product->created_by = 1;
+        $product->created_by = $user_id;
         //upload image
         if ($request->has('image')) {
             $path_dir = "public/images/product/";
@@ -187,14 +196,14 @@ class ProductController extends Controller
     public function status($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id = Auth::user()->id;
         $product = Product::find($id);
         if ($product == null) {
             return redirect()->route('product.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
         $product->status = ($product->status == 1) ? 2 : 1;
         $product->updated_at = date('Y-m-d H:i:s');
-        $product->updated_by = 1;
+        $product->updated_by = $user_id;
         $product->save();
         return redirect()->route('product.index')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }
@@ -202,14 +211,14 @@ class ProductController extends Controller
     public function delete($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id = Auth::user()->id;
         $product = Product::find($id);
         if ($product == null) {
             return redirect()->route('product.index')->with('message', ['type' => 'danger', 'msg' => 'Xóa vào thùng rác không thành công!']);
         }
         $product->status = 0;
         $product->updated_at = date('Y-m-d H:i:s');
-        $product->updated_by = 1;
+        $product->updated_by = $user_id;
         $product->save();
         return redirect()->route('product.index')->with('message', ['type' => 'success', 'msg' => 'Xóa vào thùng rác thành công!']);
     }
@@ -217,14 +226,14 @@ class ProductController extends Controller
     public function restore($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id = Auth::user()->id;
         $product = Product::find($id);
         if ($product == null) {
             return redirect()->route('product.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
         $product->status = 2;
         $product->updated_at = date('Y-m-d H:i:s');
-        $product->updated_by = 1;
+        $product->updated_by = $user_id;
         $product->save();
         return redirect()->route('product.trash')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }

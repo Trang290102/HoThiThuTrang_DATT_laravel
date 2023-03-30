@@ -12,6 +12,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset ('public/dist/css/adminlte.min.css')}}">
 </head>
+@yield('header')
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
@@ -22,41 +23,25 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="../../index3.html" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
-      </li>
+      </li> --}}
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
+      {{-- <li class="nav-item">
+        <i style="color:rgb(18, 62, 236);" class="fas fa-sign-out-alt"></i>
+
+      </li> --}}
 
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
+        <a href="{{ route('logout')}}">
+          <i style="color:rgb(10, 182, 182);" class="fas fa-sign-out-alt"> Đăng xuất</i>
         </a>
       </li>
     </ul>
@@ -127,4 +112,5 @@
 <script src="{{asset('public/dist/js/adminlte.min.js')}}"></script>
 
 </body>
+@yield('footer')
 </html>

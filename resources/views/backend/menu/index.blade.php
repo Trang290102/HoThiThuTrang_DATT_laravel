@@ -2,11 +2,17 @@
 @section('title', 'Quản lý menu')
 @section('content')
 
-{{-- @php
-    dd($list_menu);
-@endphp
- --}}
- <form action="{{ route('menu.store')}}" method="post" enctype="multipart/form-data">
+@section('header')
+<link rel="stylesheet" href="{{asset ('public/jquery.dataTables.min.css')}}">
+@endsection
+@section('footer')
+<script src="{{asset('public/jquery.dataTables.min.js')}}"></script>
+<script>
+  let table = new DataTable('#myTable');
+</script>
+@endsection
+
+<form action="{{ route('menu.store')}}" method="post" enctype="multipart/form-data">
   @csrf      
   <div class="content-wrapper">
     <section class="content-header">
@@ -187,14 +193,14 @@
                 </div>
                 <div class="col-md-9">
                   @includeIf('backend.message_alert')
-                  <table class="table table-bordered">
+                  <table class="table table-bordered table-striped" id="myTable">
                   <thead>
                       <tr>
                           <th style="width:20px;" class="text-center"> #</th>
                           <th>Tên Menu</th>
                           <th>Liên kết </th>
-                          <th style="width:160px;" class="text-center">Vị trí</th>
-                          <th style="width:300px;" class="text-center">Chức năng</th>
+                          <th class="text-center">Vị trí</th>
+                          <th style="width:150px;" class="text-center">Chức năng</th>
                           <th  style="width:20px;" class="text-center">ID</th>
                           {{-- <th style="width: 20%">
                           </th> --}}
@@ -223,17 +229,17 @@
                             <a  href="{{ route('menu.show',['menu'=>$menu->id]) }}" class="btn btn-primary btn-sm">
                                 <i class="fas fa-eye">
                                 </i>
-                                Xem
+                                
                             </a>
                             <a href="{{ route('menu.edit',['menu'=>$menu->id]) }}" class="btn btn-info btn-sm" >
                                 <i class="fas fa-pencil-alt">
                                 </i>
-                                Sửa
+                                
                             </a>
                             <a href="{{ route('menu.delete',['menu'=>$menu->id]) }}" class="btn btn-danger btn-sm">
                                 <i class="fas fa-trash">
                                 </i>
-                                Xóa
+                                
                             </a>
     
                         </td>

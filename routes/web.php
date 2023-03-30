@@ -19,13 +19,13 @@ use Illuminate\Auth\Middleware\Authenticate;
 Route::get('/', [SiteController::class, 'index'])->name('frontend.home');
 Route::get('lien-he', [LienheController::class, 'index'])->name('frontend.lien-he'); //link cố định( ví dụ)
 //Xử lý login
-Route::get('admin/login', [AuthController::class, 'getlogin'])->name('getlogin'); //link cố định( ví dụ)
+Route::get('admin/login', [AuthController::class, 'getlogin'])->name('admin.getlogin'); //link cố định( ví dụ)
 Route::post('admin/login', [AuthController::class, 'postlogin'])->name('postlogin'); //link cố định( ví dụ)
-Route::get('admin/logout', [AuthController::class, 'logout'])->name('logout'); //link cố định( ví dụ)
 
 
 //khai bao route cho quan ly
 Route::prefix('admin')->middleware('LoginAdmin')->group(function () {
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout'); //link cố định( ví dụ)
     route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard'); //name dung de goi o view
 
     //category

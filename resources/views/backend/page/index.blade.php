@@ -2,10 +2,15 @@
 @section('title', 'Tất cả trang đơn')
 @section('content')
 
-{{-- @php
-    dd($list_page);
-@endphp
- --}}
+@section('header')
+<link rel="stylesheet" href="{{asset ('public/jquery.dataTables.min.css')}}">
+@endsection
+@section('footer')
+<script src="{{asset ('public/jquery.dataTables.min.js')}}"></script>
+<script>
+  let table = new DataTable('#myTable');
+</script>
+@endsection
 
   <div class="content-wrapper">
     <section class="content-header">
@@ -42,15 +47,15 @@
           </div>
           <div class="card-body">
             @includeIf('backend.message_alert')
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped" id="myTable">
             <thead>
                 <tr>
                     <th style="width:20px;" class="text-center"> #</th>
                     <th style="width:90px;">Hình ảnh</th>
                     <th>Tiêu đề trang đơn</th>
                     <th>Slug</th>
-                    <th style="width:160px;" class="text-center">Ngày đăng</th>
-                    <th style="width:300px;" class="text-center">Chức năng</th>
+                    <th class="text-center">Ngày đăng</th>
+                    <th style="width:150px;" class="text-center">Chức năng</th>
                     <th  style="width:20px;" class="text-center">ID</th>
                     {{-- <th style="width: 20%">
                     </th> --}}
@@ -80,17 +85,17 @@
                         <a  href="{{ route('page.show',['page'=>$page->id]) }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-eye">
                             </i>
-                            Xem
+                            
                         </a>
                         <a href="{{ route('page.edit',['page'=>$page->id]) }}" class="btn btn-info btn-sm" >
                             <i class="fas fa-pencil-alt">
                             </i>
-                            Sửa
+                            
                         </a>
                         <a href="{{ route('page.delete',['page'=>$page->id]) }}" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash">
                             </i>
-                            Xóa
+                            
                         </a>
 
                     </td>

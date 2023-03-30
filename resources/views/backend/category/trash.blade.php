@@ -2,10 +2,15 @@
 @section('title', 'Thùng rác danh mục')
 @section('content')
 
-{{-- @php
-    dd($list_category);
-@endphp
- --}}
+@section('header')
+<link rel="stylesheet" href="{{asset ('public/jquery.dataTables.min.css')}}">
+@endsection
+@section('footer')
+<script src="{{asset('public/jquery.dataTables.min.js')}}"></script>
+<script>
+  let table = new DataTable('#myTable');
+</script>
+@endsection
 
 <div class="content-wrapper">
   <section class="content-header">
@@ -41,15 +46,15 @@
       </div>
       <div class="card-body">
         @includeIf('backend.message_alert')
-        <table class="table table-bordered">
+        <table class="table table-bordered table-striped" id="myTable">
           <thead>
             <tr>
               <th style="width:20px;" class="text-center"> #</th>
               <th style="width:90px;">Hình ảnh</th>
-              <th style="width:250px;">Tên danh mục</th>
+              <th>Tên danh mục</th>
               <th>Slug</th>
-              <th style="width:160px;" class="text-center">Ngày đăng</th>
-              <th style="width:300px;" class="text-center">Chức năng</th>
+              <th  class="text-center">Ngày xóa</th>
+              <th style="width:100px;" class="text-center">Chức năng</th>
               <th style="width:20px;" class="text-center">ID</th>
               {{-- <th style="width: 20%">
                     </th> --}}
@@ -65,9 +70,9 @@
               <td class="text-center">{{$category->created_at}}</td>
               <td class="text-center">
                 <a href="{{ route('category.restore',['category'=>$category->id]) }}" class="btn btn-primary btn-sm">
-                  <i class="fas fa-trash-restore"></i> Khôi phục</a>
+                  <i class="fas fa-trash-restore"></i></a>
                 <a href="{{ route('category.destroy',['category'=>$category->id]) }}" class="btn btn-danger btn-sm">
-                  <i class="fas fa-ban"></i> Xóa</a>
+                  <i class="fas fa-ban"></i></a>
 
               </td>
               <td class="text-center">{{$category->id}}</td>

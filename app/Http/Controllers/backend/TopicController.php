@@ -10,6 +10,7 @@ use App\Models\Topic;
 use App\Models\Link;
 use App\Http\Requests\TopicStoreRequest;
 use App\Http\Requests\TopicUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class TopicController extends Controller
@@ -44,6 +45,7 @@ class TopicController extends Controller
 
     public function store(TopicStoreRequest $request)
     {
+        $user_id = Auth::user()->id;
         $topic = new Topic; //tạo mới mẫu tin
         $topic->name = $request->name;
         $topic->slug = Str::slug($topic->name = $request->name, '-');
@@ -53,7 +55,7 @@ class TopicController extends Controller
         $topic->sort_order = $request->sort_order;
         $topic->status = $request->status;
         $topic->created_at = date('Y-m-d H:i:s');
-        $topic->created_by = 1;
+        $topic->created_by = $user_id;
         //upload image
         if ($request->has('image')) {
             $path_dir = "public/images/topic/";
@@ -101,6 +103,7 @@ class TopicController extends Controller
 
     public function update(TopicUpdateRequest $request, string $id)
     {
+        $user_id = Auth::user()->id;
         $topic = Topic::find($id); //lấy mẫu tin
         $topic->name = $request->name;
         $topic->slug = Str::slug($topic->name = $request->name, '-');
@@ -110,7 +113,7 @@ class TopicController extends Controller
         $topic->sort_order = $request->sort_order;
         $topic->status = $request->status;
         $topic->updated_at = date('Y-m-d H:i:s');
-        $topic->created_by = 1;
+        $topic->created_by = $user_id;
         //upload image
         if ($request->has('image')) {
             $path_dir = "public/images/topic/";
@@ -161,39 +164,42 @@ class TopicController extends Controller
     #GET:admin/topic/status/{id}
     public function status($id)
     {
+        $user_id=Auth::user()->id;
         $topic = Topic::find($id);
         if ($topic == null) {
             return redirect()->route('topic.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
         $topic->status = ($topic->status == 1) ? 2 : 1;
         $topic->updated_at = date('Y-m-d H:i:s');
-        $topic->updated_by = 1;
+        $topic->updated_by = $user_id;
         $topic->save();
         return redirect()->route('topic.index')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }
     #GET:admin/topic/delete/{id}
     public function delete($id)
     {
+        $user_id=Auth::user()->id;
         $topic = Topic::find($id);
         if ($topic == null) {
             return redirect()->route('topic.index')->with('message', ['type' => 'danger', 'msg' => 'Xóa vào thùng rác không thành công!']);
         }
         $topic->status = 0;
         $topic->updated_at = date('Y-m-d H:i:s');
-        $topic->updated_by = 1;
+        $topic->updated_by = $user_id;
         $topic->save();
         return redirect()->route('topic.index')->with('message', ['type' => 'success', 'msg' => 'Xóa vào thùng rác thành công!']);
     }
     #GET:admin/topic/restore/{id}
     public function restore($id)
     {
+        $user_id=Auth::user()->id;
         $topic = Topic::find($id);
         if ($topic == null) {
             return redirect()->route('topic.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
         $topic->status = 2;
         $topic->updated_at = date('Y-m-d H:i:s');
-        $topic->updated_by = 1;
+        $topic->updated_by = $user_id;
         $topic->save();
         return redirect()->route('topic.trash')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }

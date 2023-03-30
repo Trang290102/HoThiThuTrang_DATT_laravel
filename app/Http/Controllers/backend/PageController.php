@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\Link;
 use App\Http\Requests\PageStoreRequest;
 use App\Http\Requests\PageUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class PageController extends Controller
@@ -36,6 +37,7 @@ class PageController extends Controller
 
     public function store(PageStoreRequest $request)
     {
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $page = new Post; //tạo mới một page
         $page->title = $request->title;
@@ -46,7 +48,7 @@ class PageController extends Controller
         $page->metadesc = $request->metadesc;
         $page->status = $request->status;
         $page->created_at = date('Y-m-d H:i:s');
-        $page->created_by = 1;
+        $page->created_by = $user_id;
         //upload image
         if ($request->has('images')) {
             $path_dir = "public/images/page/";
@@ -86,6 +88,7 @@ class PageController extends Controller
 
     public function update(PageUpdateRequest $request, string $id)
     {
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $page = Post::find($id); //lấy mẫu tin
         $page->slug = Str::slug($page->title = $request->title, '-');
@@ -109,7 +112,7 @@ class PageController extends Controller
         $page->metakey = $request->metakey;
         $page->metadesc = $request->metadesc;
         $page->updated_at = date('Y-m-d H:i:s');
-        $page->updated_by = 1;
+        $page->updated_by = $user_id;
         if ($page->save()) {
             if ($link = Link::where([['type', '=', 'page'], ['table_id', '=', $id]])->first()) {
                 $link->slug = $page->slug;
@@ -146,6 +149,7 @@ class PageController extends Controller
     #GET:admin/page/status/{id}
     public function status($id)
     {
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $page = Post::find($id);
         if ($page == null) {
@@ -153,13 +157,14 @@ class PageController extends Controller
         }
         $page->status = ($page->status == 1) ? 2 : 1;
         $page->updated_at = date('Y-m-d H:i:s');
-        $page->updated_by = 1;
+        $page->updated_by = $user_id;
         $page->save();
         return redirect()->route('page.index')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }
     #GET:admin/page/delete/{id}
     public function delete($id)
     {
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $page = Post::find($id);
         if ($page == null) {
@@ -167,13 +172,14 @@ class PageController extends Controller
         }
         $page->status = 0;
         $page->updated_at = date('Y-m-d H:i:s');
-        $page->updated_by = 1;
+        $page->updated_by = $user_id;
         $page->save();
         return redirect()->route('page.index')->with('message', ['type' => 'success', 'msg' => 'Xóa vào thùng rác thành công!']);
     }
     #GET:admin/page/restore/{id}
     public function restore($id)
     {
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $page = Post::find($id);
         if ($page == null) {
@@ -181,7 +187,7 @@ class PageController extends Controller
         }
         $page->status = 2;
         $page->updated_at = date('Y-m-d H:i:s');
-        $page->updated_by = 1;
+        $page->updated_by = $user_id;
         $page->save();
         return redirect()->route('page.trash')->with('message', ['type' => 'success', 'msg' => ' Khôi phục trang đơn thành công!']);
     }

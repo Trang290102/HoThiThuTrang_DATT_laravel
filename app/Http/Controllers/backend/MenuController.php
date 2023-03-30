@@ -12,6 +12,7 @@ use App\Models\Brand;
 use App\Models\Topic;
 use App\Models\Post;
 use App\Models\Link;
+use Illuminate\Support\Facades\Auth;
 // use App\Http\Requests\MenuStoreRequest;
 // use App\Http\Requests\MenuUpdateRequest;
 
@@ -53,7 +54,7 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id=Auth::user()->id;
         if (isset($request->ADDCATEGORY)) {
             $list_id = $request->checkIdCategory;
             foreach ($list_id as $id) {
@@ -68,7 +69,7 @@ class MenuController extends Controller
                 $menu->position = $request->position;
                 $menu->status = 2;
                 $menu->created_at = date('Y-m-d H:i:s');
-                $menu->created_by = 1;
+                $menu->created_by = $user_id;
                 $menu->save();
             }
             return redirect()->route('menu.index')->with('message', ['type' => 'success', 'msg' => 'Thêm menu thành công!']);
@@ -87,7 +88,7 @@ class MenuController extends Controller
                 $menu->position = $request->position;
                 $menu->status = 2;
                 $menu->created_at = date('Y-m-d H:i:s');
-                $menu->created_by = 1;
+                $menu->created_by = $user_id;
                 $menu->save();
             }
             return redirect()->route('menu.index')->with('message', ['type' => 'success', 'msg' => 'Thêm menu thành công!']);
@@ -106,7 +107,7 @@ class MenuController extends Controller
                 $menu->position = $request->position;
                 $menu->status = 2;
                 $menu->created_at = date('Y-m-d H:i:s');
-                $menu->created_by = 1;
+                $menu->created_by = $user_id;
                 $menu->save();
             }
             return redirect()->route('menu.index')->with('message', ['type' => 'success', 'msg' => 'Thêm menu thành công!']);
@@ -125,7 +126,7 @@ class MenuController extends Controller
                 $menu->position = $request->position;
                 $menu->status = 2;
                 $menu->created_at = date('Y-m-d H:i:s');
-                $menu->created_by = 1;
+                $menu->created_by = $user_id;
                 $menu->save();
             }
             return redirect()->route('menu.index')->with('message', ['type' => 'success', 'msg' => 'Thêm menu thành công!']);
@@ -140,7 +141,7 @@ class MenuController extends Controller
             $menu->position = $request->position;
             $menu->status = 2;
             $menu->created_at = date('Y-m-d H:i:s');
-            $menu->created_by = 1;
+            $menu->created_by = $user_id;
             $menu->save();
             return redirect()->route('menu.index')->with('message', ['type' => 'success', 'msg' => 'Thêm menu thành công!']);
         }
@@ -179,7 +180,7 @@ class MenuController extends Controller
     public function update(Request $request, string $id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id=Auth::user()->id;
         $menu = Menu::find($id);
         $menu->name = $request->name;
         $menu->link = $request->link;
@@ -188,7 +189,7 @@ class MenuController extends Controller
         $menu->status = $request->status;
         $menu->position = $request->position;
         $menu->updated_at = date('Y-m-d H:i:s');
-        $menu->updated_by = 1;
+        $menu->updated_by = $user_id;
         $menu->save();
         return redirect()->route('menu.index')->with('message', ['type' => 'success', 'msg' => 'Thêm menu thành công!']);
     }
@@ -205,15 +206,15 @@ class MenuController extends Controller
     #GET:admin/menu/status/{id}
     public function status($id)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
         $menu = Menu::find($id);
         if ($menu == null) {
             return redirect()->route('menu.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
         $menu->status = ($menu->status == 1) ? 2 : 1;
         $menu->updated_at = date('Y-m-d H:i:s');
-        $menu->updated_by = 1;
+        $menu->updated_by = $user_id;
         $menu->save();
         return redirect()->route('menu.index')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }
@@ -221,14 +222,14 @@ class MenuController extends Controller
     public function delete($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id=Auth::user()->id;
         $menu = Menu::find($id);
         if ($menu == null) {
             return redirect()->route('menu.index')->with('message', ['type' => 'danger', 'msg' => 'Xóa vào thùng rác không thành công!']);
         }
         $menu->status = 0;
         $menu->updated_at = date('Y-m-d H:i:s');
-        $menu->updated_by = 1;
+        $menu->updated_by = $user_id;
         $menu->save();
         return redirect()->route('menu.index')->with('message', ['type' => 'success', 'msg' => 'Xóa vào thùng rác thành công!']);
     }
@@ -236,14 +237,14 @@ class MenuController extends Controller
     public function restore($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id=Auth::user()->id;
         $menu = Menu::find($id);
         if ($menu == null) {
             return redirect()->route('menu.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
         $menu->status = 2;
         $menu->updated_at = date('Y-m-d H:i:s');
-        $menu->updated_by = 1;
+        $menu->updated_by = $user_id;
         $menu->save();
         return redirect()->route('menu.trash')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }

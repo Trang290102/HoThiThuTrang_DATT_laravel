@@ -2,10 +2,16 @@
 @section('title', 'Tất cả bài viết')
 @section('content')
 
-{{-- @php
-    dd($list_post);
-@endphp
- --}}
+@section('header')
+<link rel="stylesheet" href="{{asset ('public/jquery.dataTables.min.css')}}">
+@endsection
+@section('footer')
+<script src="{{asset('public/jquery.dataTables.min.js')}}"></script>
+<script>
+  let table = new DataTable('#myTable');
+</script>
+@endsection
+
 
   <div class="content-wrapper">
     <section class="content-header">
@@ -42,15 +48,15 @@
           </div>
           <div class="card-body">
             @includeIf('backend.message_alert')
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped" id="myTable">
             <thead>
                 <tr>
                     <th style="width:20px;" class="text-center"> #</th>
                     <th style="width:90px;">Hình ảnh</th>
                     <th>Tiêu đề bài viết</th>
                     <th>Slug</th>
-                    <th style="width:160px;" class="text-center">Ngày đăng</th>
-                    <th style="width:300px;" class="text-center">Chức năng</th>
+                    <th class="text-center">Ngày đăng</th>
+                    <th style="width:150px;" class="text-center">Chức năng</th>
                     <th  style="width:20px;" class="text-center">ID</th>
                     {{-- <th style="width: 20%">
                     </th> --}}
@@ -76,21 +82,17 @@
                           </i>
                         </a>
                         @endif
-                      
                         <a  href="{{ route('post.show',['post'=>$post->id]) }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-eye">
                             </i>
-                            Xem
                         </a>
                         <a href="{{ route('post.edit',['post'=>$post->id]) }}" class="btn btn-info btn-sm" >
                             <i class="fas fa-pencil-alt">
                             </i>
-                            Sửa
                         </a>
                         <a href="{{ route('post.delete',['post'=>$post->id]) }}" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash">
                             </i>
-                            Xóa
                         </a>
 
                     </td>

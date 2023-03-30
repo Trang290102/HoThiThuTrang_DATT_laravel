@@ -11,6 +11,7 @@ use App\Models\Topic;
 use App\Models\Link;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class PostController extends Controller
@@ -18,7 +19,11 @@ class PostController extends Controller
     #GET:admin/post, admin/post/index
     public function index()
     {
-        $list_post = Post::where([['status', '!=', 0], ['type', '=', 'post']])->orderBy('created_at', 'desc')->get();
+        $list_post = Post::where([['status', '!=', 0], ['type', '=', 'post']])
+            // ->join('httt_topic', 'httt_topic.id', '=', 'httt_post.topic_id')
+            ->orderBy('created_at', 'desc')
+            // ->select("httt_post.id","httt_post.images","httt_post.title","httt_post.created_at","httt_post.status","httt_topic.name as topic")
+            ->get();
         return view('backend.post.index', compact('list_post'));
     }
     #GET:admin/post/trash
@@ -43,6 +48,7 @@ class PostController extends Controller
 
     public function store(PostStoreRequest $request)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $post = new Post; //tạo mới mẫu tin
         $post->title = $request->title;
@@ -54,7 +60,7 @@ class PostController extends Controller
         $post->type = 'post';
         $post->status = $request->status;
         $post->created_at = date('Y-m-d H:i:s');
-        $post->created_by = 1;
+        $post->created_by = $user_id;
         //upload image
         if ($request->has('images')) {
             $path_dir = "public/images/post/";
@@ -104,6 +110,7 @@ class PostController extends Controller
 
     public function update(PostUpdateRequest $request, string $id)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $post = Post::find($id); //lấy mẫu tin
         $post->slug = Str::slug($post->title = $request->title, '-');
@@ -127,7 +134,7 @@ class PostController extends Controller
         $post->metakey = $request->metakey;
         $post->metadesc = $request->metadesc;
         $post->updated_at = date('Y-m-d H:i:s');
-        $post->updated_by = 1;
+        $post->updated_by = $user_id;
         if ($post->save()) {
             if ($link = Link::where([['type', '=', 'post'], ['table_id', '=', $id]])->first()) {
                 $link->slug = $post->slug;
@@ -165,6 +172,7 @@ class PostController extends Controller
     #GET:admin/post/status/{id}
     public function status($id)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $post = Post::find($id);
         if ($post == null) {
@@ -172,13 +180,14 @@ class PostController extends Controller
         }
         $post->status = ($post->status == 1) ? 2 : 1;
         $post->updated_at = date('Y-m-d H:i:s');
-        $post->updated_by = 1;
+        $post->updated_by = $user_id;
         $post->save();
         return redirect()->route('post.index')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }
     #GET:admin/post/delete/{id}
     public function delete($id)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $post = Post::find($id);
         if ($post == null) {
@@ -186,13 +195,14 @@ class PostController extends Controller
         }
         $post->status = 0;
         $post->updated_at = date('Y-m-d H:i:s');
-        $post->updated_by = 1;
+        $post->updated_by = $user_id;
         $post->save();
         return redirect()->route('post.index')->with('message', ['type' => 'success', 'msg' => 'Xóa vào thùng rác thành công!']);
     }
     #GET:admin/post/restore/{id}
     public function restore($id)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $post = Post::find($id);
         if ($post == null) {
@@ -200,7 +210,7 @@ class PostController extends Controller
         }
         $post->status = 2;
         $post->updated_at = date('Y-m-d H:i:s');
-        $post->updated_by = 1;
+        $post->updated_by = $user_id;
         $post->save();
         return redirect()->route('post.trash')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }

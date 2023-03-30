@@ -21,12 +21,12 @@ class LoginAdminMiddelware
                 return $next($request);
             }
             else {
-                return redirect('admin/login');
+                return redirect()->route('admin.getlogin');
             }
         }
-         else
+        else
         {
-            return redirect('admin/login');
+            return redirect()->route('admin.getlogin');
         }
         return $next($request);
     }

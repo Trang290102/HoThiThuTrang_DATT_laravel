@@ -50,7 +50,7 @@
 
                     <div class="mb-3">
                       <label for="detail">Nội dung</label>
-                      <textarea name="detail" id="detail" class="form-control" 
+                      <textarea name="detail" rows="5" id="detail" class="form-control" 
                       placeholder="Nội dung trang đơn">{{ old('detail') }}</textarea>
                       @if ($errors->has('detail'))
                       <div class="text-danger">{{$errors->first('detail')}}</div>

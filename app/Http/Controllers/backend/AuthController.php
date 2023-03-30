@@ -24,17 +24,18 @@ class AuthController extends Controller
         } else {
             $data = ['name' => $username, 'password' => $password];
         }
+        // var_dump($data);
         if (Auth::attempt($data)) {
-            // return redirect('admin');
-            echo "thanh cong";
+            return redirect('admin');
+            // echo "thanh cong";
         } else {
-            // return redirect('admin/login');
-            echo "that bai";
+            return redirect('admin/login');
+            // echo bcrypt('123456'); //mã hóa 
         }
     }
     public function logout()
     {
         Auth::logout();
-        return redirect('admin/login');
+        return view('backend.auth.login');
     }
 }

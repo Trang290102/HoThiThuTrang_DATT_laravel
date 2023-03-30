@@ -2,10 +2,15 @@
 @section('title', 'Tất cả sản phẩm')
 @section('content')
 
-{{-- @php
-    dd($list_product);
-@endphp
- --}}
+@section('header')
+<link rel="stylesheet" href="{{asset ('public/jquery.dataTables.min.css')}}">
+@endsection
+@section('footer')
+<script src="{{asset('public/jquery.dataTables.min.js')}}"></script>
+<script>
+  let table = new DataTable('#myTable');
+</script>
+@endsection
 
   <div class="content-wrapper">
     <section class="content-header">
@@ -42,15 +47,15 @@
           </div>
           <div class="card-body">
             @includeIf('backend.message_alert')
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped" id="myTable">
             <thead>
                 <tr>
                     <th style="width:20px;" class="text-center"> #</th>
                     <th style="width:90px;">Hình ảnh</th>
                     <th>Tên sản phẩm</th>
                     <th>Slug</th>
-                    <th style="width:160px;" class="text-center">Ngày đăng</th>
-                    <th style="width:300px;" class="text-center">Chức năng</th>
+                    <th class="text-center">Ngày đăng</th>
+                    <th style="width:150px;" class="text-center">Chức năng</th>
                     <th  style="width:20px;" class="text-center">ID</th>
                     {{-- <th style="width: 20%">
                     </th> --}}
@@ -66,33 +71,30 @@
                     <td class="text-center">{{$product->created_at}}</td>
                     <td class="text-center">
                         @if ($product->status==1)
-                        <a  href="{{ route('product.status',['product'=>$product->id]) }}" class="btn btn-success btn-sm">
+                        <a  href="{{ route('product.status',['product'=>$product->product_id]) }}" class="btn btn-success btn-sm">
                           <i class="fas fa-toggle-on">
                           </i>
                         </a>
                         @else
-                        <a  href="{{ route('product.status',['product'=>$product->id]) }}" class="btn btn-danger btn-sm">
+                        <a  href="{{ route('product.status',['product'=>$product->product_id]) }}" class="btn btn-danger btn-sm">
                           <i class="fas fa-toggle-off">
                           </i>
                         </a>
                         @endif
                       
-                        <a  href="{{ route('product.show',['product'=>$product->id]) }}" class="btn btn-primary btn-sm">
+                        <a  href="{{ route('product.show',['product'=>$product->product_id]) }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-eye">
                             </i>
-                            Xem
                         </a>
-                        <a href="{{ route('product.edit',['product'=>$product->id]) }}" class="btn btn-info btn-sm" >
+                        <a href="{{ route('product.edit',['product'=>$product->product_id]) }}" class="btn btn-info btn-sm" >
                             <i class="fas fa-pencil-alt">
                             </i>
-                            Sửa
+                            
                         </a>
-                        <a href="{{ route('product.delete',['product'=>$product->id]) }}" class="btn btn-danger btn-sm">
+                        <a href="{{ route('product.delete',['product'=>$product->product_id]) }}" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash">
-                            </i>
-                            Xóa
+                            </i>                           
                         </a>
-
                     </td>
                     <td class="text-center">{{$product->id}}</td>
                 </tr>

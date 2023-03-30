@@ -11,6 +11,7 @@ use App\Models\Link;
 use App\Models\Category;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class CategoryController extends Controller
@@ -46,6 +47,7 @@ class CategoryController extends Controller
 
     public function store(CategoryStoreRequest $request)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $category = new Category; //tạo mới mẫu tin
         $category->name = $request->name;
@@ -56,7 +58,7 @@ class CategoryController extends Controller
         $category->sort_order = $request->sort_order + '1'; //bỏ +1 đi là được
         $category->status = $request->status;
         $category->created_at = date('Y-m-d H:i:s');
-        $category->created_by = 1;
+        $category->created_by = $user_id;
         //upload image
         if ($request->has('image')) {
             $path_dir = "public/images/category/";
@@ -112,6 +114,7 @@ class CategoryController extends Controller
 
     public function update(CategoryUpdateRequest $request, string $id)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $category = Category::find($id); //lấy mẫu tin
         $category->slug = Str::slug($category->name = $request->name, '-');
@@ -137,7 +140,7 @@ class CategoryController extends Controller
         $category->sort_order = $request->sort_order;
         $category->status = $request->status;
         $category->updated_at = date('Y-m-d H:i:s');
-        $category->updated_by = 1;
+        $category->updated_by = $user_id;
         if ($category->save()) {
             if ($link = Link::where([['type', '=', 'category'], ['table_id', '=', $id]])->first()) {
                 $link->slug = $category->slug;
@@ -174,6 +177,7 @@ class CategoryController extends Controller
     #GET:admin/category/status/{id}
     public function status($id)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $category = Category::find($id);
         if ($category == null) {
@@ -181,13 +185,14 @@ class CategoryController extends Controller
         }
         $category->status = ($category->status == 1) ? 2 : 1;
         $category->updated_at = date('Y-m-d H:i:s');
-        $category->updated_by = 1;
+        $category->updated_by = $user_id;
         $category->save();
         return redirect()->route('category.index')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }
     #GET:admin/category/delete/{id}
     public function delete($id)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $category = Category::find($id);
         if ($category == null) {
@@ -195,13 +200,14 @@ class CategoryController extends Controller
         }
         $category->status = 0;
         $category->updated_at = date('Y-m-d H:i:s');
-        $category->updated_by = 1;
+        $category->updated_by = $user_id;
         $category->save();
         return redirect()->route('category.index')->with('message', ['type' => 'success', 'msg' => 'Xóa vào thùng rác thành công!']);
     }
     #GET:admin/category/restore/{id}
     public function restore($id)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $category = Category::find($id);
         if ($category == null) {
@@ -209,7 +215,7 @@ class CategoryController extends Controller
         }
         $category->status = 2;
         $category->updated_at = date('Y-m-d H:i:s');
-        $category->updated_by = 1;
+        $category->updated_by = $user_id;
         $category->save();
         return redirect()->route('category.trash')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }

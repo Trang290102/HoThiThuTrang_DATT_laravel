@@ -11,6 +11,7 @@ use App\Models\Link;
 use App\Models\Slider;
 use App\Http\Requests\SliderStoreRequest;
 use App\Http\Requests\SliderUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class SliderController extends Controller
 {
@@ -42,6 +43,7 @@ class SliderController extends Controller
 
     public function store(SliderStoreRequest $request)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $slider = new Slider; //tạo mới mẫu tin
         $slider->name = $request->name;
@@ -50,7 +52,7 @@ class SliderController extends Controller
         $slider->position = $request->position;
         $slider->status = $request->status;
         $slider->created_at = date('Y-m-d H:i:s');
-        $slider->created_by = 1;
+        $slider->created_by = $user_id;
         //upload image
         if ($request->has('image')) {
             $slug = Str::slug($slider->name = $request->name, '-');
@@ -92,6 +94,7 @@ class SliderController extends Controller
 
     public function update(SliderUpdateRequest $request, string $id)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
 
         $slider = Slider::find($id); //lấy mẫu tin
@@ -101,7 +104,7 @@ class SliderController extends Controller
         $slider->position = $request->position;
         $slider->status = $request->status;
         $slider->created_at = date('Y-m-d H:i:s');
-        $slider->created_by = 1;
+        $slider->created_by = $user_id;
 
         //upload image
         if ($request->has('image')) {
@@ -150,6 +153,7 @@ class SliderController extends Controller
     #GET:admin/slider/status/{id}
     public function status($id)
     {
+        $user_id=Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
 
         $slider = Slider::find($id);
@@ -158,7 +162,7 @@ class SliderController extends Controller
         }
         $slider->status = ($slider->status == 1) ? 2 : 1;
         $slider->updated_at = date('Y-m-d H:i:s');
-        $slider->updated_by = 1;
+        $slider->updated_by = $user_id;
         $slider->save();
         return redirect()->route('slider.index')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }
@@ -166,14 +170,14 @@ class SliderController extends Controller
     public function delete($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id=Auth::user()->id;
         $slider = Slider::find($id);
         if ($slider == null) {
             return redirect()->route('slider.index')->with('message', ['type' => 'danger', 'msg' => 'Xóa vào thùng rác không thành công!']);
         }
         $slider->status = 0;
         $slider->updated_at = date('Y-m-d H:i:s');
-        $slider->updated_by = 1;
+        $slider->updated_by = $user_id;
         $slider->save();
         return redirect()->route('slider.index')->with('message', ['type' => 'success', 'msg' => 'Xóa vào thùng rác thành công!']);
     }
@@ -181,14 +185,14 @@ class SliderController extends Controller
     public function restore($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+        $user_id=Auth::user()->id;
         $slider = Slider::find($id);
         if ($slider == null) {
             return redirect()->route('slider.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
         $slider->status = 2;
         $slider->updated_at = date('Y-m-d H:i:s');
-        $slider->updated_by = 1;
+        $slider->updated_by = $user_id;
         $slider->save();
         return redirect()->route('slider.trash')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }
