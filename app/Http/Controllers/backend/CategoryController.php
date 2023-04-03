@@ -19,19 +19,22 @@ class CategoryController extends Controller
     #GET:admin/category, admin/category/index
     public function index()
     {
+        $user_name = Auth::user()->name;
         $list_category = Category::where('status', '!=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.category.index', compact('list_category'));
+        return view('backend.category.index', compact('list_category', 'user_name'));
     }
     #GET:admin/category/trash
     public function trash()
     {
+        $user_name = Auth::user()->name;
         $list_category = Category::where('status', '=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.category.trash', compact('list_category'));
+        return view('backend.category.trash', compact('list_category', 'user_name'));
     }
 
     #GET: admin/category/create
     public function create()
     {
+        $user_name = Auth::user()->name;
         $list_category = Category::where('status', '!=', 0)->get();
         $html_parent_id = '';
         $html_sort_order = '';
@@ -41,13 +44,13 @@ class CategoryController extends Controller
             $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
             // $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
         }
-        return view('backend.category.create', compact('html_parent_id', 'html_sort_order'));
+        return view('backend.category.create', compact('html_parent_id', 'html_sort_order', 'user_name'));
     }
 
 
     public function store(CategoryStoreRequest $request)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $category = new Category; //tạo mới mẫu tin
         $category->name = $request->name;
@@ -83,15 +86,18 @@ class CategoryController extends Controller
 
     public function show(string $id)
     {
+        $user_name = Auth::user()->name;
+
         $category = Category::find($id);
         if ($category == null) {
             return redirect()->route('category.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
-        return view('backend.category.show', compact('category'));
+        return view('backend.category.show', compact('category', 'user_name'));
     }
 
     public function edit(string $id)
     {
+        $user_name = Auth::user()->name;
         $category = Category::find($id);
         $list_category = Category::where('status', '!=', 0)->get();
         $html_parent_id = '';
@@ -109,12 +115,12 @@ class CategoryController extends Controller
                 $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
             }
         }
-        return view('backend.category.edit', compact('category', 'html_parent_id', 'html_sort_order'));
+        return view('backend.category.edit', compact('category', 'html_parent_id', 'html_sort_order', 'user_name'));
     }
 
     public function update(CategoryUpdateRequest $request, string $id)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $category = Category::find($id); //lấy mẫu tin
         $category->slug = Str::slug($category->name = $request->name, '-');
@@ -177,7 +183,7 @@ class CategoryController extends Controller
     #GET:admin/category/status/{id}
     public function status($id)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $category = Category::find($id);
         if ($category == null) {
@@ -192,7 +198,7 @@ class CategoryController extends Controller
     #GET:admin/category/delete/{id}
     public function delete($id)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $category = Category::find($id);
         if ($category == null) {
@@ -207,7 +213,7 @@ class CategoryController extends Controller
     #GET:admin/category/restore/{id}
     public function restore($id)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $category = Category::find($id);
         if ($category == null) {

@@ -22,23 +22,27 @@ class MenuController extends Controller
     #GET:admin/menu, admin/menu/index
     public function index()
     {
+        $user_name = Auth::user()->name;
         $list_category = Category::where('status', '!=', 0)->orderBy('created_at', 'desc')->get();
         $list_brand = Brand::where('status', '!=', 0)->orderBy('created_at', 'desc')->get();
         $list_topic = Topic::where('status', '!=', 0)->orderBy('created_at', 'desc')->get();
         $list_page = Post::where([['status', '!=', 0], ['type', '=', 'page']])->orderBy('created_at', 'desc')->get();
         $list_menu = Menu::where('status', '!=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.menu.index', compact('list_category', 'list_brand', 'list_topic', 'list_page', 'list_menu'));
+        return view('backend.menu.index', compact('list_category', 'list_brand', 'list_topic', 'list_page', 'list_menu', 'user_name'));
     }
     #GET:admin/menu/trash
     public function trash()
     {
+        $user_name = Auth::user()->name;
         $list_menu = Menu::where('status', '=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.menu.trash', compact('list_menu'));
+        return view('backend.menu.trash', compact('list_menu', 'user_name'));
     }
 
     #GET: admin/menu/create
     public function create()
     {
+        $user_name = Auth::user()->name;
+
         $list_menu = Menu::where('status', '!=', 0)->get();
         $html_parent_id = '';
         $html_sort_order = '';
@@ -47,14 +51,14 @@ class MenuController extends Controller
             $html_parent_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
             $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
         }
-        return view('backend.menu.create', compact('html_parent_id', 'html_sort_order'));
+        return view('backend.menu.create', compact('html_parent_id', 'html_sort_order', 'user_name'));
     }
 
 
     public function store(Request $request)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         if (isset($request->ADDCATEGORY)) {
             $list_id = $request->checkIdCategory;
             foreach ($list_id as $id) {
@@ -149,15 +153,19 @@ class MenuController extends Controller
 
     public function show(string $id)
     {
+        $user_name = Auth::user()->name;
+
         $menu = Menu::find($id);
         if ($menu == null) {
             return redirect()->route('menu.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
-        return view('backend.menu.show', compact('menu'));
+        return view('backend.menu.show', compact('menu', 'user_name'));
     }
 
     public function edit(string $id)
     {
+        $user_name = Auth::user()->name;
+
         $menu = Menu::find($id);
         $list_menu = Menu::where('status', '!=', 0)->get();
         $html_parent_id = '';
@@ -174,13 +182,13 @@ class MenuController extends Controller
                 $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
             }
         }
-        return view('backend.menu.edit', compact('menu', 'html_parent_id', 'html_sort_order'));
+        return view('backend.menu.edit', compact('menu', 'html_parent_id', 'html_sort_order','user_name'));
     }
 
     public function update(Request $request, string $id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         $menu = Menu::find($id);
         $menu->name = $request->name;
         $menu->link = $request->link;
@@ -206,7 +214,7 @@ class MenuController extends Controller
     #GET:admin/menu/status/{id}
     public function status($id)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $menu = Menu::find($id);
         if ($menu == null) {
@@ -222,7 +230,7 @@ class MenuController extends Controller
     public function delete($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         $menu = Menu::find($id);
         if ($menu == null) {
             return redirect()->route('menu.index')->with('message', ['type' => 'danger', 'msg' => 'Xóa vào thùng rác không thành công!']);
@@ -237,7 +245,7 @@ class MenuController extends Controller
     public function restore($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         $menu = Menu::find($id);
         if ($menu == null) {
             return redirect()->route('menu.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);

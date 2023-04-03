@@ -25,27 +25,46 @@ class ProductController extends Controller
     #GET:admin/product, admin/product/index
     public function index()
     {
+        $user_name = Auth::user()->name;
+        //cách 1: truy vấn từ csdl dùng groupby
         $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
-            ->where('status', '!=', 0)
+            ->join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
+            ->join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
+            ->select('httt_product.*', 'httt_product_image.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
+            ->where('httt_product.status', '!=', 0)
             ->groupBy('httt_product_image.product_id')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('httt_product.created_at', 'desc')
             ->get();
-        return view('backend.product.index', compact('list_product'));
+        //cách 2: quan hệ một-nhiều
+        // $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
+        //     ->join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
+        //     ->join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
+        //     ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
+        //     ->where('httt_product.status', '!=', 0)
+        //     ->orderBy('httt_product.created_at', 'desc')->get();
+        return view('backend.product.index', compact('list_product', 'user_name'));
     }
     #GET:admin/product/trash
     public function trash()
     {
+        $user_name = Auth::user()->name;
+
         $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
-            ->where('status', '=', 0)
+            ->join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
+            ->join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
+            ->select('httt_product.*', 'httt_product_image.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
+            ->where('httt_product.status', '=', 0)
             ->groupBy('httt_product_image.product_id')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('httt_product.created_at', 'desc')
             ->get();
-        return view('backend.product.trash', compact('list_product'));
+        return view('backend.product.trash', compact('list_product', 'user_name'));
     }
 
     #GET: admin/product/create
     public function create()
     {
+        $user_name = Auth::user()->name;
+
         $list_category = Category::where('status', '!=', 0)->get();
         $list_brand = Brand::where('status', '!=', 0)->get();
 
@@ -57,7 +76,7 @@ class ProductController extends Controller
         foreach ($list_brand as $item) {
             $html_brand_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
         }
-        return view('backend.product.create', compact('html_category_id', 'html_brand_id'));
+        return view('backend.product.create', compact('html_category_id', 'html_brand_id', 'user_name'));
     }
 
 
@@ -120,15 +139,19 @@ class ProductController extends Controller
 
     public function show(string $id)
     {
+        $user_name = Auth::user()->name;
+
         $product = Product::find($id);
         if ($product == null) {
             return redirect()->route('product.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
-        return view('backend.product.show', compact('product'));
+        return view('backend.product.show', compact('product', 'user_name'));
     }
 
     public function edit(string $id)
     {
+        $user_name = Auth::user()->name;
+
         $product = Product::find($id);
         $list_product = Product::where('status', '!=', 0)->get();
         $html_parent_id = '';
@@ -138,7 +161,7 @@ class ProductController extends Controller
             $html_parent_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
             $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
         }
-        return view('backend.product.edit', compact('product', 'html_parent_id', 'html_sort_order'));
+        return view('backend.product.edit', compact('product', 'html_parent_id', 'html_sort_order', 'user_name'));
     }
 
     public function update(ProductUpdateRequest $request, string $id)

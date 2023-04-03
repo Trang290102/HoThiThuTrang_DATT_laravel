@@ -41,7 +41,14 @@ class ProductHome extends Component
                 }
             }
         }
-        $product_list = Product::where('status',1)->whereIn('category_id',$list_category_id)->get();
+        $product_list = Product::where('status', 1)->whereIn('category_id', $list_category_id)->take(10)->get();
+        return view('components.product-home', compact('row_cat', 'product_list'));
+        // $product_list = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
+        //     ->where('status', 1)
+        //     ->groupBy('httt_product_image.product_id')
+        //     ->whereIn('category_id', $list_category_id)
+        //     ->orderBy('created_at', 'desc')
+        //     ->take(10)->get();
         return view('components.product-home', compact('row_cat', 'product_list'));
     }
 }

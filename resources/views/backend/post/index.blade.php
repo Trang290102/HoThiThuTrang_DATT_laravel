@@ -54,7 +54,7 @@
                     <th style="width:20px;" class="text-center"> #</th>
                     <th style="width:90px;">Hình ảnh</th>
                     <th>Tiêu đề bài viết</th>
-                    <th>Slug</th>
+                    <th>Chủ đề</th>
                     <th class="text-center">Ngày đăng</th>
                     <th style="width:150px;" class="text-center">Chức năng</th>
                     <th  style="width:20px;" class="text-center">ID</th>
@@ -68,7 +68,7 @@
                     <td class="text-center"><input type="checkbox"></td>
                     <td><img class="img-fluid" src="{{asset('public/images/post/'.$post->images)}}" alt="{{$post->images}}"></td>
                     <td>{{$post->title}}</td>
-                    <td>{{$post->slug}}</td>
+                    <td>{{$post->topic_name}}</td>
                     <td class="text-center">{{$post->created_at}}</td>
                     <td class="text-center">
                         @if ($post->status==1)

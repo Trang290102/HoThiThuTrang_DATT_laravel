@@ -18,26 +18,29 @@ class BrandController extends Controller
     #GET:admin/brand, admin/brand/index
     public function index()
     {
+        $user_name = Auth::user()->name;
         $list_brand = Brand::where('status', '!=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.brand.index', compact('list_brand'));
+        return view('backend.brand.index', compact('list_brand', 'user_name'));
     }
     #GET:admin/brand/trash
     public function trash()
     {
+        $user_name = Auth::user()->name;
         $list_brand = Brand::where('status', '=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.brand.trash', compact('list_brand'));
+        return view('backend.brand.trash', compact('list_brand', 'user_name'));
     }
 
     #GET: admin/brand/create
     public function create()
     {
+        $user_name = Auth::user()->name;
         $list_brand = Brand::where('status', '!=', 0)->get();
         $html_sort_order = '';
 
         foreach ($list_brand as $item) {
             $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
         }
-        return view('backend.brand.create', compact('html_sort_order'));
+        return view('backend.brand.create', compact('html_sort_order', 'user_name'));
     }
 
     public function store(BrandStoreRequest $request)
@@ -77,15 +80,17 @@ class BrandController extends Controller
 
     public function show(string $id)
     {
+        $user_name = Auth::user()->name;
         $brand = Brand::find($id);
         if ($brand == null) {
             return redirect()->route('brand.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
-        return view('backend.brand.show', compact('brand'));
+        return view('backend.brand.show', compact('brand', 'user_name'));
     }
 
     public function edit(string $id)
     {
+        $user_name = Auth::user()->name;
         $brand = Brand::find($id);
         $list_brand = Brand::where('status', '!=', 0)->get();
         $html_sort_order = '';
@@ -97,7 +102,7 @@ class BrandController extends Controller
                 $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
             }
         }
-        return view('backend.brand.edit', compact('brand', 'html_sort_order'));
+        return view('backend.brand.edit', compact('brand', 'html_sort_order', 'user_name'));
     }
 
     public function update(BrandUpdateRequest $request, string $id)

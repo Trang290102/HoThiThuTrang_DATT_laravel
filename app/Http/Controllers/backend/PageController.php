@@ -18,20 +18,25 @@ class PageController extends Controller
     #GET:admin/page, admin/page/index
     public function index()
     {
+        $user_name = Auth::user()->name;
+
         $list_page = Post::where([['status', '!=', 0], ['type', '=', 'page']])->orderBy('created_at', 'desc')->get();
-        return view('backend.page.index', compact('list_page'));
+        return view('backend.page.index', compact('list_page','user_name'));
     }
     #GET:admin/page/trash
     public function trash()
     {
+        $user_name = Auth::user()->name;
+
         $list_page = Post::where([['status', '=', 0], ['type', '=', 'page']])->orderBy('created_at', 'desc')->get();
-        return view('backend.page.trash', compact('list_page'));
+        return view('backend.page.trash', compact('list_page','user_name'));
     }
 
     #GET: admin/page/create
     public function create()
     {
-        return view('backend.page.create');
+        $user_name = Auth::user()->name;
+        return view('backend.page.create', compact('user_name'));
     }
 
 
@@ -73,17 +78,21 @@ class PageController extends Controller
 
     public function show(string $id)
     {
+        $user_name = Auth::user()->name;
+
         $page = Post::find($id);
         if ($page == null) {
             return redirect()->route('page.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
-        return view('backend.page.show', compact('page'));
+        return view('backend.page.show', compact('page','user_name'));
     }
 
     public function edit(string $id)
     {
+        $user_name = Auth::user()->name;
+
         $page = Post::find($id);
-        return view('backend.page.edit', compact('page'));
+        return view('backend.page.edit', compact('page','user_name'));
     }
 
     public function update(PageUpdateRequest $request, string $id)

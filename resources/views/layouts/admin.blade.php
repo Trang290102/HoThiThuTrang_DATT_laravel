@@ -34,14 +34,15 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
-      {{-- <li class="nav-item">
-        <i style="color:rgb(18, 62, 236);" class="fas fa-sign-out-alt"></i>
-
-      </li> --}}
-
+      <li class="nav-item">
+        <a href="#">
+        <i style="color:rgb(80, 111, 234); font-size:larger" class="fas fa-user">{{$user_name}}</i>
+        </a>
+      </li>
+      &ensp;
       <li class="nav-item">
         <a href="{{ route('logout')}}">
-          <i style="color:rgb(10, 182, 182);" class="fas fa-sign-out-alt"> Đăng xuất</i>
+          <i style="color:rgb(10, 182, 182); font-size:larger" class="fas fa-sign-out-alt"> Đăng xuất</i>
         </a>
       </li>
     </ul>
@@ -63,7 +64,7 @@
           <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div> --}}
         <div class="info">
-          <a href="{{ route('admin.dashboard')}}" class="d-block">Quản trị Admin</a>
+          <a href="{{ route('admin.dashboard')}}" style=" font-size:larger" class="d-block">{{$user_name}}</a>
         </div>
       </div>
 

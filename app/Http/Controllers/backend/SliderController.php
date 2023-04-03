@@ -18,32 +18,37 @@ class SliderController extends Controller
     #GET:admin/slider, admin/slider/index
     public function index()
     {
+        $user_name = Auth::user()->name;
+
         $list_slider = Slider::where('status', '!=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.slider.index', compact('list_slider'));
+        return view('backend.slider.index', compact('list_slider', 'user_name'));
     }
     #GET:admin/slider/trash
     public function trash()
     {
+        $user_name = Auth::user()->name;
+
         $list_slider = Slider::where('status', '=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.slider.trash', compact('list_slider'));
+        return view('backend.slider.trash', compact('list_slider', 'user_name'));
     }
 
     #GET: admin/slider/create
     public function create()
     {
+        $user_name = Auth::user()->name;
+
         $list_slider = Slider::where('status', '!=', 0)->get();
         $html_sort_order = '';
-
         foreach ($list_slider as $item) {
             $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
         }
-        return view('backend.slider.create', compact('html_sort_order'));
+        return view('backend.slider.create', compact('html_sort_order', 'user_name'));
     }
 
 
     public function store(SliderStoreRequest $request)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $slider = new Slider; //tạo mới mẫu tin
         $slider->name = $request->name;
@@ -73,15 +78,19 @@ class SliderController extends Controller
 
     public function show(string $id)
     {
+        $user_name = Auth::user()->name;
+
         $slider = Slider::find($id);
         if ($slider == null) {
             return redirect()->route('slider.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
-        return view('backend.slider.show', compact('slider'));
+        return view('backend.slider.show', compact('slider', 'user_name'));
     }
 
     public function edit(string $id)
     {
+        $user_name = Auth::user()->name;
+
         $slider = Slider::find($id);
         $list_slider = Slider::where('status', '!=', 0)->get();
         $html_sort_order = '';
@@ -89,12 +98,12 @@ class SliderController extends Controller
         foreach ($list_slider as $item) {
             $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
         }
-        return view('backend.slider.edit', compact('slider', 'html_sort_order'));
+        return view('backend.slider.edit', compact('slider', 'html_sort_order', 'user_name'));
     }
 
     public function update(SliderUpdateRequest $request, string $id)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
 
         $slider = Slider::find($id); //lấy mẫu tin
@@ -142,10 +151,6 @@ class SliderController extends Controller
             if (File::exists($path_image_delete)) {
                 File::delete($path_image_delete);
             }
-            //xoa link
-            if ($link = Link::where([['type', '=', 'slider'], ['table_id', '=', $id]])->first()) {
-                $link->delete();
-            }
             return redirect()->route('slider.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa slider thành công!']);
         }
         return redirect()->route('slider.trash')->with('message', ['type' => 'dangers', 'msg' => 'Xóa slider không thành công!']);
@@ -153,7 +158,7 @@ class SliderController extends Controller
     #GET:admin/slider/status/{id}
     public function status($id)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
 
         $slider = Slider::find($id);
@@ -170,7 +175,7 @@ class SliderController extends Controller
     public function delete($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         $slider = Slider::find($id);
         if ($slider == null) {
             return redirect()->route('slider.index')->with('message', ['type' => 'danger', 'msg' => 'Xóa vào thùng rác không thành công!']);
@@ -185,7 +190,7 @@ class SliderController extends Controller
     public function restore($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         $slider = Slider::find($id);
         if ($slider == null) {
             return redirect()->route('slider.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);

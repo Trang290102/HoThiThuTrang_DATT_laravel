@@ -867,6 +867,17 @@ h2.title {
 	font-size: 24px;
 	font-weight: 700;
 }
+
+a{color:#fe980f;text-decoration:none}
+.pro_name a:hover{
+  color: aquamarine;
+}
+a .pro_name{
+    color: #fe980f;
+    
+    text-decoration: none;
+  }
+
 .product-overlay h2{
 	color: #fff;
 	font-family: 'Roboto', sans-serif;

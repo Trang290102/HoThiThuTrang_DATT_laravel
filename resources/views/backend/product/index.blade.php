@@ -53,7 +53,8 @@
                     <th style="width:20px;" class="text-center"> #</th>
                     <th style="width:90px;">Hình ảnh</th>
                     <th>Tên sản phẩm</th>
-                    <th>Slug</th>
+                    <th>Loại sản phẩm</th>
+                    <th>Thương hiệu</th>
                     <th class="text-center">Ngày đăng</th>
                     <th style="width:150px;" class="text-center">Chức năng</th>
                     <th  style="width:20px;" class="text-center">ID</th>
@@ -63,11 +64,20 @@
             </thead>
             <tbody>
                 @foreach ($list_product as $product)
+                  {{-- @php
+                      $product_image= $product->productimg;
+                      if(count($product_image)>0)
+                      $hinh="";
+                      {
+                          $hinh=$product_image[0]["image"];
+                      }          
+                  @endphp  --}}
                 <tr>
                     <td class="text-center"><input type="checkbox"></td>
-                    <td><img class="img-fluid" src="{{asset('public/images/product/'.$product->image)}}" alt="$product->image"></td>
+                    <td><img class="img-fluid" src="{{asset('public/images/product/'.$product->image)}}" alt="{{$product->image}}"></td>
                     <td>{{$product->name}}</td>
-                    <td>{{$product->slug}}</td>
+                    <td>{{$product->category_name}}</td>
+                    <td>{{$product->brand_name}}</td>
                     <td class="text-center">{{$product->created_at}}</td>
                     <td class="text-center">
                         @if ($product->status==1)
@@ -96,7 +106,7 @@
                             </i>                           
                         </a>
                     </td>
-                    <td class="text-center">{{$product->id}}</td>
+                    <td class="text-center">{{$product->product_id}}</td>
                 </tr>
                 @endforeach
             </tbody>

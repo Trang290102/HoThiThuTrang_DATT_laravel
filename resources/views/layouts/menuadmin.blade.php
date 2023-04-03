@@ -107,6 +107,10 @@
         <i class="nav-icon far fa-circle text-danger"></i>
         <p class="text">Bài viết</p>
       </a>
+      <a href="{{ route('user.index')}}" class="nav-link">
+        <i class="nav-icon far fa-circle text-danger"></i>
+        <p class="text">Người dùng</p>
+      </a>
       
 
       <li class="nav-header">LABELS</li>

@@ -13,11 +13,9 @@
     <link href="{{asset('public/css/animate.css')}}" rel="stylesheet">
 	<link href="{{asset('public/css/main.css')}}" rel="stylesheet">
 	<link href="{{asset('public/css/responsive.css')}}" rel="stylesheet">
-    <link href="{{asset('public/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">  
-    <link href="{{asset('public/owlcarousel/assets/owl.theme.default.min.css')}}" rel="stylesheet">  
-    
-    {{-- <link href="{{asset('public/fontawesome/css/all.min.css')}}" rel="stylesheet"> --}}
+    @yield('header')
 
+    {{-- <link href="{{asset('public/fontawesome/css/all.min.css')}}" rel="stylesheet"> --}}
 
     <link rel="shortcut icon" href="public/images/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('public/images/apple-touch-icon-144-precomposed.png')}}">
@@ -352,7 +350,7 @@
     <script src="{{asset('public/js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('public/js/main.js')}}"></script>
     <script src="{{asset('public/js/jquery.min.js')}}"></script>
-    <script src="{{asset('public/owlcarousel/owl.carousel.min.js')}}"></script>
+    @yield('footer')
 
 </body>
 </html>

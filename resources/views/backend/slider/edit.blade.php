@@ -81,8 +81,8 @@
                     <div class="mb-3">
                         <label for="status">Trạng thái</label>
                         <select name="status" id="status" name="status" class="form-control">
-                            <option value="1">Xuất bản</option>
-                            <option value="2">Chưa xuất bản</option>
+                          <option value="1" {{ ($slider->status==1)?'selected':''}}>Xuất bản</option>
+                          <option value="2" {{ ($slider->status==2)?'selected':''}}>Chưa xuất bản</option>
                         </select>
                     </div>    
                 </div>          

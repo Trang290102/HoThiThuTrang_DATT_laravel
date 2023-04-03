@@ -19,36 +19,42 @@ class PostController extends Controller
     #GET:admin/post, admin/post/index
     public function index()
     {
-        $list_post = Post::where([['status', '!=', 0], ['type', '=', 'post']])
-            // ->join('httt_topic', 'httt_topic.id', '=', 'httt_post.topic_id')
-            ->orderBy('created_at', 'desc')
-            // ->select("httt_post.id","httt_post.images","httt_post.title","httt_post.created_at","httt_post.status","httt_topic.name as topic")
+        $user_name = Auth::user()->name;
+
+        $list_post = Post::join('httt_topic', 'httt_topic.id', '=', 'httt_post.topic_id')
+            ->select('httt_post.*', 'httt_topic.name as topic_name')
+            ->where([['httt_post.status', '!=', 0], ['httt_post.type', '=', 'post']])
+            ->orderBy('httt_post.created_at', 'desc')
             ->get();
-        return view('backend.post.index', compact('list_post'));
+        return view('backend.post.index', compact('list_post', 'user_name'));
     }
     #GET:admin/post/trash
     public function trash()
     {
+        $user_name = Auth::user()->name;
+
         $list_post = Post::where([['status', '=', 0], ['type', '=', 'post']])->orderBy('created_at', 'desc')->get();
-        return view('backend.post.trash', compact('list_post'));
+        return view('backend.post.trash', compact('list_post', 'user_name'));
     }
 
     #GET: admin/post/create
     public function create()
     {
+        $user_name = Auth::user()->name;
+
         $list_topic = Topic::where('status', '!=', 0)->get();
         $html_topic_id = '';
 
         foreach ($list_topic as $item) {
             $html_topic_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
         }
-        return view('backend.post.create', compact('html_topic_id'));
+        return view('backend.post.create', compact('html_topic_id', 'user_name'));
     }
 
 
     public function store(PostStoreRequest $request)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $post = new Post; //tạo mới mẫu tin
         $post->title = $request->title;
@@ -85,15 +91,19 @@ class PostController extends Controller
 
     public function show(string $id)
     {
+        $user_name = Auth::user()->name;
+
         $post = Post::find($id);
         if ($post == null) {
             return redirect()->route('post.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
-        return view('backend.post.show', compact('post'));
+        return view('backend.post.show', compact('post', 'user_name'));
     }
 
     public function edit(string $id)
     {
+        $user_name = Auth::user()->name;
+
         $post = Post::find($id);
         $list_topic = Topic::where('status', '!=', 0)->get();
         $html_topic_id = '';
@@ -105,12 +115,12 @@ class PostController extends Controller
                 $html_topic_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
             }
         }
-        return view('backend.post.edit', compact('post', 'html_topic_id'));
+        return view('backend.post.edit', compact('post', 'html_topic_id', 'user_name'));
     }
 
     public function update(PostUpdateRequest $request, string $id)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $post = Post::find($id); //lấy mẫu tin
         $post->slug = Str::slug($post->title = $request->title, '-');
@@ -172,7 +182,7 @@ class PostController extends Controller
     #GET:admin/post/status/{id}
     public function status($id)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $post = Post::find($id);
         if ($post == null) {
@@ -187,7 +197,7 @@ class PostController extends Controller
     #GET:admin/post/delete/{id}
     public function delete($id)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $post = Post::find($id);
         if ($post == null) {
@@ -202,7 +212,7 @@ class PostController extends Controller
     #GET:admin/post/restore/{id}
     public function restore($id)
     {
-        $user_id=Auth::user()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $post = Post::find($id);
         if ($post == null) {
