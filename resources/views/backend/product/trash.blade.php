@@ -61,21 +61,30 @@
             </tr>
           </thead>
           <tbody>
+
             @foreach ($list_product as $product)
+            @php
+                $product_image= $product->productimg;
+                if(count($product_image)>0)
+                $hinh="";
+                {
+                    $hinh=$product_image[0]["image"];
+                }          
+            @endphp 
             <tr>
               <td class="text-center"><input type="checkbox"></td>
-              <td><img class="img-fluid" src="{{asset('public/images/product/'.$product->image)}}" alt="$product->image"></td>
+              <td><img class="img-fluid" src="{{asset('public/images/product/'.$hinh)}}" alt="$hinh"></td>
               <td>{{$product->name}}</td>
               <td>{{$product->slug}}</td>
               <td class="text-center">{{$product->created_at}}</td>
               <td class="text-center">
-                <a href="{{ route('product.restore',['product'=>$product->product_id]) }}" class="btn btn-primary btn-sm">
+                <a href="{{ route('product.restore',['product'=>$product->id]) }}" class="btn btn-primary btn-sm">
                   <i class="fas fa-trash-restore"></i></a>
-                <a href="{{ route('product.destroy',['product'=>$product->product_id]) }}" class="btn btn-danger btn-sm">
+                <a href="{{ route('product.destroy',['product'=>$product->id]) }}" class="btn btn-danger btn-sm">
                   <i class="fas fa-ban"></i></a>
 
               </td>
-              <td class="text-center">{{$product->product_id}}</td>
+              <td class="text-center">{{$product->id}}</td>
             </tr>
             @endforeach
           </tbody>

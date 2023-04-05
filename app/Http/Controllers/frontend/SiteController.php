@@ -35,7 +35,6 @@ class SiteController extends Controller
                         }
                     case 'page': {
                             $this->post_page($slug); //bảng post có 2 kiểu type là post và page, page sẽ được lưu vào bảng link
-
                             break;
                         }
                 }

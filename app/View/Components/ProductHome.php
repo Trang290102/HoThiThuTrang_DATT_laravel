@@ -23,7 +23,9 @@ class ProductHome extends Component
         $list_category_id = array();
         array_push($list_category_id, $row_cat->id);
         //xet cap con
-        $list_category1 = Category::where([['parent_id', '=', $row_cat->id], ['status', '=', '1']])->get();
+        $list_category1 = Category::where([['parent_id', '=', $row_cat->id], ['status', '=', '1']])
+            ->orderBy('updated_at', 'desc')
+            ->get();
         if (count($list_category1) > 0) {
             foreach ($list_category1 as $row_cat1) {
                 array_push($list_category_id, $row_cat1->id);
@@ -41,7 +43,10 @@ class ProductHome extends Component
                 }
             }
         }
-        $product_list = Product::where('status', 1)->whereIn('category_id', $list_category_id)->take(10)->get();
+        $product_list = Product::join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
+            ->select('httt_product.*', 'httt_brand.name as brand_name','httt_brand.slug as brand_slug')
+            ->where('httt_product.status', 1)
+            ->whereIn('category_id', $list_category_id)->take(10)->get();
         return view('components.product-home', compact('row_cat', 'product_list'));
         // $product_list = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
         //     ->where('status', 1)
@@ -49,6 +54,6 @@ class ProductHome extends Component
         //     ->whereIn('category_id', $list_category_id)
         //     ->orderBy('created_at', 'desc')
         //     ->take(10)->get();
-        return view('components.product-home', compact('row_cat', 'product_list'));
+        // return view('components.product-home', compact('row_cat', 'product_list'));
     }
 }

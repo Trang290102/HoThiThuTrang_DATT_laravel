@@ -64,49 +64,49 @@
             </thead>
             <tbody>
                 @foreach ($list_product as $product)
-                  {{-- @php
+                  @php
                       $product_image= $product->productimg;
                       if(count($product_image)>0)
                       $hinh="";
                       {
                           $hinh=$product_image[0]["image"];
                       }          
-                  @endphp  --}}
+                  @endphp 
                 <tr>
                     <td class="text-center"><input type="checkbox"></td>
-                    <td><img class="img-fluid" src="{{asset('public/images/product/'.$product->image)}}" alt="{{$product->image}}"></td>
+                    <td><img class="img-fluid" src="{{asset('public/images/product/'.$hinh)}}" alt="{{$hinh}}"></td>
                     <td>{{$product->name}}</td>
                     <td>{{$product->category_name}}</td>
                     <td>{{$product->brand_name}}</td>
                     <td class="text-center">{{$product->created_at}}</td>
                     <td class="text-center">
                         @if ($product->status==1)
-                        <a  href="{{ route('product.status',['product'=>$product->product_id]) }}" class="btn btn-success btn-sm">
+                        <a  href="{{ route('product.status',['product'=>$product->id]) }}" class="btn btn-success btn-sm">
                           <i class="fas fa-toggle-on">
                           </i>
                         </a>
                         @else
-                        <a  href="{{ route('product.status',['product'=>$product->product_id]) }}" class="btn btn-danger btn-sm">
+                        <a  href="{{ route('product.status',['product'=>$product->id]) }}" class="btn btn-danger btn-sm">
                           <i class="fas fa-toggle-off">
                           </i>
                         </a>
                         @endif
                       
-                        <a  href="{{ route('product.show',['product'=>$product->product_id]) }}" class="btn btn-primary btn-sm">
+                        <a  href="{{ route('product.show',['product'=>$product->id]) }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-eye">
                             </i>
                         </a>
-                        <a href="{{ route('product.edit',['product'=>$product->product_id]) }}" class="btn btn-info btn-sm" >
+                        <a href="{{ route('product.edit',['product'=>$product->id]) }}" class="btn btn-info btn-sm" >
                             <i class="fas fa-pencil-alt">
                             </i>
                             
                         </a>
-                        <a href="{{ route('product.delete',['product'=>$product->product_id]) }}" class="btn btn-danger btn-sm">
+                        <a href="{{ route('product.delete',['product'=>$product->id]) }}" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash">
                             </i>                           
                         </a>
                     </td>
-                    <td class="text-center">{{$product->product_id}}</td>
+                    <td class="text-center">{{$product->id}}</td>
                 </tr>
                 @endforeach
             </tbody>

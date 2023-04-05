@@ -45,8 +45,8 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->phone = $request->phone;
         $user->address = $request->address;
-        $user->password = $request->password;
-        // $user->password = bcrypt('$request->password');
+        // $user->password = $request->password;
+        $user->password = bcrypt($request->password);
         $user->roles = $request->roles;
         $user->email = $request->email;
         $user->gender = $request->gender;
@@ -93,7 +93,7 @@ class UserController extends Controller
         $user->name = $request->name; //tên có thể đăng nhâp
         $user->username = $request->username;
         $user->phone = $request->phone;
-        // $user->password = bcrypt('$request->password');
+        $user->password = bcrypt($request->password);
         //mật khẩu nên có 1 trang riêng để thay đổi mật khẩu, cần xác nhận mật khẩu cũ trước khi encode
         $user->roles = $request->roles;
         $user->address = $request->address;

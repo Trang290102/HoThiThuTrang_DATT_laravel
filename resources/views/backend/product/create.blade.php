@@ -52,7 +52,7 @@
                 <button class="nav-link" id="productsale-tab" data-toggle="tab" data-target="#productsale" type="button" role="tab" aria-controls="productsale" aria-selected="false">Khuyến mãi</button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="productstore-tab" data-toggle="tab" data-target="#productstore" type="button" role="tab" aria-controls="productstore" aria-selected="false">Nhập sản phẩm</button>
+                <button class="nav-link" id="productstore-tab" data-toggle="tab" data-target="#productstore" type="button" role="tab" aria-controls="productstore" aria-selected="false">Nhập kho sản phẩm</button>
               </li>
 
             </ul>

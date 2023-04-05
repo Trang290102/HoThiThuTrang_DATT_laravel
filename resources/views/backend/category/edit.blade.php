@@ -69,6 +69,7 @@
                     <div class="mb-3">
                         <label for="parent_id">Danh mục cha</label>
                         <select name="parent_id" id="parent_id" name="parent_id" class="form-control">
+                          <option value="0">--Danh mục--</option>
                             {{!! $html_parent_id !!}}
                         </select>
                     </div> 

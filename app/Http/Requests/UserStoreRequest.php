@@ -14,7 +14,7 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:httt_user',
+            'name' => 'required|unique:httt_users',
             // 'other'=>'name',
             'username' => 'required',
             'email' => 'required',

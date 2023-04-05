@@ -81,7 +81,25 @@
           </li>
         </ul>
       </li>
-
+      <li class="nav-item">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <p>
+            Đơn hàng
+            <i class="right fas fa-angle-left"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{ route('order.index')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Danh sách đơn hàng</p>
+            </a>
+          </li>
+          
+          
+        </ul>
+      </li>
 
       <a href="{{ route('product.index')}}" class="nav-link">
         <i class="nav-icon far fa-circle text-danger"></i>
@@ -110,6 +128,10 @@
       <a href="{{ route('user.index')}}" class="nav-link">
         <i class="nav-icon far fa-circle text-danger"></i>
         <p class="text">Người dùng</p>
+      </a>
+      <a href="{{ route('order.index')}}" class="nav-link">
+        <i class="nav-icon far fa-circle text-danger"></i>
+        <p class="text">Danh sách đơn hàng</p>
       </a>
       
 

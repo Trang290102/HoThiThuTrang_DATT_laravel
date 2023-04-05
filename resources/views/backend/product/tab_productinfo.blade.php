@@ -36,7 +36,7 @@
         <div class="mb-3">
             <label for="category_id">Chọn danh mục</label>
             <select name="category_id" id="category_id" name="category_id" class="form-control">
-                <option value="">--Danh mục--</option>
+                <option value="0">--Danh mục--</option>
                 {{!! $html_category_id !!}}
             </select>
             @if ($errors->has('category_id'))

@@ -27,21 +27,20 @@ class ProductController extends Controller
     {
         $user_name = Auth::user()->name;
         //cách 1: truy vấn từ csdl dùng groupby
-        $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
-            ->join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
-            ->join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
-            ->select('httt_product.*', 'httt_product_image.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
-            ->where('httt_product.status', '!=', 0)
-            ->groupBy('httt_product_image.product_id')
-            ->orderBy('httt_product.created_at', 'desc')
-            ->get();
-        //cách 2: quan hệ một-nhiều
         // $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
         //     ->join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
         //     ->join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
-        //     ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
+        //     ->select('httt_product.*', 'httt_product_image.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
         //     ->where('httt_product.status', '!=', 0)
-        //     ->orderBy('httt_product.created_at', 'desc')->get();
+        //     ->groupBy('httt_product_image.product_id')
+        //     ->orderBy('httt_product.created_at', 'desc')
+        //     ->get();
+        //cách 2: quan hệ một-nhiều
+        $list_product = Product::join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
+            ->join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
+            ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
+            ->where('httt_product.status', '!=', 0)
+            ->orderBy('httt_product.created_at', 'desc')->get();
         return view('backend.product.index', compact('list_product', 'user_name'));
     }
     #GET:admin/product/trash
@@ -49,14 +48,21 @@ class ProductController extends Controller
     {
         $user_name = Auth::user()->name;
 
-        $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
-            ->join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
+        //cách 1: truy vấn từ csdl dùng groupby
+        // $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
+        //     ->join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
+        //     ->join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
+        //     ->select('httt_product.*', 'httt_product_image.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
+        //     ->where('httt_product.status', '=', 0)
+        //     ->groupBy('httt_product_image.product_id')
+        //     ->orderBy('httt_product.created_at', 'desc')
+        //     ->get();
+        //cách 2: quan hệ một-nhiều
+        $list_product = Product::join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
             ->join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
-            ->select('httt_product.*', 'httt_product_image.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
+            ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
             ->where('httt_product.status', '=', 0)
-            ->groupBy('httt_product_image.product_id')
-            ->orderBy('httt_product.created_at', 'desc')
-            ->get();
+            ->orderBy('httt_product.created_at', 'desc')->get();
         return view('backend.product.trash', compact('list_product', 'user_name'));
     }
 

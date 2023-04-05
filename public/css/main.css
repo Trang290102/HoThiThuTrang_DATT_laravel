@@ -263,7 +263,7 @@ a#scrollUp i{
   outline: medium none;
   padding-left: 10px;
   width: 155px;
-  background-image: url(../images/home/searchicon.png);
+  background-image: url(../images/searchicon.png);
   background-repeat: no-repeat;
   background-position: 130px;
 }
@@ -833,9 +833,9 @@ h2.title:before{
 	overflow:hidden;
 }
 
-
 h2.title {
   color: #FE980F;
+
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
   font-weight: 700;
@@ -844,6 +844,25 @@ h2.title {
   margin-bottom: 30px;
   position: relative;
 }
+
+.headline{
+  text-align:center;
+  margin:40px 0px;
+}
+
+/*tu-them*/
+h2.category {
+  color: #111;
+  padding :10px 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  border:1px solid #bebebe;
+  display:inline-block;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+/*ket-thuc-tu-them*/
+
 
 .product-image-wrapper{
 	border:1px solid #F7F7F5;
@@ -864,19 +883,17 @@ h2.title {
 .productinfo h2{
 	color: #FE980F;
 	font-family: 'Roboto', sans-serif;
-	font-size: 24px;
+	font-size: 18px;
+	font-weight: 750;
+}
+
+.productinfo h4{
+	color: #FE980F;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
 	font-weight: 700;
 }
 
-a{color:#fe980f;text-decoration:none}
-.pro_name a:hover{
-  color: aquamarine;
-}
-a .pro_name{
-    color: #fe980f;
-    
-    text-decoration: none;
-  }
 
 .product-overlay h2{
 	color: #fff;

@@ -67,8 +67,8 @@
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
-                        <label for="parent_id">sản phẩm cha</label>
-                        <select name="parent_id" id="parent_id" name="parent_id" class="form-control">
+                        <label for="parent_id">Danh mục sản phẩm</label>
+                        <select name="category_id" id="parent_id" name="parent_id" class="form-control">
                             <option value="0">--Cấp cha--</option>
                             {{!! $html_parent_id !!}}
                         </select>
