@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    protected $table='httt_category';
-
+    protected $table = 'httt_category';
+    public function CategorySub()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
 }

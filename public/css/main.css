@@ -245,6 +245,8 @@ a#scrollUp i{
 	font-weight: 300;
 	padding: 0;
 	padding-bottom: 10px;
+  padding-top: 10px;
+
 }
 
 .mainmenu ul li a:hover, .mainmenu ul li a.active,  .shop-menu ul li a.active{
@@ -847,7 +849,7 @@ h2.title {
 
 .headline{
   text-align:center;
-  margin:40px 0px;
+  margin:20px 0px;
 }
 
 /*tu-them*/

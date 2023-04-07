@@ -42,6 +42,10 @@ class ProductController extends Controller
             ->where('httt_product.status', '!=', 0)
             ->orderBy('httt_product.created_at', 'desc')->get();
         return view('backend.product.index', compact('list_product', 'user_name'));
+
+        $list_product = Product::where('httt_product.status', '!=', 0)
+        ->orderBy('httt_product.created_at', 'desc')->get();
+        return view('backend.product.index', compact('list_product'));
     }
     #GET:admin/product/trash
     public function trash()

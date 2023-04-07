@@ -20,6 +20,7 @@ use App\Http\Middleware\LoginAdminMiddelware;
 use Illuminate\Auth\Middleware\Authenticate;
 
 Route::get('/', [SiteController::class, 'index'])->name('frontend.home');
+
 // Route::get('lien-he', [LienheController::class, 'index'])->name('frontend.lien-he'); //link cố định( ví dụ)
 //Xử lý login
 Route::get('admin/login', [AuthController::class, 'getlogin'])->name('admin.getlogin'); //link cố định( ví dụ)
@@ -132,6 +133,6 @@ Route::prefix('admin')->middleware('LoginAdmin')->group(function () {
     });
 });
 
-
-
 Route::get('{slug}', [SiteController::class, 'index'])->name('slug.home');
+
+

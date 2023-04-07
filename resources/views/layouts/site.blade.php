@@ -57,7 +57,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="{{URL::to('/trang-chu')}}"><img src="{{('public/images/logo2.png')}}" alt="" width="270" height="100" /></a>
+                            <a href="{{URL::to('/')}}"><img src="{{('public/images/logo2.png')}}" alt="" width="270" height="100" /></a>
                         </div>
                        
                     </div>
@@ -81,7 +81,7 @@
     
 
     <section>
-        <div class="container">
+        {{-- <div class="container"> --}}
             {{-- <div class="row"> --}}
                 {{-- <div class="col-sm-3">
                     <div class="left-sidebar">
@@ -178,12 +178,12 @@
                 </div> --}}
                 
                 {{-- <div class="col-sm-9 padding-right"> --}}
-                   @yield('content')
                 {{-- </div> --}}
 
 
             {{-- </div> --}}
-        </div>
+        {{-- </div> --}}
+        @yield('content')
     </section>
     <footer id="footer"><!--Footer-->
         <div class="footer-top">

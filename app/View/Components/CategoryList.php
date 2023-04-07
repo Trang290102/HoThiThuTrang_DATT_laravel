@@ -5,10 +5,12 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\Menu;
+use App\Models\Category;
 
-class MainMenu extends Component
+
+class CategoryList extends Component
 {
+    
     public function __construct()
     {
         //
@@ -16,7 +18,7 @@ class MainMenu extends Component
 
     public function render(): View|Closure|string
     {
-        $list_menu = Menu::where([['position', '=', 'mainmenu'], ['status', '=', 1], ['parent_id', '=', 0]])->get();
-        return view('components.main-menu', compact('list_menu'));
+        $list_category = Category::where([['status', '=', '1'], ['parent_id', '=', 0]])->get();
+        return view('components.category-list', compact('list_category'));
     }
 }

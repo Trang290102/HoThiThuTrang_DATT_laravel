@@ -86,7 +86,8 @@
     </div>
     <!-- /.sidebar -->
   </aside>
-@yield('content')
+ 
+    @yield('content')
 
 
 
