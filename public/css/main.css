@@ -264,8 +264,8 @@ a#scrollUp i{
   height: 35px;
   outline: medium none;
   padding-left: 10px;
-  width: 155px;
-  background-image: url(../images/searchicon.png);
+  width: 170px;
+  /* background-image: url(../images/searchicon.png); */
   background-repeat: no-repeat;
   background-position: 130px;
 }
@@ -571,7 +571,7 @@ ul.sub-menu {
 
 
 #slider {
-  padding-bottom: 45px;
+  padding-bottom: 25px;
 }
 
 .carousel-indicators li {
@@ -613,7 +613,7 @@ ul.sub-menu {
   font-family: 'Roboto', sans-serif;
   font-size: 28px;
   font-weight: 700;
-  margin-bottom: 22px;
+  /* margin-bottom: 22px; */
   margin-top: 10px;
 }
 
@@ -666,7 +666,7 @@ ul.sub-menu {
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
   font-weight: 700;
-  margin: 0 auto 30px;
+  margin: 30px auto 40px;
   text-align: center;
   text-transform: uppercase;
   position: relative;
@@ -849,7 +849,7 @@ h2.title {
 
 .headline{
   text-align:center;
-  margin:20px 0px;
+  margin-bottom:10px;
 }
 
 /*tu-them*/
@@ -886,7 +886,7 @@ h2.category {
 	color: #FE980F;
 	font-family: 'Roboto', sans-serif;
 	font-size: 18px;
-	font-weight: 750;
+	font-weight: 730;
 }
 
 .productinfo h4{
@@ -895,7 +895,25 @@ h2.category {
 	font-size: 18px;
 	font-weight: 700;
 }
-
+/* price nhấp nháy*/
+@-webkit-keyframes my {
+  0% {
+    color: #ffaa00;
+  } 
+  50% {
+    color: #ed1a1a;
+  }
+  100%{
+    color: #fff;
+  }
+}
+.price strong span{
+  /* color:red; */
+  -webkit-animation: my 1000ms infinite;
+  -moz-animation: my 1000ms infinite; 
+  -o-animation: my 1000ms infinite; 
+  animation: my 1000ms infinite;
+}
 
 .product-overlay h2{
 	color: #fff;
@@ -1264,6 +1282,17 @@ h2.category {
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   margin-top: 0;
+}
+
+.productname h2{
+  width: auto;
+  height: auto;
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top:10px;
+  text-align: center;
 }
 
 .product-information p {

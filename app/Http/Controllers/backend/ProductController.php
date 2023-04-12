@@ -44,7 +44,7 @@ class ProductController extends Controller
         return view('backend.product.index', compact('list_product', 'user_name'));
 
         $list_product = Product::where('httt_product.status', '!=', 0)
-        ->orderBy('httt_product.created_at', 'desc')->get();
+            ->orderBy('httt_product.created_at', 'desc')->get();
         return view('backend.product.index', compact('list_product'));
     }
     #GET:admin/product/trash
@@ -161,17 +161,27 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $user_name = Auth::user()->name;
-
         $product = Product::find($id);
-        $list_product = Product::where('status', '!=', 0)->get();
-        $html_parent_id = '';
-        $html_sort_order = '';
+        $list_category = Category::where('status', '!=', 0)->get();
+        $list_brand = Brand::where('status', '!=', 0)->get();
 
-        foreach ($list_product as $item) {
-            $html_parent_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
-            $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
+        $html_category_id = '';
+        foreach ($list_category as $item) {
+            if ($product->category_id == $item->id) {
+                $html_category_id .= '<option selected value="' . $item->id . '">' . $item->name . '</option>';
+            } else {
+                $html_category_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
+            }
         }
-        return view('backend.product.edit', compact('product', 'html_parent_id', 'html_sort_order', 'user_name'));
+        $html_brand_id = '';
+        foreach ($list_brand as $item) {
+            if ($product->brand_id == $item->id) {
+                $html_brand_id .= '<option selected value="' . $item->id . '">' . $item->name . '</option>';
+            } else {
+                $html_brand_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
+            }
+        }
+        return view('backend.product.edit', compact('product', 'html_brand_id', 'html_category_id', 'user_name'));
     }
 
     public function update(ProductUpdateRequest $request, string $id)

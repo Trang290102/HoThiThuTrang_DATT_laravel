@@ -15,7 +15,7 @@ class SliderStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2',
-            'images' => 'required'
+            'image' => 'required'
         ];
     }
     public function messages(): array
@@ -23,7 +23,7 @@ class SliderStoreRequest extends FormRequest
         return [
             'name.required' => 'Bạn chưa nhập tên.',
             'name.min' => 'Tên có ít nhất 2 ký tự.',
-            'images.required' => 'Bạn chưa chọn hình ảnh, vui lòng chọn và thử lại.',
+            'image.required' => 'Bạn chưa chọn hình ảnh, vui lòng chọn và thử lại.',
 
         ];
     }

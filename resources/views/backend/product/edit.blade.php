@@ -39,59 +39,35 @@
           </div>
           <div class="card-body">
             @includeIf('backend.message_alert')
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="mb-3">
-                        <label for="name">Tên sản phẩm</label>
-                        <input type="text" name="name" value="{{ old('name',$product->name) }}"" id="name" class="form-control" placeholder="Nhập tên sản phẩm"> 
-                        @if ($errors->has('name'))
-                          <div class="text-danger">{{$errors->first('name')}}</div>
-                        @endif 
-                    </div>
-                    <div class="mb-3">
-                        <label for="metakey">Từ khóa</label>
-                        <textarea name="metakey" id="metakey" class="form-control"
-                        placeholder="Từ khóa tìm kiếm">{{ old('metakey',$product->metakey) }}</textarea>
-                        @if ($errors->has('metakey'))
-                        <div class="text-danger">{{$errors->first('metakey')}}</div>
-                      @endif 
-                    </div>
-                    <div class="mb-3">
-                        <label for="metadesc">Mô tả</label>
-                        <textarea name="metadesc" id="metadesc" class="form-control"
-                        placeholder="Nhập mô tả">{{ old('metadesc',$product->metadesc) }}</textarea>
-                        @if ($errors->has('metadesc'))
-                        <div class="text-danger">{{$errors->first('metadesc')}}</div>
-                      @endif 
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <label for="parent_id">Danh mục sản phẩm</label>
-                        <select name="category_id" id="parent_id" name="parent_id" class="form-control">
-                            <option value="0">--Cấp cha--</option>
-                            {{!! $html_parent_id !!}}
-                        </select>
-                    </div> 
-                    <div class="mb-3">
-                        <label for="sort_order">Vị trí</label>
-                        <select name="sort_order" id="sort_order" name="sort_order" class="form-control">
-                            <option value="0">--Vị trí sắp xếp--</option>
-                            {{!! $html_sort_order !!}}
-                        </select>
-                    </div> 
-                    <div class="mb-3">
-                        <label for="image">Hình đại diện</label>
-                        <input type="file" name="image" id="image" class="form-control">  
-                    </div> 
-                    <div class="mb-3">
-                        <label for="status">Trạng thái</label>
-                        <select name="status" id="status" name="status" class="form-control">
-                            <option value="1">Xuất bản</option>
-                            <option value="2">Chưa xuất bản</option>
-                        </select>
-                    </div>    
-                </div>          
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="editproductinfo-tab" data-toggle="tab" data-target="#editproductinfo" type="button" role="tab" aria-controls="editproductinfo" aria-selected="true">Thông tin sản phẩm</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="editproductimage-tab" data-toggle="tab" data-target="#editproductimage" type="button" role="tab" aria-controls="editproductimage" aria-selected="false">Hình ảnh</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="editproductattribute-tab" data-toggle="tab" data-target="#editproductattribute" type="button" role="tab" aria-controls="editproductattribute" aria-selected="false">Thuộc tính</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="editproductsale-tab" data-toggle="tab" data-target="#editproductsale" type="button" role="tab" aria-controls="editproductsale" aria-selected="false">Khuyến mãi</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="editproductstore-tab" data-toggle="tab" data-target="#editproductstore" type="button" role="tab" aria-controls="editproductstore" aria-selected="false">Nhập kho sản phẩm</button>
+              </li>
+
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active border-right border-bottom border-left p-3" id="editproductinfo" role="tabpanel"
+               aria-labelledby="editproductinfo-tab">
+               @includeIf('backend.product.tab_editproductinfo')</div>
+              <div class="tab-pane fade border-right border-bottom border-left p-3" id="editproductimage" role="tabpanel" aria-labelledby="editproductimage-tab">
+                @includeIf('backend.product.tab_editproductimage')</div>
+              <div class="tab-pane fade border-right border-bottom border-left p-3" id="editproductattribute" role="tabpanel" aria-labelledby="editproductattribute-tab">
+              @includeIf('backend.product.tab_editproductattribute')</div>
+              <div class="tab-pane fade border-right border-bottom border-left p-3" id="editproductsale" role="tabpanel" aria-labelledby="editproductsale-tab">
+              @includeIf('backend.product.tab_editproductsale')</div><div class="tab-pane fade border-right border-bottom border-left p-3" id="editproductstore" role="tabpanel" aria-labelledby="editproductstore-tab">
+              @includeIf('backend.product.tab_editproductstore')</div>
             </div>
 
 

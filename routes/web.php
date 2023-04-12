@@ -13,6 +13,7 @@ use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\backend\MenuController;
 use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\frontend\SiteController;
+use App\Http\Controllers\frontend\SearchController;
 use App\Http\Controllers\backend\AuthController;
 use App\Http\Controllers\backend\UserController;
 
@@ -20,6 +21,7 @@ use App\Http\Middleware\LoginAdminMiddelware;
 use Illuminate\Auth\Middleware\Authenticate;
 
 Route::get('/', [SiteController::class, 'index'])->name('frontend.home');
+Route::post('search', [SearchController::class, 'index'])->name('search.home');
 
 // Route::get('lien-he', [LienheController::class, 'index'])->name('frontend.lien-he'); //link cố định( ví dụ)
 //Xử lý login
@@ -134,5 +136,3 @@ Route::prefix('admin')->middleware('LoginAdmin')->group(function () {
 });
 
 Route::get('{slug}', [SiteController::class, 'index'])->name('slug.home');
-
-

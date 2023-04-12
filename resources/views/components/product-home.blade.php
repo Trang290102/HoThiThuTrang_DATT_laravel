@@ -13,8 +13,7 @@
                 if(count($product_image)>0)
                 {
                     $hinh=$product_image[0]["image"];
-                }
-                
+                } 
             @endphp
             <div class="item">
                 <div class="product-image-wrapper">
@@ -28,7 +27,7 @@
                                 <a href="{{route('slug.home',['slug'=>$product->brand_slug])}}"><p>{{$product->brand_name}}</p></a>
 
                                 <a href="{{route('slug.home',['slug'=>$product->slug])}}">
-                                    <h2> {{$product->name}}</h2>
+                                    <h2 class="text-center"> {{$product->name}}</h2>
                                 </a>    
                             </div>
                             <div class="price text-center">

@@ -47,9 +47,7 @@ class SiteController extends Controller
                     $post = Post::where([['status', '=', 1], ['slug', '=', $slug], ['type', '=', 'post']])->first();
                     if ($post != NULL) {
                         return $this->post_detail($post);
-                    }
-                    else 
-                    {
+                    } else {
                         return $this->error_404($slug);
                     }
                 }
@@ -103,9 +101,38 @@ class SiteController extends Controller
             ->whereIn('category_id', $list_category_id)->paginate(9);
         return view('frontend.product-category', compact('product_list', 'row_cat'));
     }
-    private function product_detail($slug)
+    private function product_detail($product)
     {
-        return view('frontend.product-detail');
+        $list_category_id = array();
+        array_push($list_category_id, $product->category_id);
+        //xet cap con
+        $list_category1 = Category::where([['parent_id', '=', $product->category_id], ['status', '=', '1']])
+            ->orderBy('updated_at', 'desc')
+            ->get();
+        if (count($list_category1) > 0) {
+            foreach ($list_category1 as $row_cat1) {
+                array_push($list_category_id, $row_cat1->id);
+                $list_category2 = Category::where([['parent_id', '=', $row_cat1->id], ['status', '=', '1']])->get();
+                if (count($list_category2) > 0) {
+                    foreach ($list_category2 as $row_cat2) {
+                        array_push($list_category_id, $row_cat2->id);
+                        $list_category3 = Category::where([['parent_id', '=', $row_cat2->id], ['status', '=', '1']])->get();
+                        if (count($list_category3) > 0) {
+                            foreach ($list_category3 as $row_cat3) {
+                                array_push($list_category_id, $row_cat3->id);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        $product_list = Product::join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
+            ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_brand.slug as brand_slug')
+            ->where([['httt_product.status', '=', 1], ['httt_product.id', '!=', $product->id]])
+            ->whereIn('category_id', $list_category_id)
+            ->orderBy('httt_product.created_at', 'desc')
+            ->take(10)->get();
+        return view('frontend.product-detail', compact('product', 'product_list'));
     }
     private function post_topic($slug)
     {
