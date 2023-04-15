@@ -1,5 +1,12 @@
 @extends('layouts.admin')
 @section('title', 'Thêm sản phẩm')
+@section('footer')
+<script>
+  CKEDITOR.replace('metadesc');
+  CKEDITOR.replace('detail');
+</script>
+@endsection
+
 @section('content')
 
 <form action="{{ route('product.store')}}" method="post" enctype="multipart/form-data">

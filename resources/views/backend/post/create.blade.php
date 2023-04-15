@@ -1,5 +1,12 @@
 @extends('layouts.admin')
 @section('title', 'Thêm bài viết')
+@section('footer')
+<script>
+  CKEDITOR.replace('metadesc');
+  CKEDITOR.replace('detail');
+</script>
+@endsection
+
 @section('content')
 
 <form action="{{ route('post.store')}}" method="post" enctype="multipart/form-data">
@@ -61,7 +68,7 @@
                       placeholder="Nhập mô tả">{{ old('metadesc') }}</textarea>
                       @if ($errors->has('metadesc'))
                       <div class="text-danger">{{$errors->first('metadesc')}}</div>
-                    @endif 
+                      @endif
                   </div>
                     <div class="mb-3">
                       <label for="detail">Nội dung bài viết</label>

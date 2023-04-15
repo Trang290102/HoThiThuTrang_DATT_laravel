@@ -23,12 +23,14 @@ use App\Http\Middleware\LoginAdminMiddelware;
 use Illuminate\Auth\Middleware\Authenticate;
 
 Route::get('/', [SiteController::class, 'index'])->name('frontend.home');
+Route::get('cart', [CartController::class, 'index'])->name('frontend.cart');
+
+Route::get('gio-hang/add/{id}', [CartController::class, 'addcart'])->name('cart.addcart');
 
 // Route::get('lien-he', [LienheController::class, 'index'])->name('frontend.lien-he'); //link cố định( ví dụ)
 //Xử lý login
 Route::get('admin/login', [AuthController::class, 'getlogin'])->name('admin.getlogin'); //link cố định( ví dụ)
 Route::post('admin/login', [AuthController::class, 'postlogin'])->name('postlogin'); //link cố định( ví dụ)
-Route::get('gio-hang/add/{id}', [CartController::class, 'addcart'])->name('cart.addcart');
 
 
 //khai bao route cho quan ly

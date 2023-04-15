@@ -12,6 +12,10 @@ use App\Models\Brand;
 
 class CartController extends Controller
 {
+    public function index()
+    {
+        return view ('frontend.cart.index');
+    }
     public function addcart($id)
     {
         $product=Product::find($id);

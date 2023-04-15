@@ -44,10 +44,18 @@
                     <del>{{number_format($product->price_buy)}}<sup>đ</sup></del>
                 </strong>
                 <p class = "product-description">{{$product->metadesc}}</p>
-                <span>
+                {{-- <span>
                     <label>Quantity:</label>
                     <input type="text" value="3" />
-                </span>
+                </span> --}}
+                <div class="row">
+                    <div class="quantity_button">
+                        <a class="quantity_down" href=""> - </a>
+                        <input class="quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+                        <a class="quantity_up" href=""> + </a>
+                    </div>
+    
+                </div>                
                 <div class = "btn-groups">
                     <button type = "button" class = "add-cart-btn"><i class = "fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
                     <button type = "button" class = "buy-now-btn"><i class="fas fa-wallet"></i> Mua ngay</button>

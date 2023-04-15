@@ -1,5 +1,12 @@
 @extends('layouts.admin')
 @section('title', 'Thêm trang đơn')
+@section('footer')
+<script>
+  CKEDITOR.replace('metadesc');
+  CKEDITOR.replace('detail');
+</script>
+@endsection
+
 @section('content')
 
 <form action="{{ route('page.store')}}" method="post" enctype="multipart/form-data">
@@ -54,8 +61,8 @@
                       placeholder="Nội dung trang đơn">{{ old('detail') }}</textarea>
                       @if ($errors->has('detail'))
                       <div class="text-danger">{{$errors->first('detail')}}</div>
-                    @endif 
-                  </div>
+                      @endif 
+                    </div>
 
                     <div class="mb-3">
                         <label for="metakey">Từ khóa</label>
@@ -63,7 +70,7 @@
                         placeholder="Từ khóa tìm kiếm">{{ old('metakey') }}</textarea>
                         @if ($errors->has('metakey'))
                         <div class="text-danger">{{$errors->first('metakey')}}</div>
-                      @endif 
+                        @endif 
                     </div>
                     <div class="mb-3">
                         <label for="metadesc">Mô tả</label>
@@ -71,7 +78,7 @@
                         placeholder="Nhập mô tả">{{ old('metadesc') }}</textarea>
                         @if ($errors->has('metadesc'))
                         <div class="text-danger">{{$errors->first('metadesc')}}</div>
-                      @endif 
+                        @endif 
                     </div>
                 </div>
                 <div class="col-md-3">

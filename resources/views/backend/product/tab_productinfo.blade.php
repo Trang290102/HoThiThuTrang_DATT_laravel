@@ -1,35 +1,35 @@
 <div class="row">
     <div class="col-md-9">
         <div class="mb-3">
-            <label for="name">Tên sản phẩm</label>
-            <input type="text" name="name" value="{{ old('name') }}"" id="name" class="form-control" placeholder="Nhập tên sản phẩm"> 
-            @if ($errors->has('name'))
-              <div class="text-danger">{{$errors->first('name')}}</div>
-            @endif 
+          <label for="name">Tên sản phẩm</label>
+          <input type="text" name="name" value="{{ old('name') }}"" id="name" class="form-control" placeholder="Nhập tên sản phẩm"> 
+          @if ($errors->has('name'))
+            <div class="text-danger">{{$errors->first('name')}}</div>
+          @endif 
         </div>
+        <div class="mb-3">
+          <label for="metakey">Từ khóa</label>
+          <textarea name="metakey" id="metakey" class="form-control"
+          placeholder="Từ khóa tìm kiếm">{{ old('metakey') }}</textarea>
+          @if ($errors->has('metakey'))
+          <div class="text-danger">{{$errors->first('metakey')}}</div>
+          @endif 
+        </div>
+        <div class="mb-3">
+          <label for="metadesc">Mô tả</label>
+          <textarea name="metadesc" id="metadesc" class="form-control"
+          placeholder="Nhập mô tả">{{ old('metadesc') }}</textarea>
+          @if ($errors->has('metadesc'))
+          <div class="text-danger">{{$errors->first('metadesc')}}</div>
+          @endif 
+      </div>
         <div class="mb-3">
             <label for="detail">Chi tiết</label>
             <textarea name="detail" id="detail" class="form-control"
             placeholder="Chi tiết sản phẩm">{{ old('detail') }}</textarea>
             @if ($errors->has('detail'))
             <div class="text-danger">{{$errors->first('detail')}}</div>
-          @endif 
-        </div>
-        <div class="mb-3">
-            <label for="metakey">Từ khóa</label>
-            <textarea name="metakey" id="metakey" class="form-control"
-            placeholder="Từ khóa tìm kiếm">{{ old('metakey') }}</textarea>
-            @if ($errors->has('metakey'))
-            <div class="text-danger">{{$errors->first('metakey')}}</div>
-          @endif 
-        </div>
-        <div class="mb-3">
-            <label for="metadesc">Mô tả</label>
-            <textarea name="metadesc" id="metadesc" class="form-control"
-            placeholder="Nhập mô tả">{{ old('metadesc') }}</textarea>
-            @if ($errors->has('metadesc'))
-            <div class="text-danger">{{$errors->first('metadesc')}}</div>
-          @endif 
+            @endif 
         </div>
     </div>
     <div class="col-md-3">

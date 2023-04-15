@@ -19,7 +19,7 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+      <a href="../../index2.html" class="h1"><b>Admin</b></a>
     </div>
     <div class="card-body">
       <!--------------------------------------------------->
@@ -27,7 +27,7 @@
         @csrf
   
       <p class="login-box-msg">Đăng nhập để bắt đầu quản lý</p>
-
+      {{-- @includeIf('backend.message_alert') --}}
         <div class="input-group mb-3">
           <input type="text" name="username" value="{{ old('username') }}" class="form-control" placeholder="Nhập email hoặc tên đăng nhập">
           <div class="input-group-append">

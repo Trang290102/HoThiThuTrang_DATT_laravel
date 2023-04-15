@@ -67,7 +67,7 @@
                                 <li><a href="#"><i class="fa fa-user"></i> Tài khoản</a></li>
                                 <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li>
                                 <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                                <li><a href="{{URL::to('cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
                                 <li><a href="login.html"><i class="fa fa-lock"></i> Đăng Nhập</a></li>
                             </ul>
                         </div>

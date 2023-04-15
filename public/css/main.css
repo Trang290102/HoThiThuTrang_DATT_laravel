@@ -1700,6 +1700,18 @@ h2.category {
   width: 35px;
   float: left;
 }
+.quantity_button a {
+  background:#F0F0E9;
+  color: #696763;
+  display: inline-block;
+  font-size: 16px;
+  height: 28px;
+  overflow: hidden;
+  text-align: center;
+  width: 35px;
+  float: left;
+
+}
 
 
 .cart_quantity_input {
@@ -1709,6 +1721,13 @@ h2.category {
   text-align: center;
   font-family: 'Roboto',sans-serif;
   
+}
+.quantity_input {
+  color: #696763;
+  float: left;
+  font-size: 16px;
+  text-align: center;
+  font-family: 'Roboto',sans-serif;
 }
 
 

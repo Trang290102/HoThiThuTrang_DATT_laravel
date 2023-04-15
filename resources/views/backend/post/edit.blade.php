@@ -1,5 +1,12 @@
 @extends('layouts.admin')
 @section('title', 'Cập nhật bài viết')
+@section('footer')
+<script>
+  CKEDITOR.replace('metadesc');
+  CKEDITOR.replace('detail');
+</script>
+@endsection
+
 @section('content')
 
 <form action="{{ route('post.update',['post'=>$post->id])}}" method="post" enctype="multipart/form-data">
@@ -49,14 +56,6 @@
                         @endif 
                     </div>
                     <div class="mb-3">
-                      <label for="detail">Nội dung</label>
-                      <textarea name="detail" id="detail" class="form-control"
-                      placeholder="Nội dung bài viết">{{ old('detail',$post->detail) }}</textarea>
-                      @if ($errors->has('detail'))
-                      <div class="text-danger">{{$errors->first('detail')}}</div>
-                    @endif 
-                  </div>
-                    <div class="mb-3">
                         <label for="metakey">Từ khóa</label>
                         <textarea name="metakey" id="metakey" class="form-control"
                         placeholder="Từ khóa tìm kiếm">{{ old('metakey',$post->metakey) }}</textarea>
@@ -75,7 +74,7 @@
                     <div class="mb-3">
                       <label for="detail">Nội dung bài viết</label>
                       <textarea name="detail" rows="5" id="detail" class="form-control" 
-                      placeholder="Nội dung bài viết">{{ old('metadesc',$post->detail) }}</textarea>
+                      placeholder="Nội dung bài viết">{{ old('detail',$post->detail) }}</textarea>
                       @if ($errors->has('detail'))
                       <div class="text-danger">{{$errors->first('detail')}}</div>
                     @endif 

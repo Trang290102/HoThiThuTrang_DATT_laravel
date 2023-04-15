@@ -11,8 +11,9 @@
   <link rel="stylesheet" href="{{asset('public/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset ('public/dist/css/adminlte.min.css')}}">
+  @yield('header')
+
 </head>
-@yield('header')
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
@@ -113,6 +114,10 @@
 <!-- AdminLTE App -->
 <script src="{{asset('public/dist/js/adminlte.min.js')}}"></script>
 
-</body>
+<script src="{{asset('public/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('public/ckfinder/ckfinder.js')}}"></script>
+
 @yield('footer')
+
+</body>
 </html>
