@@ -23,7 +23,6 @@
                 </div>
                 <div class="col-sm-5">
                     <form action="{{ route('search.home')}}" method="post">
-                    
                     @csrf 
                         <div class="search_box pull-right">
                             <input type="text" name="keywordsearch" placeholder="Tìm kiếm sản phẩm" />

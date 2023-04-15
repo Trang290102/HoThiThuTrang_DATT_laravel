@@ -25,7 +25,7 @@
                 <span>Có {{$i}} kết quả được tìm thấy.</span>
                 </div>
                 @if (count($list_search_product)>0)
-                        @foreach($list_search_product as $product)
+                    @foreach($list_search_product as $product)
                         @php
                             $product_image= $product->productimg;
                             $hinh="";
@@ -63,13 +63,12 @@
                         @endforeach
                     @else
                     <h4 class="text-center">Không tìm thấy sản phẩm nào!!!</h4>
-                    @endif
-                    
-                </div>
-                <div><!--phân trang -->
-                    {{ $list_search_product->links() }}
+                    @endif   
                 </div>
             </div><!--product_category_items-->
+            {{-- <div><!--phân trang -->
+                {{ $list_search_product->links() }}
+            </div> --}}
         </div>
 
     </div>

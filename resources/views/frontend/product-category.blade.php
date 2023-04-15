@@ -21,6 +21,12 @@
                 <div class="headline">          
                     <h2 class="category text-center">{{$row_cat->name}}</h2>           
                 </div>
+                <div style="margin:10px 20px">
+                    @php
+                        $i=count($count_list);
+                    @endphp
+                    <span>Có tất cả {{$i}} kết quả được tìm thấy.</span>
+                </div>
                 <div class="row">
                     @if (count($product_list)>0)
                         @foreach($product_list as $product)
@@ -42,7 +48,7 @@
                                         <div class="productname">
                                             <a href="{{route('slug.home',['slug'=>$product->brand_slug])}}"><p>{{$product->brand_name}}</p></a>
                 
-                                            <a href="{{route('slug.home',['slug'=>$product->slug])}}">
+                                            <a href="{{route('slug.home',['slug'=>$product->slug])}}" class="text-center">
                                                 <h2> {{$product->name}}</h2>
                                             </a>    
                                         </div>

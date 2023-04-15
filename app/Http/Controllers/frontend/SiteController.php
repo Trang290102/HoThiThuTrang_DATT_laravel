@@ -67,7 +67,10 @@ class SiteController extends Controller
         $product_list = Product::where([['status', '=', '1'], ['brand_id', '=', $row_brand->id]])
             ->orderBy('created_at', 'desc')
             ->paginate(9);
-        return view('frontend.product-brand', compact('row_brand', 'product_list'));
+        $count_list = Product::where([['status', '=', '1'], ['brand_id', '=', $row_brand->id]])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('frontend.product-brand', compact('row_brand', 'product_list', 'count_list'));
     }
     private function product_category($slug)
     {
@@ -99,7 +102,11 @@ class SiteController extends Controller
             ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_brand.slug as brand_slug')
             ->where('httt_product.status', 1)
             ->whereIn('category_id', $list_category_id)->paginate(9);
-        return view('frontend.product-category', compact('product_list', 'row_cat'));
+        $count_list = Product::join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
+            ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_brand.slug as brand_slug')
+            ->where('httt_product.status', 1)
+            ->whereIn('category_id', $list_category_id)->get();
+        return view('frontend.product-category', compact('product_list', 'row_cat', 'count_list'));
     }
     private function product_detail($product)
     {
