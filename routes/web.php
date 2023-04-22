@@ -18,6 +18,7 @@ use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\frontend\SiteController;
 use App\Http\Controllers\frontend\SearchController;
 use App\Http\Controllers\frontend\CartController;
+use App\Http\Controllers\frontend\LoginController;
 
 use App\Http\Middleware\LoginAdminMiddelware;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -27,10 +28,15 @@ Route::get('cart', [CartController::class, 'index'])->name('frontend.cart');
 
 Route::get('gio-hang/add/{id}', [CartController::class, 'addcart'])->name('cart.addcart');
 
+//Xử lý login user
+Route::get('login', [LoginController::class, 'getlogin'])->name('getlogin'); //link cố định( ví dụ)
+Route::post('login', [LoginController::class, 'postlogin'])->name('postlogin'); //link cố định( ví dụ)
+
+
 // Route::get('lien-he', [LienheController::class, 'index'])->name('frontend.lien-he'); //link cố định( ví dụ)
-//Xử lý login
+//Xử lý login admin
 Route::get('admin/login', [AuthController::class, 'getlogin'])->name('admin.getlogin'); //link cố định( ví dụ)
-Route::post('admin/login', [AuthController::class, 'postlogin'])->name('postlogin'); //link cố định( ví dụ)
+Route::post('admin/login', [AuthController::class, 'postlogin'])->name('admin.postlogin'); //link cố định( ví dụ)
 
 
 //khai bao route cho quan ly

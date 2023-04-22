@@ -1,5 +1,14 @@
 @extends('layouts.admin')
 @section('title', 'Chi tiết sản phẩm')
+@php
+    $product_image= $product->productimg;
+    $hinh="";
+    if(count($product_image)>0)
+    {
+        $hinh=$product_image[0]["image"];
+    }
+@endphp
+
 @section('content')
 
 <div class="content-wrapper">
@@ -40,45 +49,52 @@
          
           <div class="card-body">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12">
                   <table class="table">
                     <tr>
                       <th style="width:200px;">Tên trường</th>
                       <th>Giá trị</th>
                     </tr>
                     <tr>
-                      <td>Id</td>
-                      <td>{{$product->id}}</td>
-                    </tr>
-                    <tr>
-                      <td>tên thương hiệu</td>
+                      <td>Tên sản phẩm</td>
                       <td>{{$product->name}}</td>
-                    </tr>  
+                    </tr>
+                    {{-- <tr>
+                      <td>Thương hiệu</td>
+                      <td>{{$product->id}}</td>
+                    </tr>   --}}
                     <tr>
-                      <td>Slug</td>
-                      <td>{{$product->slug}}</td>
+                      <td>Giá bán</td>
+                      <td>{{number_format($product->price_buy)}}</td>
                     </tr>
                     <tr>
                       <td>Từ khóa</td>
                       <td>{{$product->metakey}}</td>
                     </tr>
                     <tr>
+                      <td>Hình ảnh</td>
+                      <td>
+
+                        @for ($i=0; $i <= count($product_image)-1; $i++)
+                        @php
+                            $hinh=$product_image[$i]["image"];
+                        @endphp
+                        <div><img style="width:200px; float: left; margin:5px 5px;" src="{{asset('public/images/product/'.$hinh)}}" alt="{{$hinh}}" /></div>
+                        @endfor
+
+                      </td>
+                    </tr>
+                    <tr>
                       <td>Mô tả</td>
-                      <td>{{$product->metadesc}}</td>
+                      <td>{!!$product->metadesc!!}</td>
+                    </tr>
+                    <tr>
+                      <td>Chi tiết sản phẩm</td>
+                      <td>{!!$product->detail!!}</td>
                     </tr>
                   </table>
                 </div>
-                <div class="col-md-3">
-                  <table class="table">
-                    <tr>
-                      <th>Hình ảnh</th>
-                    </tr>
-                    <tr>
-                      <td><img class="img-fluid img-thumbnail" src="{{asset('public/images/product/'.$product->image)}}" alt="{{$product->image}}"></td>
-                    </tr>
-                  </table>
-                </div>
-            </div>           
+            </div>
         </div>
           <!-- /.card-body -->
           <div class="card-footer">

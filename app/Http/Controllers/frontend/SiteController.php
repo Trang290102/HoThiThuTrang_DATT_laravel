@@ -9,6 +9,8 @@ use App\Models\Link;
 use App\Models\Product;
 use App\Models\Post;
 use App\Models\Brand;
+use App\Models\Topic;
+
 
 class SiteController extends Controller
 {
@@ -143,15 +145,75 @@ class SiteController extends Controller
     }
     private function post_topic($slug)
     {
-        return view('frontend.post-topic');
+        $row_topic = Topic::where([['slug', '=', $slug], ['status', '=', '1']])->first();
+        $list_topic_id = array();
+        array_push($list_topic_id, $row_topic->id);
+        //xet cap con
+        $list_topic1 = Topic::where([['parent_id', '=', $row_topic->id], ['status', '=', '1']])
+            ->orderBy('updated_at', 'desc')
+            ->get();
+        if (count($list_topic1) > 0) {
+            foreach ($list_topic1 as $row_topic1) {
+                array_push($list_topic_id, $row_topic1->id);
+                $list_topic2 = Topic::where([['parent_id', '=', $row_topic1->id], ['status', '=', '1']])->get();
+                if (count($list_topic2) > 0) {
+                    foreach ($list_topic2 as $row_topic2) {
+                        array_push($list_topic_id, $row_topic2->id);
+                        $list_topic3 = Topic::where([['parent_id', '=', $row_topic2->id], ['status', '=', '1']])->get();
+                        if (count($list_topic3) > 0) {
+                            foreach ($list_topic3 as $row_topic3) {
+                                array_push($list_topic_id, $row_topic3->id);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        $post_list = Post::join('httt_topic', 'httt_topic.id', '=', 'httt_post.topic_id')
+            ->select('httt_post.*', 'httt_topic.name as topic_name', 'httt_topic.slug as topic_slug')
+            ->where([['httt_post.status', '=', 1], ['httt_post.type', '=', 'post']])
+            ->orderBy('httt_post.created_at', 'desc')
+            ->whereIn('topic_id', $list_topic_id)->paginate(5);
+
+        return view('frontend.post-topic', compact('post_list', 'row_topic'));
     }
     private function post_page($slug)
     {
-        return view('frontend.post-page');
+        $page = Post::where([['status', '=', 1], ['type', '=', 'page'], ['slug', '=', $slug]])->first();
+        return view('frontend.post-page', compact('page'));
     }
-    private function post_detail($slug)
+    private function post_detail($post)
     {
-        return view('frontend.post-detail');
+        $list_topic_id = array();
+        array_push($list_topic_id, $post->id);
+        //xet cap con
+        $list_topic1 = Topic::where([['parent_id', '=', $post->id], ['status', '=', '1']])
+            ->orderBy('updated_at', 'desc')
+            ->get();
+        if (count($list_topic1) > 0) {
+            foreach ($list_topic1 as $row_topic1) {
+                array_push($list_topic_id, $row_topic1->id);
+                $list_topic2 = Topic::where([['parent_id', '=', $row_topic1->id], ['status', '=', '1']])->get();
+                if (count($list_topic2) > 0) {
+                    foreach ($list_topic2 as $row_topic2) {
+                        array_push($list_topic_id, $row_topic2->id);
+                        $list_topic3 = Topic::where([['parent_id', '=', $row_topic2->id], ['status', '=', '1']])->get();
+                        if (count($list_topic3) > 0) {
+                            foreach ($list_topic3 as $row_topic3) {
+                                array_push($list_topic_id, $row_topic3->id);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // $post_list = Post::join('httt_topic', 'httt_topic.id', '=', 'httt_topic.brand_id')
+        //     ->select('httt_product.*', 'httt_topic.name as topic_name', 'httt_topic.slug as topic_slug')
+        //     ->where([['httt_product.status', '=', 1], ['httt_product.id', '!=', $post->id]])
+        //     ->whereIn('topic_id', $list_topic_id)
+        //     ->orderBy('httt_post.created_at', 'desc')
+        //     ->take(4)->get();
+        return view('frontend.post-detail', compact('post'));
     }
     private function error_404($slug)
     {

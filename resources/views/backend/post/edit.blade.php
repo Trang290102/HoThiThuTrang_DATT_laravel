@@ -84,7 +84,7 @@
                     <div class="mb-3">
                       <label for="topic_id">Chủ đề bài viết</label>
                       <select name="topic_id" id="topic_id" name="topic_id" class="form-control">
-                        <option value="0">--Chủ đề bài viết--</option>
+                        <option value="">--Chủ đề bài viết--</option>
                           {{!! $html_topic_id !!}}
                       </select>
                     </div> 

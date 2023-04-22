@@ -55,11 +55,11 @@
                     </tr>
                     <tr>
                       <td>Mô tả</td>
-                      <td>{{$post->metadesc}}</td>
+                      <td>{!!$post->metadesc!!}</td>
                     </tr>
                     <tr>
                       <td>Nội dung</td>
-                      <td>{{$post->detail}}</td>
+                      <td>{!!$post->detail!!}</td>
                     </tr>
                   </table>
                 </div>

@@ -150,7 +150,6 @@ class ProductController extends Controller
     public function show(string $id)
     {
         $user_name = Auth::user()->name;
-
         $product = Product::find($id);
         if ($product == null) {
             return redirect()->route('product.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
@@ -189,31 +188,61 @@ class ProductController extends Controller
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $user_id = Auth::user()->id;
         $product = Product::find($id); //lấy mẫu tin
+        $product->category_id = $request->category_id;
+        $product->brand_id = $request->brand_id;
         $product->name = $request->name;
         $product->slug = Str::slug($product->name = $request->name, '-');
+        $product->price_buy = $request->price_buy;
+        $product->detail = $request->detail;
         $product->metakey = $request->metakey;
         $product->metadesc = $request->metadesc;
-        $product->parent_id = $request->parent_id;
-        $product->sort_order = $request->sort_order;
-        $product->status = $request->status;
-        $product->updated_at = date('Y-m-d H:i:s');
+        $product->created_at = date('Y-m-d H:i:s');
         $product->created_by = $user_id;
-        //upload image
-        if ($request->has('image')) {
-            $path_dir = "public/images/product/";
-            if (File::exists(($path_dir . $product->image))) {
-                File::delete(($path_dir . $product->image));
+        $product->status = $request->status;
+        if ($product->save()) {
+            if ($request->has('image')) {
+                //xóa hình cũ trong thư mục 
+                $path_dir = "public/images/product/";
+                foreach ($product->productimg as $pro_img) {
+                    if (File::exists(($path_dir . $pro_img->image))) {
+                        File::delete(($path_dir . $pro_img->image));
+                    }
+                }
+                //xóa hình cũ trong db
+                ProductImage::where('product_id', '=', $id)->delete();
+
+                //lưu hình mới
+                $array_file =  $request->file('image');
+                $i = 1;
+                foreach ($array_file as $file) {
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = $product->slug . "-" . $i . '.' . $extension;
+                    $file->move($path_dir, $filename);
+                    //echo $filename;
+                    $product_image = new ProductImage();
+                    $product_image->product_id = $product->id;
+                    $product_image->image = $filename;
+                    $product_image->save();
+                    $i++;
+                }
             }
-            $file =  $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = $product->slug . '.' . $extension;
-            $file->move($path_dir, $filename);
-            //echo $filename;
-            $product->image = $filename;
+            //khuyến mãi
+            if ($product_sale = ProductSale::where('product_id', '=', $id)->first()) {
+                $product_sale->price_sale = $request->price_sale;
+                $product_sale->date_begin = $request->date_begin;
+                $product_sale->date_end = $request->date_end;
+                $product_sale->save();
+            }
+            //Nhập kho
+            if ($product_store = ProductStore::where('product_id', '=', $id)->first()) {
+                $product_store->price = $request->price;
+                $product_store->qty = $request->qty;
+                $product_store->created_at = date('Y-m-d H:i:s');
+                $product_store->created_by = $user_id;
+                $product_store->save();
+            }
         }
-        //end upload
-        $product->save();
-        return redirect()->route('product.index')->with('message', ['type' => 'dangers', 'msg' => 'Cập nhật sản phẩm không thành công!']);
+        return redirect()->route('product.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật thông tin sản phẩm sản phẩm thành công!']);
     }
 
     #GET:admin/product/destroy/{id}
@@ -222,14 +251,31 @@ class ProductController extends Controller
         $product = Product::find($id);
         //thong tin hinh xoa
         $path_dir = "public/images/product/";
-        $path_image_delete = $path_dir . $product->image;
         if ($product == null) {
             return redirect()->route('product.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
         if ($product->delete()) {
-            //xoa hinh
-            if (File::exists($path_image_delete)) {
-                File::delete($path_image_delete);
+            //xóa hình trong thư mục 
+            foreach ($product->productimg as $pro_img) {
+                if (File::exists(($path_dir . $pro_img->image))) {
+                    File::delete(($path_dir . $pro_img->image));
+                }
+            }
+            //xóa hình trong db
+            ProductImage::where('product_id', '=', $id)->delete();
+            // foreach ($product->productimg as $pro_img) {
+            //     if ($product_image = ProductImage::where('product_id', '=', $id)->first()) {
+            //         $product_image->delete();
+            //     }
+            // }
+
+            //xoa khuyến mãi
+            if ($sale = ProductSale::where('product_id', '=', $id)->first()) {
+                $sale->delete();
+            }
+            //xoa nhập kho
+            if ($store = ProductStore::where('product_id', '=', $id)->first()) {
+                $store->delete();
             }
             return redirect()->route('product.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa sản phẩm thành công!']);
         }

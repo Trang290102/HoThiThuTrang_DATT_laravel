@@ -79,11 +79,6 @@ class PostController extends Controller
         }
         //end upload
         if ($post->save()) {
-            $link = new Link();
-            $link->slug = $post->slug;
-            $link->table_id = $post->id;
-            $link->type = 'post';
-            $link->save();
             return redirect()->route('post.index')->with('message', ['type' => 'success', 'msg' => 'Thêm bài viết thành công!']);
         }
         return redirect()->route('post.index')->with('message', ['type' => 'dangers', 'msg' => 'Thêm bài viết không thành công!']);
@@ -146,10 +141,6 @@ class PostController extends Controller
         $post->updated_at = date('Y-m-d H:i:s');
         $post->updated_by = $user_id;
         if ($post->save()) {
-            if ($link = Link::where([['type', '=', 'post'], ['table_id', '=', $id]])->first()) {
-                $link->slug = $post->slug;
-                $link->save();
-            }
             return redirect()->route('post.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật bài viết thành công!']);
         }
         return redirect()->route('post.index')->with('message', ['type' => 'dangers', 'msg' => 'Cập nhật bài viết không thành công!']);
@@ -170,10 +161,6 @@ class PostController extends Controller
             //xoa hinh
             if (File::exists($path_image_delete)) {
                 File::delete($path_image_delete);
-            }
-            //xoa link
-            if ($link = Link::where([['type', '=', 'post'], ['table_id', '=', $id]])->first()) {
-                $link->delete();
             }
             return redirect()->route('post.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa bài viết thành công!']);
         }

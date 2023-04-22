@@ -43,7 +43,7 @@
                     <span class="product-price">{{number_format($product->price_buy)}}<sup>đ</sup></span> 
                     <del>{{number_format($product->price_buy)}}<sup>đ</sup></del>
                 </strong>
-                <p class = "product-description">{{$product->metadesc}}</p>
+                <p class = "product-description">{!!$product->metadesc!!}</p>
                 {{-- <span>
                     <label>Quantity:</label>
                     <input type="text" value="3" />
@@ -61,6 +61,12 @@
                     <button type = "button" class = "buy-now-btn"><i class="fas fa-wallet"></i> Mua ngay</button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class = "product-div-right">
+        <div class="product-information">
+            <h3>Thông tin chi tiết</h3>
+            <p class = "product-description">{!!$product->detail!!}</p>           
         </div>
     </div>
 

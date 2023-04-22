@@ -19,11 +19,11 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>Admin</b></a>
+      <a href="#" class="h1"><b>Admin</b></a>
     </div>
     <div class="card-body">
       <!--------------------------------------------------->
-      <form action="{{route('postlogin')}}" method="post" accept-charset="utf-8">
+      <form action="{{route('admin.postlogin')}}" method="post" accept-charset="utf-8">
         @csrf
   
       <p class="login-box-msg">Đăng nhập để bắt đầu quản lý</p>

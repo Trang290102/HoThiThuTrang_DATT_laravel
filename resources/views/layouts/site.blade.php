@@ -64,11 +64,11 @@
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
+                                {{-- <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li> --}}
+                                {{-- <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li> --}}
                                 <li><a href="#"><i class="fa fa-user"></i> Tài khoản</a></li>
-                                <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li>
-                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+                                <li><a href="{{URL::to('login')}}"><i class="fa fa-lock"></i> Đăng Nhập</a></li>
                                 <li><a href="{{URL::to('cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-                                <li><a href="login.html"><i class="fa fa-lock"></i> Đăng Nhập</a></li>
                             </ul>
                         </div>
                     </div>
@@ -186,7 +186,7 @@
         @yield('content')
     </section>
     <footer id="footer"><!--Footer-->
-        <div class="footer-top">
+        {{-- <div class="footer-top">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-2">
@@ -266,7 +266,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="footer-widget">
             <div class="container">
@@ -335,8 +335,8 @@
         <div class="footer-bottom">
             <div class="container">
                 <div class="row">
-                    <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
-                    <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
+                    <p class="pull-left">Copyright © 2023 TrangShop. All rights reserved.</p>
+                    <p class="pull-right">Designed by <span><a target="_blank" href="#">Hồ Thị Thu Trang</a></span></p>
                 </div>
             </div>
         </div>

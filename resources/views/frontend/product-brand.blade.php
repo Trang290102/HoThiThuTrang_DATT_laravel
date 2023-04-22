@@ -25,7 +25,7 @@
                     @php
                         $i=count($count_list);
                     @endphp
-                    <span>Có tất cả {{$i}} kết quả được tìm thấy.</span>
+                    <span>Có {{$i}} kết quả được tìm thấy.</span>
                 </div>
                 <div class="row">
                     @if (count($product_list)>0)

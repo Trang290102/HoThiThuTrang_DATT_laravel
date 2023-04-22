@@ -18,6 +18,11 @@ class Product extends Model
 
     public function productsale()
     {
-        return $this->hasMany(ProductSale::class, 'product_id', 'id');
+        return $this->hasOne(ProductSale::class, 'product_id', 'id');
+    }
+
+    public function productstore()
+    {
+        return $this->hasOne(ProductStore::class, 'product_id', 'id');
     }
 }

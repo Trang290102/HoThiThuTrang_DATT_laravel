@@ -103,7 +103,11 @@ class TopicController extends Controller
         $html_sort_order = '';
 
         foreach ($list_topic as $item) {
-            $html_parent_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
+            if ($topic->parent_id == $item->id) {
+                $html_parent_id .= '<option selected value="' . $item->id . '">' . $item->name . '</option>';
+            } else {
+                $html_parent_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
+            }
             $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
         }
         return view('backend.topic.edit', compact('topic', 'html_parent_id', 'html_sort_order','user_name'));

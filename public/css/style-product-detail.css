@@ -45,6 +45,21 @@ img{
     width: 400px;
     margin: 0 auto;
 }
+/*----thêm----*/
+.img-container-admin img{
+    width: 200px;
+    margin: 0 auto;
+}
+
+.hover-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+
 .hover-container{
     display: flex;
     flex-wrap: wrap;

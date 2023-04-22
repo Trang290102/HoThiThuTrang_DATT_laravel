@@ -47,7 +47,6 @@ class CategoryController extends Controller
         return view('backend.category.create', compact('html_parent_id', 'html_sort_order', 'user_name'));
     }
 
-
     public function store(CategoryStoreRequest $request)
     {
         $user_id = Auth::user()->id;
