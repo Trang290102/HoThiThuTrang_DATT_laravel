@@ -1285,15 +1285,15 @@ h2.category {
 }
 
 .productname h2{
-  width: 200px;
   height: auto;
   font-size: 18px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-top:10px ;
-  text-align: center;
 }
+
+
 
 .product-information p {
   color: #696763;
@@ -1491,14 +1491,14 @@ h2.category {
   overflow: hidden;
 }
 
-.login-form {
+/* .login-form {
 
 }
 
 .signup-form {
 
 }
-
+ */
 .login-form h2, .signup-form h2 {
   color: #696763;
   font-family: 'Roboto', sans-serif;
@@ -1657,13 +1657,13 @@ h2.category {
 
 
 #cart_items .cart_info .cart_description h4 {
-  margin-bottom: 0
+  margin-bottom: 0;
 }
 
 #cart_items .cart_info .cart_description h4 a {
   color: #363432;
   font-family: 'Roboto',sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: normal;
 
 }
@@ -1681,7 +1681,7 @@ h2.category {
 
 #cart_items .cart_info .cart_total_price {
   color: #FE980F;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .cart_product {

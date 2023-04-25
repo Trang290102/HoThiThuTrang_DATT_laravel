@@ -37,6 +37,7 @@
             @endif
         </div>
         <div class = "product-div-right">
+            <form action="{{route('cart.add',['id'=>$product->id])}}" method="get" accept-charset="utf-8">
             <div class="product-information">
                 <span class = "product-name">{{$product->name}}</span>
                 <strong>
@@ -50,17 +51,15 @@
                 </span> --}}
                 <div class="row">
                     <div class="quantity_button">
-                        <a class="quantity_down" href=""> - </a>
-                        <input class="quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                        <a class="quantity_up" href=""> + </a>
+                        <input class="cart_quantity_input" style="width:60px;height:33px;border-radius:4px;border: 1px solid;margin-left:15px;" type="number" name="quantity" value="1" autocomplete="off" size="1">
                     </div>
-    
                 </div>                
                 <div class = "btn-groups">
-                    <button type = "button" class = "add-cart-btn"><i class = "fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
+                    <button type = "submit" class = "add-cart-btn"><i class = "fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
                     <button type = "button" class = "buy-now-btn"><i class="fas fa-wallet"></i> Mua ngay</button>
                 </div>
             </div>
+        </form>
         </div>
     </div>
     <div class = "product-div-right">

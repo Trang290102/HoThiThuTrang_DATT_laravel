@@ -96,44 +96,31 @@
               <p>Danh sách đơn hàng</p>
             </a>
           </li>
-          
-          
         </ul>
       </li>
-
-      <a href="{{ route('product.index')}}" class="nav-link">
-        <i class="nav-icon far fa-circle text-danger"></i>
-        <p class="text">Sản phẩm</p>
-      </a>
-      <a href="{{ route('brand.index')}}" class="nav-link">
-        <i class="nav-icon far fa-circle text-danger"></i>
-        <p class="text">thương hiệu</p>
-      </a>
-      <a href="{{ route('category.index')}}" class="nav-link">
-        <i class="nav-icon far fa-circle text-danger"></i>
-        <p class="text">danh mục</p>
-      </a>
-      <a href="{{ route('topic.index')}}" class="nav-link">
-        <i class="nav-icon far fa-circle text-danger"></i>
-        <p class="text">Chủ đề</p>
-      </a>
-      <a href="{{ route('page.index')}}" class="nav-link">
-        <i class="nav-icon far fa-circle text-danger"></i>
-        <p class="text">Trang đơn</p>
-      </a>
-      <a href="{{ route('post.index')}}" class="nav-link">
-        <i class="nav-icon far fa-circle text-danger"></i>
-        <p class="text">Bài viết</p>
-      </a>
-      <a href="{{ route('user.index')}}" class="nav-link">
-        <i class="nav-icon far fa-circle text-danger"></i>
-        <p class="text">Người dùng</p>
-      </a>
-      <a href="{{ route('order.index')}}" class="nav-link">
-        <i class="nav-icon far fa-circle text-danger"></i>
-        <p class="text">Danh sách đơn hàng</p>
-      </a>
-      
+      <li class="nav-item">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <p>
+            Quản lý người dùng
+            <i class="right fas fa-angle-left"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{ route('user.index')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Quản trị viên</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('customer.index')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Khách hàng</p>
+            </a>
+          </li>
+        </ul>
+      </li>      
 
       <li class="nav-header">LABELS</li>
       <li class="nav-item">

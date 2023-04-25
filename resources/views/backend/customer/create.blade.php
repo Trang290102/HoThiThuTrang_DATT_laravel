@@ -2,7 +2,7 @@
 @section('title', 'Thêm người dùng')
 @section('content')
 
-<form action="{{ route('user.store')}}" method="post" enctype="multipart/form-data">
+<form action="{{ route('customer.store')}}" method="post" enctype="multipart/form-data">
 @csrf
 <div class="content-wrapper">
     <section class="content-header">
@@ -32,7 +32,7 @@
             </div>
             <div class="col-md-6 text-right">
                 <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> Lưu[Thêm]</button>
-                <a href="{{ route('user.index') }}" class="btn btn-sm btn-info"><i class="fas fa-reply"></i> Quay về dánh sách</a>
+                <a href="{{ route('customer.index') }}" class="btn btn-sm btn-info"><i class="fas fa-reply"></i> Quay về dánh sách</a>
             </div>
            </div>
           </div>
@@ -96,7 +96,7 @@
                 </div>
 
                 <div class="mb-3">
-                 <label for="password_re">Xác thực mật khẩu</label> 
+                 <label for="password_re">Xác nhận mật khẩu</label> 
                  <input type="password" name="password_re" value="{{old('password_re')}}" id="password_re" class="form-control"
                   placeholder="Xác nhận mật khẩu">
                   @if($errors->has('password_re'))
@@ -132,18 +132,6 @@
                   </div>
                   @endif
                 </div>
-                <div class="mb-3">
-                  <label for="roles">Phận sự</label> 
-                  <select class="form-control" name="roles" id="roles">
-                     <option value="1">Admin</option>
-                     <option value="2">Customer</option>
-                  </select>
-                  @if($errors->has('roles'))
-                   <div class="text-danger">
-                     {{$errors->first('roles')}}
-                   </div>
-                   @endif
-                 </div>
 
                 <div class="mb-3">
                  <label for="image">Hình đại diện</label> 

@@ -10,21 +10,21 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function getlogin()
+    public function getdangnhap()
     {
         return view('frontend.auth.login');
     }
 
-    public function postlogin(LoginRequest $request)
+    public function postdangnhap(LoginRequest $request)
     {
-        $this->validate($request,[
-            'name'=>'required',
-            'password'=>'required|min:3|max:32'
-        ],[
-            'name.required'=>'Bạn chưa nhập tên đăng nhập',
-            'password.required'=>'Bạn chưa nhập mật khẩu!',
-            'password.min'=>'Mật khẩu không được nhỏ hon !',
-            'password.max'=>'Bạn chưa nhập mật khẩu!',
+        $this->validate($request, [
+            'name' => 'required',
+            'password' => 'required|min:3|max:32'
+        ], [
+            'name.required' => 'Bạn chưa nhập tên đăng nhập',
+            'password.required' => 'Bạn chưa nhập mật khẩu!',
+            'password.min' => 'Mật khẩu không được nhỏ hon !',
+            'password.max' => 'Bạn chưa nhập mật khẩu!',
 
         ]);
         $username = $request->username;
@@ -48,5 +48,9 @@ class LoginController extends Controller
     {
         Auth::logout();
         return view('backend.auth.login');
+    }
+    public function register()
+    {
+        return view('frontend.auth.register');
     }
 }

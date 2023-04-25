@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $user_name = Auth::user()->name;
-        $list_user = User::where([['status', '!=', 0]])->get();
+        $list_user = User::where([['status', '!=', 0], ['roles', '=', 1]])->get();
         return view('backend.user.index', compact('list_user', 'user_name'));
     }
     #GET:admin/user/trash
@@ -81,8 +81,9 @@ class UserController extends Controller
 
     public function edit(string $id)
     {
+        $user_name = Auth::user()->name;
         $user = User::find($id);
-        return view('backend.user.edit', compact('user'));
+        return view('backend.user.edit', compact('user', 'user_name'));
     }
 
     public function update(UserUpdateRequest $request, string $id)

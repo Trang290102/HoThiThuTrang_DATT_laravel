@@ -14,6 +14,7 @@ use App\Http\Controllers\backend\MenuController;
 use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\AuthController;
 use App\Http\Controllers\backend\UserController;
+use App\Http\Controllers\backend\CustomerController;
 
 use App\Http\Controllers\frontend\SiteController;
 use App\Http\Controllers\frontend\SearchController;
@@ -24,13 +25,12 @@ use App\Http\Middleware\LoginAdminMiddelware;
 use Illuminate\Auth\Middleware\Authenticate;
 
 Route::get('/', [SiteController::class, 'index'])->name('frontend.home');
-Route::get('cart', [CartController::class, 'index'])->name('frontend.cart');
-
-Route::get('gio-hang/add/{id}', [CartController::class, 'addcart'])->name('cart.addcart');
 
 //Xử lý login user
-Route::get('login', [LoginController::class, 'getlogin'])->name('getlogin'); //link cố định( ví dụ)
-Route::post('login', [LoginController::class, 'postlogin'])->name('postlogin'); //link cố định( ví dụ)
+Route::get('dang-nhap', [LoginController::class, 'getdangnhap'])->name('getdangnhap'); //link cố định( ví dụ)
+Route::post('dang-nhap', [LoginController::class, 'postdangnhap'])->name('postdangnhap'); //link cố định( ví dụ)
+//Xử lý register
+Route::get('register', [LoginController::class, 'register'])->name('register'); //link cố định( ví dụ)
 
 
 // Route::get('lien-he', [LienheController::class, 'index'])->name('frontend.lien-he'); //link cố định( ví dụ)
@@ -143,7 +143,24 @@ Route::prefix('admin')->middleware('LoginAdmin')->group(function () {
         route::get('restore/{user}', [UserController::class, 'restore'])->name('user.restore');
         route::get('destroy/{user}', [UserController::class, 'destroy'])->name('user.destroy');
     });
+    //customer
+    Route::resource('customer', CustomerController::class);
+    route::get('customer_trash', [CustomerController::class, 'trash'])->name('customer.trash');
+    route::prefix('customer')->group(function () {
+        route::get('status/{customer}', [CustomerController::class, 'status'])->name('customer.status');
+        route::get('delete/{customer}', [CustomerController::class, 'delete'])->name('customer.delete');
+        route::get('restore/{customer}', [CustomerController::class, 'restore'])->name('customer.restore');
+        route::get('destroy/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+    });
 });
 
+route::prefix('cart')->group(function () {
+    Route::get('/', [CartController::class, 'index'])->name('frontend.cart');
+    route::get('add/{id}', [CartController::class, 'add'])->name('cart.add');
+    route::get('remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    route::get('update/{id}', [CartController::class, 'update'])->name('cart.update');
+    route::get('clear', [CartController::class, 'clear'])->name('cart.clear');
+});
 Route::get('{slug}', [SiteController::class, 'index'])->name('slug.home');
 Route::post('search', [SearchController::class, 'index'])->name('search.home');
+
