@@ -17,7 +17,7 @@
 
 
     <div class="container">
-        <div class="category-tab"><!--category-tab-->
+        {{-- <div class="category-tab"><!--category-tab-->
             <div class="col-sm-12">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tshirt" data-toggle="tab">Túi xách</a></li>
@@ -41,8 +41,11 @@
                     </div>
                 </div>
             </div>
-        </div><!--/category-tab-->
-            <div class="recommended_items"><!--recommended_items-->
+        </div><!--/category-tab--> --}}
+
+
+        
+            {{-- <div class="recommended_items"><!--recommended_items-->
             <h2 class="title text-center">Sản phẩm đề xuất</h2>
 
             <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
@@ -137,7 +140,7 @@
                     <i class="fa fa-angle-right"></i>
                 </a>
             </div>
-        </div><!--/recommended_items-->
+        </div><!--/recommended_items--> --}}
     </div>
 
 @endsection

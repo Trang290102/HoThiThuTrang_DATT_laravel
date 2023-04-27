@@ -120,7 +120,7 @@ class CustomerController extends Controller
         if ($customer->save()) {
             return redirect()->route('customer.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật thương hiệu thành công!']);
         }
-        return redirect()->route('customer.index')->with('message', ['type' => 'dangers', 'msg' => 'Cập nhật thương hiệu không thành công!']);
+        return redirect()->route('customer.index')->with('message', ['type' => 'danger', 'msg' => 'Cập nhật thương hiệu không thành công!']);
     }
 
     #GET:admin/user/destroy/{id}
@@ -140,7 +140,7 @@ class CustomerController extends Controller
             }
             return redirect()->route('customer.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa thương hiệu thành công!']);
         }
-        return redirect()->route('customer.trash')->with('message', ['type' => 'dangers', 'msg' => 'Xóa thương hiệu không thành công!']);
+        return redirect()->route('customer.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa thương hiệu không thành công!']);
     }
     #GET:admin/user/status/{id}
     public function status($id)

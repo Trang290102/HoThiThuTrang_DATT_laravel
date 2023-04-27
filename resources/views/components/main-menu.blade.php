@@ -29,7 +29,7 @@
                         <div class="search_box pull-right">
                             <input type="text" name="keywordsearch" placeholder="Tìm kiếm sản phẩm" />
                             {{-- <input type="submit" name="search" style="margin-top:0;"class="btn btn-primary btn-sm" value="Tìm kiếm"> --}}
-                            <button type="submit" name="search" style="margin-top:0;    padding: 7.5px 12px;" class="btn btn-primary ">
+                            <button type="submit" name="search" style="margin-top:0;    padding: 8.5px 12px;" class="btn btn-primary ">
                                 <img  style="width:18px;    height: 18px;" src="{{('public/images/Daco_5441418.png')}}" alt="searchicon.png">
                                 </button>
                         </div>

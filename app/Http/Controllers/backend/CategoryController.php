@@ -51,7 +51,7 @@ class CategoryController extends Controller
     {
         $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $category = new Category; //tạo mới mẫu tin
+        $category = new Category; //tạo mới Danh mục
         $category->name = $request->name;
         $category->slug = Str::slug($category->name = $request->name, '-');
         $category->metakey = $request->metakey;
@@ -80,7 +80,7 @@ class CategoryController extends Controller
             $link->save();
             return redirect()->route('category.index')->with('message', ['type' => 'success', 'msg' => 'Thêm danh mục thành công!']);
         }
-        return redirect()->route('category.index')->with('message', ['type' => 'dangers', 'msg' => 'Thêm danh mục không thành công!']);
+        return redirect()->route('category.index')->with('message', ['type' => 'danger', 'msg' => 'Thêm danh mục không thành công!']);
     }
 
     public function show(string $id)
@@ -89,7 +89,7 @@ class CategoryController extends Controller
 
         $category = Category::find($id);
         if ($category == null) {
-            return redirect()->route('category.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
+            return redirect()->route('category.index')->with('message', ['type' => 'danger', 'msg' => 'Danh mục không tồn tại!']);
         }
         return view('backend.category.show', compact('category', 'user_name'));
     }
@@ -121,7 +121,7 @@ class CategoryController extends Controller
     {
         $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $category = Category::find($id); //lấy mẫu tin
+        $category = Category::find($id); //lấy Danh mục
         $category->slug = Str::slug($category->name = $request->name, '-');
 
         //upload image
@@ -153,7 +153,7 @@ class CategoryController extends Controller
             }
             return redirect()->route('category.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật danh mục thành công!']);
         }
-        return redirect()->route('category.index')->with('message', ['type' => 'dangers', 'msg' => 'Cập nhật danh mục không thành công!']);
+        return redirect()->route('category.index')->with('message', ['type' => 'danger', 'msg' => 'Cập nhật danh mục không thành công!']);
     }
 
     #GET:admin/category/destroy/{id}
@@ -164,7 +164,7 @@ class CategoryController extends Controller
         $path_dir = "public/images/category/";
         $path_image_delete = $path_dir . $category->image;
         if ($category == null) {
-            return redirect()->route('category.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
+            return redirect()->route('category.trash')->with('message', ['type' => 'danger', 'msg' => 'Danh mục không tồn tại!']);
         }
         if ($category->delete()) {
             //xoa hinh
@@ -177,7 +177,7 @@ class CategoryController extends Controller
             }
             return redirect()->route('category.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa danh mục thành công!']);
         }
-        return redirect()->route('category.trash')->with('message', ['type' => 'dangers', 'msg' => 'Xóa danh mục không thành công!']);
+        return redirect()->route('category.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa danh mục không thành công!']);
     }
     #GET:admin/category/status/{id}
     public function status($id)
@@ -186,7 +186,7 @@ class CategoryController extends Controller
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $category = Category::find($id);
         if ($category == null) {
-            return redirect()->route('category.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
+            return redirect()->route('category.index')->with('message', ['type' => 'danger', 'msg' => 'Danh mục không tồn tại!']);
         }
         $category->status = ($category->status == 1) ? 2 : 1;
         $category->updated_at = date('Y-m-d H:i:s');
@@ -216,7 +216,7 @@ class CategoryController extends Controller
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $category = Category::find($id);
         if ($category == null) {
-            return redirect()->route('category.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
+            return redirect()->route('category.trash')->with('message', ['type' => 'danger', 'msg' => 'Danh mục không tồn tại!']);
         }
         $category->status = 2;
         $category->updated_at = date('Y-m-d H:i:s');

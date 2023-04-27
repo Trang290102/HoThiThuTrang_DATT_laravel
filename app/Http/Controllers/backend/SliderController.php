@@ -73,7 +73,7 @@ class SliderController extends Controller
         if ($slider->save()) {
             return redirect()->route('slider.index')->with('message', ['type' => 'success', 'msg' => 'Thêm slider thành công!']);
         }
-        return redirect()->route('slider.index')->with('message', ['type' => 'dangers', 'msg' => 'Thêm slider không thành công!']);
+        return redirect()->route('slider.index')->with('message', ['type' => 'danger', 'msg' => 'Thêm slider không thành công!']);
     }
 
     public function show(string $id)
@@ -133,7 +133,7 @@ class SliderController extends Controller
         if ($slider->save()) {
             return redirect()->route('slider.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật slider thành công!']);
         }
-        return redirect()->route('slider.index')->with('message', ['type' => 'dangers', 'msg' => 'Cập nhật slider không thành công!']);
+        return redirect()->route('slider.index')->with('message', ['type' => 'danger', 'msg' => 'Cập nhật slider không thành công!']);
     }
 
     #GET:admin/slider/destroy/{id}
@@ -153,7 +153,7 @@ class SliderController extends Controller
             }
             return redirect()->route('slider.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa slider thành công!']);
         }
-        return redirect()->route('slider.trash')->with('message', ['type' => 'dangers', 'msg' => 'Xóa slider không thành công!']);
+        return redirect()->route('slider.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa slider không thành công!']);
     }
     #GET:admin/slider/status/{id}
     public function status($id)

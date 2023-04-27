@@ -84,7 +84,7 @@ class OrderController extends Controller
         if ($order->delete()) {
             return redirect()->route('order.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa thương hiệu thành công!']);
         }
-        return redirect()->route('order.trash')->with('message', ['type' => 'dangers', 'msg' => 'Xóa thương hiệu không thành công!']);
+        return redirect()->route('order.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa thương hiệu không thành công!']);
     }
     #GET:admin/order/status/{id}
     public function status($id)

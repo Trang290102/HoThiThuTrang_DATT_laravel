@@ -54,7 +54,22 @@
                           <div class="text-danger">{{$errors->first('title')}}</div>
                         @endif 
                     </div>
-
+                    <div class="mb-3">
+                      <label for="metakey">Từ khóa</label>
+                      <textarea name="metakey" id="metakey" class="form-control"
+                      placeholder="Từ khóa tìm kiếm">{{ old('metakey') }}</textarea>
+                      @if ($errors->has('metakey'))
+                      <div class="text-danger">{{$errors->first('metakey')}}</div>
+                      @endif 
+                  </div>
+                  <div class="mb-3">
+                      <label for="metadesc">Mô tả</label>
+                      <textarea name="metadesc" id="metadesc" class="form-control"
+                      placeholder="Nhập mô tả">{{ old('metadesc') }}</textarea>
+                      @if ($errors->has('metadesc'))
+                      <div class="text-danger">{{$errors->first('metadesc')}}</div>
+                      @endif 
+                  </div>
                     <div class="mb-3">
                       <label for="detail">Nội dung</label>
                       <textarea name="detail" rows="5" id="detail" class="form-control" 
@@ -64,22 +79,6 @@
                       @endif 
                     </div>
 
-                    <div class="mb-3">
-                        <label for="metakey">Từ khóa</label>
-                        <textarea name="metakey" id="metakey" class="form-control"
-                        placeholder="Từ khóa tìm kiếm">{{ old('metakey') }}</textarea>
-                        @if ($errors->has('metakey'))
-                        <div class="text-danger">{{$errors->first('metakey')}}</div>
-                        @endif 
-                    </div>
-                    <div class="mb-3">
-                        <label for="metadesc">Mô tả</label>
-                        <textarea name="metadesc" id="metadesc" class="form-control"
-                        placeholder="Nhập mô tả">{{ old('metadesc') }}</textarea>
-                        @if ($errors->has('metadesc'))
-                        <div class="text-danger">{{$errors->first('metadesc')}}</div>
-                        @endif 
-                    </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">

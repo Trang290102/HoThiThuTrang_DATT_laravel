@@ -94,7 +94,7 @@ class ProductController extends Controller
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $user_id = Auth::user()->id;
-        $product = new Product; //tạo mới mẫu tin
+        $product = new Product; //tạo mới Sản phẩm
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
         $product->name = $request->name;
@@ -144,7 +144,7 @@ class ProductController extends Controller
                 $product_store->save();
             }
         }
-        return redirect()->route('product.index')->with('message', ['type' => 'dangers', 'msg' => 'Thêm sản phẩm không thành công!']);
+        return redirect()->route('product.index')->with('message', ['type' => 'success', 'msg' => 'Thêm sản phẩm thành công!']);
     }
 
     public function show(string $id)
@@ -152,7 +152,7 @@ class ProductController extends Controller
         $user_name = Auth::user()->name;
         $product = Product::find($id);
         if ($product == null) {
-            return redirect()->route('product.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
+            return redirect()->route('product.index')->with('message', ['type' => 'danger', 'msg' => 'Sản phẩm không tồn tại!']);
         }
         return view('backend.product.show', compact('product', 'user_name'));
     }
@@ -187,7 +187,7 @@ class ProductController extends Controller
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $user_id = Auth::user()->id;
-        $product = Product::find($id); //lấy mẫu tin
+        $product = Product::find($id); //lấy Sản phẩm
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
         $product->name = $request->name;
@@ -242,7 +242,7 @@ class ProductController extends Controller
                 $product_store->save();
             }
         }
-        return redirect()->route('product.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật thông tin sản phẩm sản phẩm thành công!']);
+        return redirect()->route('product.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật thông tin sản phẩm thành công!']);
     }
 
     #GET:admin/product/destroy/{id}
@@ -252,7 +252,7 @@ class ProductController extends Controller
         //thong tin hinh xoa
         $path_dir = "public/images/product/";
         if ($product == null) {
-            return redirect()->route('product.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
+            return redirect()->route('product.trash')->with('message', ['type' => 'danger', 'msg' => 'Sản phẩm không tồn tại!']);
         }
         if ($product->delete()) {
             //xóa hình trong thư mục 
@@ -279,7 +279,7 @@ class ProductController extends Controller
             }
             return redirect()->route('product.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa sản phẩm thành công!']);
         }
-        return redirect()->route('product.trash')->with('message', ['type' => 'dangers', 'msg' => 'Xóa sản phẩm không thành công!']);
+        return redirect()->route('product.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa sản phẩm không thành công!']);
     }
     #GET:admin/product/status/{id}
     public function status($id)
@@ -288,7 +288,7 @@ class ProductController extends Controller
         $user_id = Auth::user()->id;
         $product = Product::find($id);
         if ($product == null) {
-            return redirect()->route('product.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
+            return redirect()->route('product.index')->with('message', ['type' => 'danger', 'msg' => 'Sản phẩm không tồn tại!']);
         }
         $product->status = ($product->status == 1) ? 2 : 1;
         $product->updated_at = date('Y-m-d H:i:s');
@@ -318,7 +318,7 @@ class ProductController extends Controller
         $user_id = Auth::user()->id;
         $product = Product::find($id);
         if ($product == null) {
-            return redirect()->route('product.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
+            return redirect()->route('product.trash')->with('message', ['type' => 'danger', 'msg' => 'Sản phẩm không tồn tại!']);
         }
         $product->status = 2;
         $product->updated_at = date('Y-m-d H:i:s');

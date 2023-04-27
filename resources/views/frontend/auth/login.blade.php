@@ -7,6 +7,7 @@
         <div class="col-sm-4">
             <div class="login-form"><!--login form-->
                 <h2 class="text-center">ĐĂNG NHẬP</h2>
+                @includeIf('backend.message_alert')
                 <form action="#">
                     <input type="text" placeholder="Tên đăng nhập" />
                     <input type="password" placeholder="Mật khẩu" />

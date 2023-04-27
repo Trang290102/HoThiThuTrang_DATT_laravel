@@ -65,7 +65,6 @@
                     {{ $post_list->links() }}
                 </div>
             </div><!--product_category_items-->
-            
         </div>
     </div>
 </div>

@@ -13,7 +13,7 @@ use App\Models\Topic;
 use App\Models\Post;
 use App\Models\Link;
 use Illuminate\Support\Facades\Auth;
-// use App\Http\Requests\MenuStoreRequest;
+use App\Http\Requests\MenuStoreRequest;
 // use App\Http\Requests\MenuUpdateRequest;
 
 
@@ -167,7 +167,7 @@ class MenuController extends Controller
         $user_name = Auth::user()->name;
 
         $menu = Menu::find($id);
-        $list_menu = Menu::where('status', '!=', 0)->get();
+        $list_menu = Menu::where([['status', '!=', 0], ['parent_id', '=', 0]])->get();
         $html_parent_id = '';
         $html_sort_order = '';
         foreach ($list_menu as $item) {
@@ -182,7 +182,7 @@ class MenuController extends Controller
                 $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
             }
         }
-        return view('backend.menu.edit', compact('menu', 'html_parent_id', 'html_sort_order','user_name'));
+        return view('backend.menu.edit', compact('menu', 'html_parent_id', 'html_sort_order', 'user_name'));
     }
 
     public function update(Request $request, string $id)
@@ -209,7 +209,7 @@ class MenuController extends Controller
         if ($menu->delete()) {
             return redirect()->route('menu.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa menu thành công!']);
         }
-        return redirect()->route('menu.trash')->with('message', ['type' => 'dangers', 'msg' => 'Xóa menu không thành công!']);
+        return redirect()->route('menu.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa menu không thành công!']);
     }
     #GET:admin/menu/status/{id}
     public function status($id)

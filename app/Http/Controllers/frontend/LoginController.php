@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\RegisterRequest;
+use App\Models\User;
+use Illuminate\Support\Str;
 
 
 class LoginController extends Controller
@@ -53,4 +56,54 @@ class LoginController extends Controller
     {
         return view('frontend.auth.register');
     }
+
+    public function postregister(RegisterRequest $request)
+    {
+        date_default_timezone_set("Asia/Ho_Chi_Minh");
+        $user = new User; // tạo mới
+        $user->name = $request->name; //tên có thể đăng nhâp
+        $user->username = $request->username;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->password = bcrypt($request->password);
+        $user->roles = 2;
+        $user->email = $request->email;
+        $user->gender = $request->gender;
+        $user->status = 1;
+        $user->created_at = date('Y-m-d H:i:s');
+        $user->save();
+        return redirect()->route('getdangnhap')->with('message', ['type' => 'success', 'msg' => 'Đăng ký tài khoản thành công!!!']);
+    }
 }
+
+
+
+// public function postregister(RegisterRequest $request)
+// {
+//     date_default_timezone_set("Asia/Ho_Chi_Minh");
+//     $user = new User; // tạo mới
+//     $user->name = $request->name; //tên có thể đăng nhâp
+//     $user->username = $request->username;
+//     $user->phone = $request->phone;
+//     $user->address = $request->address;
+//     $user->password = bcrypt($request->password);
+//     $user->roles = 2;
+//     $user->email = $request->email;
+//     $user->gender = $request->gender;
+//     $user->status = 1;
+//     $user->created_at = date('Y-m-d H:i:s');
+//     // upload file
+//     $slug = Str::slug($user->name = $request->name, '-');
+//     if ($request->has('image')) {
+//         $path_dir = "public/images/user/";
+//         $file = $request->file('image');
+//         $extension = $file->getClientOriginalExtension();
+//         $filename = $slug . '.' . $extension;
+//         $file->move($path_dir, $filename);
+//         $user->image = $filename;
+//         $user->save();
+//         return redirect()->route('getdangnhap')->with('message', ['type' => 'success', 'msg' => 'Đăng ký tài khoản thành công!!!']);
+//     } else {
+//         return redirect()->route('getdangnhap')->with('message', ['type' => 'danger', 'msg' => 'Đăng ký tài khoản thất bại. Vui lòng thử lại!!!']);
+//     }
+// }

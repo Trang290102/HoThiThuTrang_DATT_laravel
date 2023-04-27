@@ -66,6 +66,9 @@
                 <option value="1">Xuất bản</option>
                 <option value="2">Chưa xuất bản</option>
             </select>
-        </div>    
+        </div>
+        @if ($errors->has('image'))
+        <div class="text-danger">{{$errors->first('image')}}</div>
+      @endif     
     </div>          
 </div>

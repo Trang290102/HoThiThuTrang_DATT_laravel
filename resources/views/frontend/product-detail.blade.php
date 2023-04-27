@@ -51,7 +51,7 @@
                 </span> --}}
                 <div class="row">
                     <div class="quantity_button">
-                        <input class="cart_quantity_input" style="width:60px;height:33px;border-radius:4px;border: 1px solid;margin-left:15px;" type="number" name="quantity" value="1" autocomplete="off" size="1">
+                        <input class="cart_quantity_input" style="width:60px;height:33px;border-radius:4px;border: 1px solid;margin-left:15px;" type="number" min="1" name="quantity" value="1" autocomplete="off" size="1">
                     </div>
                 </div>                
                 <div class = "btn-groups">

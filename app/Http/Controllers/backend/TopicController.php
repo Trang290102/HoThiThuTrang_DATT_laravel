@@ -79,7 +79,7 @@ class TopicController extends Controller
             $link->save();
             return redirect()->route('topic.index')->with('message', ['type' => 'success', 'msg' => 'Thêm chủ đề thành công!']);
         }
-        return redirect()->route('topic.index')->with('message', ['type' => 'dangers', 'msg' => 'Thêm chủ đề không thành công!']);
+        return redirect()->route('topic.index')->with('message', ['type' => 'danger', 'msg' => 'Thêm chủ đề không thành công!']);
     }
 
     public function show(string $id)
@@ -147,7 +147,7 @@ class TopicController extends Controller
             }
             return redirect()->route('topic.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật chủ đề thành công!']);
         }
-        return redirect()->route('topic.index')->with('message', ['type' => 'dangers', 'msg' => 'Cập nhật chủ đề không thành công!']);
+        return redirect()->route('topic.index')->with('message', ['type' => 'danger', 'msg' => 'Cập nhật chủ đề không thành công!']);
     }
 
     #GET:admin/topic/destroy/{id}
@@ -171,7 +171,7 @@ class TopicController extends Controller
             }
             return redirect()->route('topic.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa chủ đề thành công!']);
         }
-        return redirect()->route('topic.trash')->with('message', ['type' => 'dangers', 'msg' => 'Xóa chủ đề không thành công!']);
+        return redirect()->route('topic.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa chủ đề không thành công!']);
     }
     #GET:admin/topic/status/{id}
     public function status($id)

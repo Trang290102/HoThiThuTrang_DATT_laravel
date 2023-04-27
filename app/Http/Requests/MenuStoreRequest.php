@@ -14,18 +14,19 @@ class MenuStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:2',
+            'name' => 'required',
             'metakey' => 'required',
             'metadesc' => 'required',
+            'link' => 'required',
         ];
     }
-    
+
     public function messages(): array
     {
         return [
             'name.required' => 'Bạn chưa nhập tên.',
-            'name.min' => 'Tên có ít nhất 2 ký tự.',
             'metakey.required' => 'Chưa nhập từ khóa tìm kiếm.',
+            'link.required' => 'Bạn chưa nhập link menu.',
             'metadesc.required' => 'Chưa nhập mô tả.',
         ];
     }

@@ -177,9 +177,15 @@
                             <div class="my-2">
                               <input name="name" type="text" class="form-control" placeholder="Nhập tên menu">
                             </div>
+                            {{-- @if ($errors->has('name'))
+                              <div class="text-danger">{{$errors->first('name')}}</div>
+                            @endif  --}}
                             <div class="my-2">
                               <input name="link" type="text" class="form-control" placeholder="#">
                             </div>
+                              {{-- @if ($errors->has('link'))
+                                <div class="text-danger">{{$errors->first('link')}}</div>
+                              @endif  --}}
                             <div class="my-2">
                               <input name="ADDCUSTOM" type="submit" class="btn btn-sm btn-success form-control" value="Thêm">
                             </div>

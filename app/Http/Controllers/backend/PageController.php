@@ -73,7 +73,7 @@ class PageController extends Controller
             $link->save();
             return redirect()->route('page.index')->with('message', ['type' => 'success', 'msg' => 'Thêm trang đơn thành công!']);
         }
-        return redirect()->route('page.index')->with('message', ['type' => 'dangers', 'msg' => 'Thêm trang đơn không thành công!']);
+        return redirect()->route('page.index')->with('message', ['type' => 'danger', 'msg' => 'Thêm trang đơn không thành công!']);
     }
 
     public function show(string $id)
@@ -129,7 +129,7 @@ class PageController extends Controller
             }
             return redirect()->route('page.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật trang đơn thành công!']);
         }
-        return redirect()->route('page.index')->with('message', ['type' => 'dangers', 'msg' => 'Cập nhật trang đơn không thành công!']);
+        return redirect()->route('page.index')->with('message', ['type' => 'danger', 'msg' => 'Cập nhật trang đơn không thành công!']);
     }
 
     #GET:admin/page/destroy/{id}
@@ -153,7 +153,7 @@ class PageController extends Controller
             }
             return redirect()->route('page.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa trang đơn thành công!']);
         }
-        return redirect()->route('page.trash')->with('message', ['type' => 'dangers', 'msg' => 'Xóa trang đơn không thành công!']);
+        return redirect()->route('page.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa trang đơn không thành công!']);
     }
     #GET:admin/page/status/{id}
     public function status($id)

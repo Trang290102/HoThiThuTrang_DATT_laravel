@@ -1,5 +1,12 @@
 @extends('layouts.admin')
 @section('title', 'Cập nhật trang đơn')
+@section('footer')
+<script>
+  CKEDITOR.replace('metadesc');
+  CKEDITOR.replace('detail');
+</script>
+@endsection
+
 @section('content')
 
 <form action="{{ route('page.update',['page'=>$page->id])}}" method="post" enctype="multipart/form-data">
@@ -49,6 +56,22 @@
                         @endif 
                     </div>
                     <div class="mb-3">
+                      <label for="metakey">Từ khóa</label>
+                      <textarea name="metakey" id="metakey" class="form-control"
+                      placeholder="Từ khóa tìm kiếm">{{ old('metakey',$page->metakey) }}</textarea>
+                      @if ($errors->has('metakey'))
+                      <div class="text-danger">{{$errors->first('metakey')}}</div>
+                    @endif 
+                  </div>
+                  <div class="mb-3">
+                      <label for="metadesc">Mô tả</label>
+                      <textarea name="metadesc" id="metadesc" class="form-control"
+                      placeholder="Nhập mô tả">{{ old('metadesc',$page->metadesc) }}</textarea>
+                      @if ($errors->has('metadesc'))
+                      <div class="text-danger">{{$errors->first('metadesc')}}</div>
+                    @endif 
+                  </div>
+                    <div class="mb-3">
                       <label for="detail">Nội dung</label>
                       <textarea name="detail" id="detail" rows="5" class="form-control"
                       placeholder="Nội dung trang đơn">{{ old('detail',$page->detail) }}</textarea>
@@ -56,22 +79,6 @@
                       <div class="text-danger">{{$errors->first('detail')}}</div>
                     @endif 
                   </div>
-                    <div class="mb-3">
-                        <label for="metakey">Từ khóa</label>
-                        <textarea name="metakey" id="metakey" class="form-control"
-                        placeholder="Từ khóa tìm kiếm">{{ old('metakey',$page->metakey) }}</textarea>
-                        @if ($errors->has('metakey'))
-                        <div class="text-danger">{{$errors->first('metakey')}}</div>
-                      @endif 
-                    </div>
-                    <div class="mb-3">
-                        <label for="metadesc">Mô tả</label>
-                        <textarea name="metadesc" id="metadesc" class="form-control"
-                        placeholder="Nhập mô tả">{{ old('metadesc',$page->metadesc) }}</textarea>
-                        @if ($errors->has('metadesc'))
-                        <div class="text-danger">{{$errors->first('metadesc')}}</div>
-                      @endif 
-                    </div>
                 </div>
                 <div class="col-md-3">
                     

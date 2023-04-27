@@ -81,7 +81,7 @@ class PostController extends Controller
         if ($post->save()) {
             return redirect()->route('post.index')->with('message', ['type' => 'success', 'msg' => 'Thêm bài viết thành công!']);
         }
-        return redirect()->route('post.index')->with('message', ['type' => 'dangers', 'msg' => 'Thêm bài viết không thành công!']);
+        return redirect()->route('post.index')->with('message', ['type' => 'danger', 'msg' => 'Thêm bài viết không thành công!']);
     }
 
     public function show(string $id)
@@ -143,7 +143,7 @@ class PostController extends Controller
         if ($post->save()) {
             return redirect()->route('post.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật bài viết thành công!']);
         }
-        return redirect()->route('post.index')->with('message', ['type' => 'dangers', 'msg' => 'Cập nhật bài viết không thành công!']);
+        return redirect()->route('post.index')->with('message', ['type' => 'danger', 'msg' => 'Cập nhật bài viết không thành công!']);
     }
 
 
@@ -164,7 +164,7 @@ class PostController extends Controller
             }
             return redirect()->route('post.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa bài viết thành công!']);
         }
-        return redirect()->route('post.trash')->with('message', ['type' => 'dangers', 'msg' => 'Xóa bài viết không thành công!']);
+        return redirect()->route('post.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa bài viết không thành công!']);
     }
     #GET:admin/post/status/{id}
     public function status($id)

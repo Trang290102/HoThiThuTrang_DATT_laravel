@@ -9,6 +9,7 @@
               <li class="active">Shopping Cart</li>
             </ol>
         </div>
+        @if (count($cart->items)>0)
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
                 <thead>
@@ -17,10 +18,11 @@
                         <td class="description" >Tên sản phẩm</td>
                         <td class="price">Giá</td>
                         <td class="quantity">Số lượng</td>
-                        <td class="total">Tổng tiền</td>
+                        <td class="total">Thành tiền</td>
                         <td></td>
                     </tr>
                 </thead>
+
                 <tbody>
                     @foreach ($cart->items as $item)
                     @php
@@ -44,7 +46,7 @@
                         <td class="cart_quantity">
                             <div class="cart_quantity_button">
                                 <form action="{{route('cart.update',['id'=>$item['id']])}}" method="get" accept-charset="utf-8">
-                                    <input class="cart_quantity_input" style="width:60px;height:33px;border-radius:4px;border: 1px solid;" type="number" name="quantity" value="{{$item['quantity']}}" autocomplete="off" size="1">
+                                    <input class="cart_quantity_input" style="width:60px;height:33px;border-radius:4px;border: 1px solid;" type="number" min="1" name="quantity" value="{{$item['quantity']}}" autocomplete="off" size="1">
                                     <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
                                 </form>
                             </div>
@@ -58,17 +60,30 @@
                     </tr>
                     @endforeach
                     <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><h3>Tổng tiền: </h3></td>
+                        <td> <h3>{{number_format($cart->total_price)}} VNĐ</h3></td>
+                    </tr>
+                    <tr>
                         <td>
-                            <a href="{{route('cart.clear')}}"class="btn btn-danger btn-sm">Xóa tất cả sản phẩm</a>
+                            <a href="#"class="btn btn-info btn-sm text-right">Tiếp tục mua hàng</a>
                         </td>
                         <td></td>
                         <td></td>
-                        <td>Thành tiền</td>
+                        <td></td>
+                        <td>
+                            <a href="{{route('cart.clear')}}"class="btn btn-danger btn-sm">Xóa hết</a>
+                            <a href="{{route('cart.clear')}}"class="btn btn-success btn-sm">Đặt hàng</a>
+                        </td>
                     </tr>
-
                 </tbody>
             </table>
         </div>
+        @else
+            <h4 class="text-center">Hiện không có sản phẩm nào trong giỏ hàng!!!</h4>
+        @endif
     </div>
 </section> <!--/#cart_items-->
 

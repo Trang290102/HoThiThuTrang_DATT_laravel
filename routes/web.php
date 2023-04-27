@@ -31,6 +31,7 @@ Route::get('dang-nhap', [LoginController::class, 'getdangnhap'])->name('getdangn
 Route::post('dang-nhap', [LoginController::class, 'postdangnhap'])->name('postdangnhap'); //link cố định( ví dụ)
 //Xử lý register
 Route::get('register', [LoginController::class, 'register'])->name('register'); //link cố định( ví dụ)
+Route::post('register', [LoginController::class, 'postregister'])->name('postregister'); //link cố định( ví dụ)
 
 
 // Route::get('lien-he', [LienheController::class, 'index'])->name('frontend.lien-he'); //link cố định( ví dụ)
@@ -163,4 +164,3 @@ route::prefix('cart')->group(function () {
 });
 Route::get('{slug}', [SiteController::class, 'index'])->name('slug.home');
 Route::post('search', [SearchController::class, 'index'])->name('search.home');
-

@@ -45,6 +45,7 @@ class ProductHome extends Component
         }
         $product_list = Product::join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
             ->select('httt_product.*', 'httt_brand.name as brand_name','httt_brand.slug as brand_slug')
+            ->orderBy('updated_at', 'desc')
             ->where('httt_product.status', 1)
             ->whereIn('category_id', $list_category_id)->take(10)->get();
         return view('components.product-home', compact('row_cat', 'product_list'));

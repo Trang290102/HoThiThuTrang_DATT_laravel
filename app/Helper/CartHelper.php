@@ -61,6 +61,13 @@ class CartHelper
         }
         return $t;
     }
+    // private function get_sub_total_price()
+    // {
+    //     $t = 0;
+    //     $t += (int)$this->items[$id]['price'] * (int)$item[$id]['quantity'];
+    //     return $t;
+    // }
+
     private function get_total_quantity()
     {
         $t = 0;

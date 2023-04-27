@@ -75,7 +75,7 @@ class BrandController extends Controller
             $link->save();
             return redirect()->route('brand.index')->with('message', ['type' => 'success', 'msg' => 'Thêm thương hiệu thành công!']);
         }
-        return redirect()->route('brand.index')->with('message', ['type' => 'dangers', 'msg' => 'Thêm thương hiệu không thành công!']);
+        return redirect()->route('brand.index')->with('message', ['type' => 'danger', 'msg' => 'Thêm thương hiệu không thành công!']);
     }
 
     public function show(string $id)
@@ -139,7 +139,7 @@ class BrandController extends Controller
             }
             return redirect()->route('brand.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật thương hiệu thành công!']);
         }
-        return redirect()->route('brand.index')->with('message', ['type' => 'dangers', 'msg' => 'Cập nhật thương hiệu không thành công!']);
+        return redirect()->route('brand.index')->with('message', ['type' => 'danger', 'msg' => 'Cập nhật thương hiệu không thành công!']);
     }
 
     #GET:admin/brand/destroy/{id}
@@ -163,7 +163,7 @@ class BrandController extends Controller
             }
             return redirect()->route('brand.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa thương hiệu thành công!']);
         }
-        return redirect()->route('brand.trash')->with('message', ['type' => 'dangers', 'msg' => 'Xóa thương hiệu không thành công!']);
+        return redirect()->route('brand.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa thương hiệu không thành công!']);
     }
     #GET:admin/brand/status/{id}
     public function status($id)
