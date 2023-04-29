@@ -64,7 +64,7 @@ class CartHelper
     // private function get_sub_total_price()
     // {
     //     $t = 0;
-    //     $t += (int)$this->items[$id]['price'] * (int)$item[$id]['quantity'];
+    //     $t = (int)$this->item[$id]['price'] * (int)$item[$id]['quantity'];
     //     return $t;
     // }
 

@@ -20,6 +20,7 @@ use App\Http\Controllers\frontend\SiteController;
 use App\Http\Controllers\frontend\SearchController;
 use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\frontend\LoginController;
+use App\Http\Controllers\frontend\CheckoutController;
 
 use App\Http\Middleware\LoginAdminMiddelware;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -29,16 +30,16 @@ Route::get('/', [SiteController::class, 'index'])->name('frontend.home');
 //Xử lý login user
 Route::get('dang-nhap', [LoginController::class, 'getdangnhap'])->name('getdangnhap'); //link cố định( ví dụ)
 Route::post('dang-nhap', [LoginController::class, 'postdangnhap'])->name('postdangnhap'); //link cố định( ví dụ)
+Route::get('dang-xuat', [LoginController::class, 'dangxuat'])->name('dangxuat'); //link cố định( ví dụ)
+
 //Xử lý register
 Route::get('register', [LoginController::class, 'register'])->name('register'); //link cố định( ví dụ)
 Route::post('register', [LoginController::class, 'postregister'])->name('postregister'); //link cố định( ví dụ)
 
 
-// Route::get('lien-he', [LienheController::class, 'index'])->name('frontend.lien-he'); //link cố định( ví dụ)
 //Xử lý login admin
 Route::get('admin/login', [AuthController::class, 'getlogin'])->name('admin.getlogin'); //link cố định( ví dụ)
 Route::post('admin/login', [AuthController::class, 'postlogin'])->name('admin.postlogin'); //link cố định( ví dụ)
-
 
 //khai bao route cho quan ly
 Route::prefix('admin')->middleware('LoginAdmin')->group(function () {
@@ -155,6 +156,7 @@ Route::prefix('admin')->middleware('LoginAdmin')->group(function () {
     });
 });
 
+//Xử lý giỏ hàng
 route::prefix('cart')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('frontend.cart');
     route::get('add/{id}', [CartController::class, 'add'])->name('cart.add');
@@ -162,5 +164,14 @@ route::prefix('cart')->group(function () {
     route::get('update/{id}', [CartController::class, 'update'])->name('cart.update');
     route::get('clear', [CartController::class, 'clear'])->name('cart.clear');
 });
+
+//Xử lý đặt hàng
+route::prefix('checkout')->group(function () {
+    Route::get('/', [CheckoutController::class, 'form'])->name('checkout');
+    route::post('/', [CheckoutController::class, 'submit_form'])->name('checkout');
+    Route::get('checkout-success', [CheckoutController::class, 'checkout_success'])->name('checkout.success'); //link cố định( ví dụ)
+
+});
+
 Route::get('{slug}', [SiteController::class, 'index'])->name('slug.home');
 Route::post('search', [SearchController::class, 'index'])->name('search.home');

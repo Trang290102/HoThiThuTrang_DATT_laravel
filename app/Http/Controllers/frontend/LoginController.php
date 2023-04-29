@@ -18,17 +18,14 @@ class LoginController extends Controller
         return view('frontend.auth.login');
     }
 
-    public function postdangnhap(LoginRequest $request)
+    public function postdangnhap(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'password' => 'required|min:3|max:32'
+            'username' => 'required',
+            'password' => 'required'
         ], [
-            'name.required' => 'Bạn chưa nhập tên đăng nhập',
-            'password.required' => 'Bạn chưa nhập mật khẩu!',
-            'password.min' => 'Mật khẩu không được nhỏ hon !',
-            'password.max' => 'Bạn chưa nhập mật khẩu!',
-
+            'username.required' => 'Vui lòng nhập tên hoặc email đăng nhập',
+            'password.required' => 'Vui lòng nhập mật khẩu!',
         ]);
         $username = $request->username;
         $password = $request->password;
@@ -38,19 +35,19 @@ class LoginController extends Controller
             $data = ['name' => $username, 'password' => $password];
         }
         // var_dump($data);
-        if (Auth::attempt($data)) {
-            return redirect('admin');
-            // echo "thanh cong";
+        if (Auth::guard('customer')->attempt(($data), $request->has('remember'))) {
+            // return redirect('frontend.home');
+            return redirect()->route('frontend.home');
         } else {
             // return redirect()->route('admin/login')->with('message', ['type' => 'dangers', 'msg' => 'Email hoặc password không đúng. Vui lòng nhập lại!']);
-            return redirect('admin/login');
+            return redirect()->back();
             // echo bcrypt('123456'); //mã hóa 
         }
     }
-    public function logout()
+    public function dangxuat()
     {
-        Auth::logout();
-        return view('backend.auth.login');
+        Auth::guard('customer')->logout();
+        return redirect()->route('frontend.home');
     }
     public function register()
     {

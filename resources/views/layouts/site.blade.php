@@ -66,8 +66,12 @@
                             <ul class="nav navbar-nav">
                                 {{-- <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li> --}}
                                 {{-- <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li> --}}
-                                <li><a href="#"><i class="fa fa-user"></i> Tài khoản</a></li>
+                                @if(Auth::guard('customer')->check())
+                                <li><a href="#"><i class="fa fa-user"></i> {{Auth('customer')->user()->name}}</a></li>
+                                <li><a href="{{route('dangxuat')}}"><i class="fa fa-sign-out"></i> Đăng Xuất</a></li>
+                                @else
                                 <li><a href="{{route('getdangnhap')}}"><i class="fa fa-lock"></i> Đăng Nhập</a></li>
+                                @endif
                                 <li><a href="{{route('frontend.cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng ({{$cart->total_quantity}})</a></li>
                             </ul>
                         </div>

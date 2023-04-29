@@ -40,8 +40,8 @@
             <form action="{{route('cart.add',['id'=>$product->id])}}" method="get" accept-charset="utf-8">
             <div class="product-information">
                 <span class = "product-name">{{$product->name}}</span>
-                <strong>
-                    <span class="product-price">{{number_format($product->price_buy)}}<sup>đ</sup></span> 
+                <strong>{{number_format($product->price_buy)}}
+                    <span class="product-price"><sup>đ</sup></span> 
                     <del>{{number_format($product->price_buy)}}<sup>đ</sup></del>
                 </strong>
                 <p class = "product-description">{!!$product->metadesc!!}</p>

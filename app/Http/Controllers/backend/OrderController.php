@@ -15,8 +15,7 @@ class OrderController extends Controller
     public function index()
     {
         $user_name = Auth::user()->name;
-        $list_order = Order::join('httt_orderdetail', 'httt_orderdetail.order_id', '=', 'httt_order.id')
-            ->join('httt_users', 'httt_users.id', '=', 'httt_order.user_id')
+        $list_order = Order::join('httt_users', 'httt_users.id', '=', 'httt_order.user_id')
             ->orderBy('httt_order.created_at', 'desc')
             ->get();
         return view('backend.order.index', compact('list_order', 'user_name'));

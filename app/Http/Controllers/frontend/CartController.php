@@ -9,6 +9,10 @@ use App\Helper\CartHelper;
 
 class CartController extends Controller
 {
+    // public  function __construct()
+    // {
+    //     $this->middleware('LoginCustomer');
+    // }
     public function index()
     {
         return view('frontend.cart.index');

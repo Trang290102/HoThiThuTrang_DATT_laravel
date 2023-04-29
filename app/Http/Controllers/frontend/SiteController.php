@@ -207,7 +207,7 @@ class SiteController extends Controller
                 }
             }
         }
-        // $post_list = Post::join('httt_topic', 'httt_topic.id', '=', 'httt_topic.brand_id')
+        // $post_list = Post::join('httt_topic', 'httt_topic.id', '=', 'httt_post.topic_id')
         //     ->select('httt_product.*', 'httt_topic.name as topic_name', 'httt_topic.slug as topic_slug')
         //     ->where([['httt_product.status', '=', 1], ['httt_product.id', '!=', $post->id]])
         //     ->whereIn('topic_id', $list_topic_id)

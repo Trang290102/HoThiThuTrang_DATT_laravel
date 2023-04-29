@@ -10,16 +10,16 @@
                 <h2 class="text-center">Đăng ký tài khoản </h2>
                 <form action="{{ route('postregister')}}" method="post" enctype="multipart/form-data">
                     @csrf            
-                    <input type="text" name="username" value="{{old('username')}}" placeholder="Họ và tên khách hàng" />
-                    @if($errors->has('username'))
-                    <div class="text-danger">
-                        {{$errors->first('username')}}
-                    </div>
-                    @endif
-                    <input type="text" name="name" value="{{old('name')}}" placeholder="Tên đăng nhập" />
+                    <input type="text" name="name" value="{{old('name')}}" placeholder="Họ và tên" />
                     @if($errors->has('name'))
                     <div class="text-danger">
                         {{$errors->first('name')}}
+                    </div>
+                    @endif
+                    <input type="text" name="username" value="{{old('username')}}" placeholder="Tên đăng nhập" />
+                    @if($errors->has('username'))
+                    <div class="text-danger">
+                        {{$errors->first('username')}}
                     </div>
                     @endif
                     <input type="text" name="phone" value="{{old('phone')}}" placeholder="Số điện thoại" />
