@@ -74,7 +74,7 @@
                     </div> 
                     <div class="mb-3">
                         <label for="image">Hình đại diện</label>
-                        <input type="file" name="image" id="image" class="form-control">  
+                        <input type="file" name="image" id="image" class="form-control-file">  
                     </div> 
                     <div class="mb-3">
                         <label for="status">Trạng thái</label>

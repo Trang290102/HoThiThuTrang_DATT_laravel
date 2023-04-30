@@ -37,7 +37,9 @@
       <!-- Navbar Search -->
       <li class="nav-item">
         <a href="#">
-        <i style="color:rgb(80, 111, 234); font-size:larger" class="fas fa-user">{{$user_name}}</i>
+          @if(Auth::check())
+          <i style="color:rgb(80, 111, 234); font-size:larger" class="fas fa-user">{{Auth()->user()->name}}</i>
+          @endif
         </a>
       </li>
       &ensp;
@@ -65,7 +67,7 @@
           <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div> --}}
         <div class="info">
-          <a href="{{ route('admin.dashboard')}}" style=" font-size:larger" class="d-block">{{$user_name}}</a>
+          <a href="{{ route('admin.dashboard')}}" style=" font-size:larger" class="d-block">{{Auth()->user()->name}}</a>
         </div>
       </div>
 

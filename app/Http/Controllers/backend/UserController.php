@@ -17,23 +17,23 @@ class UserController extends Controller
     #GET:admin/user, admin/user/index
     public function index()
     {
-        $user_name = Auth::user()->name;
+        
         $list_user = User::where([['status', '!=', 0], ['roles', '=', 1]])->get();
-        return view('backend.user.index', compact('list_user', 'user_name'));
+        return view('backend.user.index', compact('list_user'));
     }
     #GET:admin/user/trash
     public function trash()
     {
-        $user_name = Auth::user()->name;
+        
         $list_user = User::where('status', '=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.user.trash', compact('list_user', 'user_name'));
+        return view('backend.user.trash', compact('list_user'));
     }
 
     #GET: admin/user/create
     public function create()
     {
-        $user_name = Auth::user()->name;
-        return view('backend.user.create', compact('user_name'));
+        
+        return view('backend.user.create');
     }
 
     public function store(UserStoreRequest $request)
@@ -71,19 +71,19 @@ class UserController extends Controller
 
     public function show(string $id)
     {
-        $user_name = Auth::user()->name;
+        
         $user = User::find($id);
         if ($user == null) {
             return redirect()->route('user.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
-        return view('backend.user.show', compact('user', 'user_name'));
+        return view('backend.user.show', compact('user'));
     }
 
     public function edit(string $id)
     {
-        $user_name = Auth::user()->name;
+        
         $user = User::find($id);
-        return view('backend.user.edit', compact('user', 'user_name'));
+        return view('backend.user.edit', compact('user'));
     }
 
     public function update(UserUpdateRequest $request, string $id)

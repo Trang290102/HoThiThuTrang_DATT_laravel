@@ -25,7 +25,7 @@ class ProductController extends Controller
     #GET:admin/product, admin/product/index
     public function index()
     {
-        $user_name = Auth::user()->name;
+        
         //cách 1: truy vấn từ csdl dùng groupby
         // $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
         //     ->join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
@@ -41,7 +41,7 @@ class ProductController extends Controller
             ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
             ->where('httt_product.status', '!=', 0)
             ->orderBy('httt_product.created_at', 'desc')->get();
-        return view('backend.product.index', compact('list_product', 'user_name'));
+        return view('backend.product.index', compact('list_product'));
 
         $list_product = Product::where('httt_product.status', '!=', 0)
             ->orderBy('httt_product.created_at', 'desc')->get();
@@ -50,7 +50,7 @@ class ProductController extends Controller
     #GET:admin/product/trash
     public function trash()
     {
-        $user_name = Auth::user()->name;
+        
 
         //cách 1: truy vấn từ csdl dùng groupby
         // $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
@@ -67,13 +67,13 @@ class ProductController extends Controller
             ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
             ->where('httt_product.status', '=', 0)
             ->orderBy('httt_product.created_at', 'desc')->get();
-        return view('backend.product.trash', compact('list_product', 'user_name'));
+        return view('backend.product.trash', compact('list_product'));
     }
 
     #GET: admin/product/create
     public function create()
     {
-        $user_name = Auth::user()->name;
+        
 
         $list_category = Category::where('status', '!=', 0)->get();
         $list_brand = Brand::where('status', '!=', 0)->get();
@@ -86,7 +86,7 @@ class ProductController extends Controller
         foreach ($list_brand as $item) {
             $html_brand_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
         }
-        return view('backend.product.create', compact('html_category_id', 'html_brand_id', 'user_name'));
+        return view('backend.product.create', compact('html_category_id', 'html_brand_id'));
     }
 
 
@@ -149,17 +149,17 @@ class ProductController extends Controller
 
     public function show(string $id)
     {
-        $user_name = Auth::user()->name;
+        
         $product = Product::find($id);
         if ($product == null) {
             return redirect()->route('product.index')->with('message', ['type' => 'danger', 'msg' => 'Sản phẩm không tồn tại!']);
         }
-        return view('backend.product.show', compact('product', 'user_name'));
+        return view('backend.product.show', compact('product'));
     }
 
     public function edit(string $id)
     {
-        $user_name = Auth::user()->name;
+        
         $product = Product::find($id);
         $list_category = Category::where('status', '!=', 0)->get();
         $list_brand = Brand::where('status', '!=', 0)->get();
@@ -180,7 +180,7 @@ class ProductController extends Controller
                 $html_brand_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
             }
         }
-        return view('backend.product.edit', compact('product', 'html_brand_id', 'html_category_id', 'user_name'));
+        return view('backend.product.edit', compact('product', 'html_brand_id', 'html_category_id'));
     }
 
     public function update(ProductUpdateRequest $request, string $id)

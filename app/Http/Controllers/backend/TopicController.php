@@ -18,22 +18,22 @@ class TopicController extends Controller
     #GET:admin/topic, admin/topic/index
     public function index()
     {
-        $user_name = Auth::user()->name;
+        
         $list_topic = Topic::where('status', '!=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.topic.index', compact('list_topic', 'user_name'));
+        return view('backend.topic.index', compact('list_topic'));
     }
     #GET:admin/topic/trash
     public function trash()
     {
-        $user_name = Auth::user()->name;
+        
         $list_topic = Topic::where('status', '=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.topic.trash', compact('list_topic', 'user_name'));
+        return view('backend.topic.trash', compact('list_topic'));
     }
 
     #GET: admin/topic/create
     public function create()
     {
-        $user_name = Auth::user()->name;
+        
 
         $list_topic = Topic::where('status', '!=', 0)->get();
         $html_parent_id = '';
@@ -43,7 +43,7 @@ class TopicController extends Controller
             $html_parent_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
             $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
         }
-        return view('backend.topic.create', compact('html_parent_id', 'html_sort_order', 'user_name'));
+        return view('backend.topic.create', compact('html_parent_id', 'html_sort_order'));
     }
 
 
@@ -84,18 +84,18 @@ class TopicController extends Controller
 
     public function show(string $id)
     {
-        $user_name = Auth::user()->name;
+        
 
         $topic = Topic::find($id);
         if ($topic == null) {
             return redirect()->route('topic.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
-        return view('backend.topic.show', compact('topic', 'user_name'));
+        return view('backend.topic.show', compact('topic'));
     }
 
     public function edit(string $id)
     {
-        $user_name = Auth::user()->name;
+        
 
         $topic = Topic::find($id);
         $list_topic = Topic::where('status', '!=', 0)->get();
@@ -110,7 +110,7 @@ class TopicController extends Controller
             }
             $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
         }
-        return view('backend.topic.edit', compact('topic', 'html_parent_id', 'html_sort_order','user_name'));
+        return view('backend.topic.edit', compact('topic', 'html_parent_id', 'html_sort_order'));
     }
 
     public function update(TopicUpdateRequest $request, string $id)

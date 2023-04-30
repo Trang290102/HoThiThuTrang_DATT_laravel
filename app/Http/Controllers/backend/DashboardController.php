@@ -10,7 +10,6 @@ class DashboardController extends Controller
 {
     function index()
     {
-        $user_name = Auth::user()->name;
-        return view('backend.dashboard.index',compact('user_name'));
+        return view('backend.dashboard.index');
     }
 }

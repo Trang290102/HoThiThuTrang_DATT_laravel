@@ -18,31 +18,31 @@ class SliderController extends Controller
     #GET:admin/slider, admin/slider/index
     public function index()
     {
-        $user_name = Auth::user()->name;
+        
 
         $list_slider = Slider::where('status', '!=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.slider.index', compact('list_slider', 'user_name'));
+        return view('backend.slider.index', compact('list_slider'));
     }
     #GET:admin/slider/trash
     public function trash()
     {
-        $user_name = Auth::user()->name;
+        
 
         $list_slider = Slider::where('status', '=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.slider.trash', compact('list_slider', 'user_name'));
+        return view('backend.slider.trash', compact('list_slider'));
     }
 
     #GET: admin/slider/create
     public function create()
     {
-        $user_name = Auth::user()->name;
+        
 
         $list_slider = Slider::where('status', '!=', 0)->get();
         $html_sort_order = '';
         foreach ($list_slider as $item) {
             $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
         }
-        return view('backend.slider.create', compact('html_sort_order', 'user_name'));
+        return view('backend.slider.create', compact('html_sort_order'));
     }
 
 
@@ -78,18 +78,18 @@ class SliderController extends Controller
 
     public function show(string $id)
     {
-        $user_name = Auth::user()->name;
+        
 
         $slider = Slider::find($id);
         if ($slider == null) {
             return redirect()->route('slider.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
-        return view('backend.slider.show', compact('slider', 'user_name'));
+        return view('backend.slider.show', compact('slider'));
     }
 
     public function edit(string $id)
     {
-        $user_name = Auth::user()->name;
+        
 
         $slider = Slider::find($id);
         $list_slider = Slider::where('status', '!=', 0)->get();
@@ -98,7 +98,7 @@ class SliderController extends Controller
         foreach ($list_slider as $item) {
             $html_sort_order .= '<option value="' . $item->sort_order . '">Sau: ' . $item->name . '</option>';
         }
-        return view('backend.slider.edit', compact('slider', 'html_sort_order', 'user_name'));
+        return view('backend.slider.edit', compact('slider', 'html_sort_order'));
     }
 
     public function update(SliderUpdateRequest $request, string $id)

@@ -14,23 +14,23 @@ class OrderController extends Controller
     #GET:admin/order, admin/order/index
     public function index()
     {
-        $user_name = Auth::user()->name;
-        $list_order = Order::join('httt_users', 'httt_users.id', '=', 'httt_order.user_id')
+        // 
+        $list_order = Order::where('status', '!=', 0)
             ->orderBy('httt_order.created_at', 'desc')
             ->get();
-        return view('backend.order.index', compact('list_order', 'user_name'));
+        return view('backend.order.index', compact('list_order'));
     }
     #GET:admin/order/trash
     public function trash()
     {
-        $user_name = Auth::user()->name;
+        
         $list_order = Order::where('status', '=', 0)->orderBy('created_at', 'desc')->get();
-        return view('backend.order.trash', compact('list_order', 'user_name'));
+        return view('backend.order.trash', compact('list_order'));
     }
     #GET:admin/order/show/{id}
     public function show(string $id)
     {
-        $user_name = Auth::user()->name;
+        
         $order = Order::join('httt_orderdetail', 'httt_orderdetail.order_id', '=', 'httt_order.id')
             ->join('httt_users', 'httt_users.id', '=', 'httt_order.user_id')
             ->orderBy('httt_order.created_at', 'desc')
@@ -38,13 +38,13 @@ class OrderController extends Controller
         if ($order == null) {
             return redirect()->route('order.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại']);
         } else {
-            return view('backend.order.show', compact('order', 'user_name'));
+            return view('backend.order.show', compact('order'));
         }
     }
 
     public function edit(string $id)
     {
-        $user_name = Auth::user()->name;
+        
         $list_order = Order::where('httt_order.id', '=', $id)
             ->join('httt_orderdetail', 'httt_orderdetail.order_id', '=', 'httt_order.id')
             ->join('httt_users', 'httt_users.id', '=', 'httt_order.user_id')

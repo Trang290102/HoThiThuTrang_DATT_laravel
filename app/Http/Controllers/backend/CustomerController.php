@@ -17,23 +17,23 @@ class CustomerController extends Controller
     #GET:admin/user, admin/user/index
     public function index()
     {
-        $user_name = Auth::user()->name;
+        
         $list_customer = User::where([['status', '!=', 0], ['roles', '=', 2]])->get();
-        return view('backend.customer.index', compact('list_customer', 'user_name'));
+        return view('backend.customer.index', compact('list_customer'));
     }
     #GET:admin/user/trash
     public function trash()
     {
-        $user_name = Auth::user()->name;
+        
         $list_customer = User::where([['status', '=', 0], ['roles', '=', 2]])->orderBy('created_at', 'desc')->get();
-        return view('backend.customer.trash', compact('list_customer', 'user_name'));
+        return view('backend.customer.trash', compact('list_customer'));
     }
 
     #GET: admin/user/create
     public function create()
     {
-        $user_name = Auth::user()->name;
-        return view('backend.customer.create', compact('user_name'));
+        
+        return view('backend.customer.create');
     }
 
     public function store(CustomerStoreRequest $request)
@@ -70,19 +70,19 @@ class CustomerController extends Controller
 
     public function show(string $id)
     {
-        $user_name = Auth::user()->name;
+        
         $customer = User::find($id);
         if ($customer == null) {
             return redirect()->route('user.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
-        return view('backend.customer.show', compact('customer', 'user_name'));
+        return view('backend.customer.show', compact('customer'));
     }
 
     public function edit(string $id)
     {
-        $user_name = Auth::user()->name;
+        
         $customer = User::find($id);
-        return view('backend.customer.edit', compact('customer','user_name'));
+        return view('backend.customer.edit', compact('customer'));
     }
 
     public function update(UserUpdateRequest $request, string $id)
