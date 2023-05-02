@@ -148,7 +148,7 @@
                             </p>
                         </td>
                         <td class="cart_total">
-                            <p class="cart_total_price" style="margin-bottom:0px; text-align:center;">$59</p>
+                            <p class="cart_total_price" style="margin-bottom:0px; text-align:center;">{{number_format((int)$item['price']*(int)$item['quantity'])}} VNĐ</p>
                         </td>
                     </tr>
                     @endforeach
@@ -157,7 +157,7 @@
                         <td></td>
                         <td></td>
                         <td><h3>Tổng tiền: </h3></td>
-                        <td> <h3>{{number_format($cart->total_price)}} VNĐ</h3></td>
+                        <td style="text-align:center;"> <h3>{{number_format($cart->total_price)}} VNĐ</h3></td>
                     </tr>
                 </tbody>
             </table>

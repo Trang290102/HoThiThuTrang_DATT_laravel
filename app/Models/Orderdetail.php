@@ -10,5 +10,8 @@ class OrderDetail extends Model
     use HasFactory;
     protected $table = 'httt_orderdetail';
     public $timestamps = false;
-
+    public function productdetail()
+    {
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
 }

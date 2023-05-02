@@ -192,7 +192,20 @@
     <script src="{{asset('public/js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('public/js/main.js')}}"></script>
     <script src="{{asset('public/js/jquery.min.js')}}"></script>
-    @yield('footer')
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    @if(Session::has('successMessage'))
+    <script>
+        swal("Thành công!", "{{Session::get('successMessage')}}", "success");
+    </script>
+    @endif
+    @if(Session::has('errorMessage'))
+    <script>
+        swal("Thất bại!", "{{Session::get('errorMessage')}}", "warning");
+    </script>
+    @endif
+
+
+    @yield('footer')
 </body>
 </html>

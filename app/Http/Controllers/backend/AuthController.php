@@ -22,7 +22,7 @@ class AuthController extends Controller
         if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
             $data = ['email' => $username, 'password' => $password];
         } else {
-            $data = ['name' => $username, 'password' => $password];
+            $data = ['username' => $username, 'password' => $password];
         }
         // var_dump($data);
         if (Auth::attempt($data)) {

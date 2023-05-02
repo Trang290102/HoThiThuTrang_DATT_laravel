@@ -7,7 +7,6 @@
 @section('footer')
     <script src="{{asset('public/owlcarousel/owl.carousel.min.js')}}"></script>
 @endsection
-
 @section('content')
 <x-slideshow />
 
@@ -17,32 +16,6 @@
 
 
     <div class="container">
-        {{-- <div class="category-tab"><!--category-tab-->
-            <div class="col-sm-12">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tshirt" data-toggle="tab">Túi xách</a></li>
-                    <li><a href="#blazers" data-toggle="tab">Ví bóp</a></li>
-                </ul> 
-            </div>
-            <div class="tab-content">
-                <div class="tab-pane fade active in" id="tshirt">
-                    <div class="col-sm-3">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="{{('public/images/product-18.jpg')}}" alt="" />
-                                    <h2>899 000 VND</h2>
-                                    <p>Thiết kế sang trọng</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!--/category-tab--> --}}
-
 
         
             {{-- <div class="recommended_items"><!--recommended_items-->

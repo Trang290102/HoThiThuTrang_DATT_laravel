@@ -40,7 +40,7 @@
                         <td class="cart_description" style="width:400px;">
                             <h4><a href="{{route('slug.home',['slug'=>$item['slug']])}}">{{$item['name']}}</a></h4>
                         </td>
-                        <td class="cart_price"  style="text-align:center;">
+                        <td class="cart_price" style="text-align: center;">
                             <p style="margin-bottom:0px;">{{number_format($item['price'])}} VNĐ</p>
                         </td>
                         <td class="cart_quantity">
@@ -51,8 +51,8 @@
                                 </form>
                             </div>
                         </td>
-                        <td class="cart_total" style="text-align:center;">
-                            <p class="cart_total_price" style="margin-bottom:0px;">$59</p>
+                        <td class="cart_total" style="text-align: center;">
+                            <p class="cart_total_price" style="margin-bottom:0px;">{{number_format((int)$item['price']*(int)$item['quantity'])}} VNĐ</p>
                         </td>
                         <td class="cart_delete">
                             <a class="cart_quantity_delete" href="{{route('cart.remove',['id'=>$item['id']])}}"><i class="fa fa-times"></i></a>
@@ -64,16 +64,18 @@
                         <td></td>
                         <td></td>
                         <td><h3>Tổng tiền: </h3></td>
-                        <td> <h3>{{number_format($cart->total_price)}} VNĐ</h3></td>
+                        <td style="text-align: center;"> 
+                            <h3>{{number_format($cart->total_price)}} VNĐ</h3>
+                        </td>
                     </tr>
                     <tr>
                         <td>
-                            <a href="#"class="btn btn-info btn-sm text-right">Tiếp tục mua hàng</a>
+                            <a href="{{route('frontend.home')}}"class="btn btn-info btn-sm text-right">Tiếp tục mua hàng</a>
                         </td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>
+                        <td style="text-align: center;">
                             <a href="{{route('cart.clear')}}"class="btn btn-danger btn-sm">Xóa hết</a>
                             <a href="{{route('checkout')}}"class="btn btn-success btn-sm">Đặt hàng</a>
                         </td>

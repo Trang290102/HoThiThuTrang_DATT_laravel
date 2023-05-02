@@ -21,8 +21,8 @@ class CartController extends Controller
     {
         $product = Product::find($id);
         $quantity = request()->quantity ? request()->quantity : 1;
-        $cart->add($product,$quantity );
-        return redirect()->back();
+        $cart->add($product, $quantity);
+        return redirect()->back()->with('successMessage', 'Thêm vào giỏ hàng thành công!');
     }
     public function remove(CartHelper $cart, $id)
     {
@@ -33,11 +33,11 @@ class CartController extends Controller
     {
         $quantity = request()->quantity ? request()->quantity : 1;
         $cart->update($id, $quantity);
-        return redirect()->back();
+        return redirect()->route('frontend.cart')->with('successMessage', 'Cập nhật giỏ hàng thành công!');
     }
     public function clear(CartHelper $cart)
     {
         $cart->clear();
-        return redirect()->back();
+        return redirect()->back()->with('successMessage', 'Xóa hết giỏ hàng thành công!');
     }
 }

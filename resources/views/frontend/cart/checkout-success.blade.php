@@ -1,5 +1,5 @@
 @extends('layouts.site')
-@section('title', $row_topic->name)
+@section('title', 'Đặt hàng thành công')
 @section('content')
     <div class="container my-4">
         <h2 style="text-align:center;">Đặt hàng hành công!!!</h2>

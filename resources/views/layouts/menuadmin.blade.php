@@ -122,7 +122,7 @@
         </ul>
       </li>      
 
-      <li class="nav-header">LABELS</li>
+      {{-- <li class="nav-header">LABELS</li>
       <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon far fa-circle text-danger"></i>
@@ -134,11 +134,11 @@
           <i class="nav-icon far fa-circle text-warning"></i>
           <p>Warning</p>
         </a>
-      </li>
+      </li> --}}
       <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon far fa-circle text-info"></i>
-          <p>Informational</p>
+        <a href="{{ route('logout')}}" class="nav-link">
+          <i class="nav-icon fas fa-sign-out-alt text-info"></i>
+          <p>Đăng xuất</p>
         </a>
       </li>
     </ul>

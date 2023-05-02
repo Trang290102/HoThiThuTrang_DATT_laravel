@@ -20,12 +20,14 @@ use App\Http\Controllers\frontend\SiteController;
 use App\Http\Controllers\frontend\SearchController;
 use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\frontend\LoginController;
+use App\Http\Controllers\frontend\ContactController;
 use App\Http\Controllers\frontend\CheckoutController;
 
 use App\Http\Middleware\LoginAdminMiddelware;
 use Illuminate\Auth\Middleware\Authenticate;
 
 Route::get('/', [SiteController::class, 'index'])->name('frontend.home');
+Route::get('lien-he', [ContactController::class, 'index'])->name('frontend.contact');
 
 //Xử lý login user
 Route::get('dang-nhap', [LoginController::class, 'getdangnhap'])->name('getdangnhap'); //link cố định( ví dụ)
@@ -170,8 +172,8 @@ route::prefix('checkout')->group(function () {
     Route::get('/', [CheckoutController::class, 'form'])->name('checkout');
     route::post('/', [CheckoutController::class, 'submit_form'])->name('checkout');
     Route::get('checkout-success', [CheckoutController::class, 'checkout_success'])->name('checkout.success'); //link cố định( ví dụ)
-
 });
+
 
 Route::get('{slug}', [SiteController::class, 'index'])->name('slug.home');
 Route::post('search', [SearchController::class, 'index'])->name('search.home');

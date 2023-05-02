@@ -5,6 +5,8 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderDetail;
+
 use App\Http\Requests\OrderUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,28 +25,24 @@ class OrderController extends Controller
     #GET:admin/order/trash
     public function trash()
     {
-        
         $list_order = Order::where('status', '=', 0)->orderBy('created_at', 'desc')->get();
         return view('backend.order.trash', compact('list_order'));
     }
     #GET:admin/order/show/{id}
     public function show(string $id)
     {
-        
-        $order = Order::join('httt_orderdetail', 'httt_orderdetail.order_id', '=', 'httt_order.id')
-            ->join('httt_users', 'httt_users.id', '=', 'httt_order.user_id')
-            ->orderBy('httt_order.created_at', 'desc')
-            ->first();
+        $orderdetail = OrderDetail::where('order_id', '=', $id)->get();
+        $order = Order::find($id);
         if ($order == null) {
             return redirect()->route('order.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại']);
         } else {
-            return view('backend.order.show', compact('order'));
+            return view('backend.order.show', compact('order', 'orderdetail'));
         }
     }
 
     public function edit(string $id)
     {
-        
+
         $list_order = Order::where('httt_order.id', '=', $id)
             ->join('httt_orderdetail', 'httt_orderdetail.order_id', '=', 'httt_order.id')
             ->join('httt_users', 'httt_users.id', '=', 'httt_order.user_id')

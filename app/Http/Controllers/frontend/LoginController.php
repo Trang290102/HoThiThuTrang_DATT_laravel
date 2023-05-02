@@ -37,10 +37,10 @@ class LoginController extends Controller
         // var_dump($data);
         if (Auth::guard('customer')->attempt(($data), $request->has('remember'))) {
             // return redirect('frontend.home');
-            return redirect()->route('frontend.home');
+            return redirect()->route('frontend.home')->with('successMessage', 'Đăng nhập thành công!');
         } else {
             // return redirect()->route('admin/login')->with('message', ['type' => 'dangers', 'msg' => 'Email hoặc password không đúng. Vui lòng nhập lại!']);
-            return redirect()->back();
+            return redirect()->back()->with('errorMessage', 'Đăng nhập thất bại! Vui lòng kiểm tra tên và mật khẩu hoặc liên hệ CSKH. Xin cảm ơn!');
             // echo bcrypt('123456'); //mã hóa 
         }
     }
@@ -49,6 +49,7 @@ class LoginController extends Controller
         Auth::guard('customer')->logout();
         return redirect()->route('frontend.home');
     }
+    //->with('successMessage', 'Đăng xuất thành công!')
     public function register()
     {
         return view('frontend.auth.register');
@@ -69,7 +70,7 @@ class LoginController extends Controller
         $user->status = 1;
         $user->created_at = date('Y-m-d H:i:s');
         $user->save();
-        return redirect()->route('getdangnhap')->with('message', ['type' => 'success', 'msg' => 'Đăng ký tài khoản thành công!!!']);
+        return redirect()->route('getdangnhap')->with('successMessage', 'Đăng ký tài khoản thành công!');
     }
 }
 

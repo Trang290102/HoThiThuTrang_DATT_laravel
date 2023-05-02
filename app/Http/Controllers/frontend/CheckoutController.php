@@ -16,6 +16,7 @@ class CheckoutController extends Controller
     public  function __construct()
     {
         $this->middleware('LoginCustomer');
+        
     }
     public function form()
     {
@@ -47,17 +48,14 @@ class CheckoutController extends Controller
                 $order_detail->amount = (int)$item['price'] * (int)$item['quantity'];
                 $order_detail->save();
             }
-            session(['cart'=>'']);
-            return redirect()->route('checkout.success')->with('message', ['type' => 'success', 'msg' => 'Đặt hàng thành công!']);
-        }
-        else
-        {
-            return redirect()->back()->with('message', ['type' => 'success', 'msg' => 'Đặt hàng không thành công!']);
+            session(['cart' => '']);
+            return redirect()->route('checkout.success')->with('successMessage', 'Đặt hàng thành công! Chân thành cảm ơn quý khách!!!');
+        } else {
+            return redirect()->back()->with('errorMessage', 'Đặt hàng không thành công! Vui lòng liên hệ bộ phận CSKH.');
         }
     }
     public function checkout_success()
     {
         return view('frontend.cart.checkout-success');
     }
-
 }

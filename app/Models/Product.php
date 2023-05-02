@@ -25,4 +25,5 @@ class Product extends Model
     {
         return $this->hasOne(ProductStore::class, 'product_id', 'id');
     }
+
 }
