@@ -17,7 +17,7 @@
 
     {{-- <link href="{{asset('public/fontawesome/css/all.min.css')}}" rel="stylesheet"> --}}
 
-    <link rel="shortcut icon" href="public/images/favicon.ico">
+    <link rel="shortcut icon" href="{{asset('public/images/favicon.ico')}}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('public/images/apple-touch-icon-144-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('public/images/apple-touch-icon-114-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('public/images/apple-touch-icon-72-precomposed.png')}}">
@@ -57,7 +57,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="{{URL::to('/')}}"><img src="{{('public/images/logo2.png')}}" alt="" width="270" height="90" /></a>
+                            <a href="{{URL::to('/')}}"><img src="{{asset('public/images/logo2.png')}}" alt="" width="270" height="90" /></a>
                         </div>
                        
                     </div>
@@ -202,6 +202,11 @@
     @if(Session::has('errorMessage'))
     <script>
         swal("Thất bại!", "{{Session::get('errorMessage')}}", "warning");
+    </script>
+    @endif
+    @if(Session::has('contactMessage'))
+    <script>
+        swal("Gửi liên hệ thành công!", "{{Session::get('contactMessage')}}", "success");
     </script>
     @endif
 

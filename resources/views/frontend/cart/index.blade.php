@@ -22,7 +22,6 @@
                         <td style="width:5%;"></td>
                     </tr>
                 </thead>
-
                 <tbody>
                     @foreach ($cart->items as $item)
                     @php

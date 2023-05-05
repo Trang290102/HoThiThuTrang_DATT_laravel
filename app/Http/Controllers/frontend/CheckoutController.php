@@ -9,15 +9,19 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Helper\CartHelper;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\MailServiceProvider;
 
 
 class CheckoutController extends Controller
 {
-    public  function __construct()
-    {
-        $this->middleware('LoginCustomer');
-        
-    }
+    // public  function __construct()
+    // {
+    //     $this->middleware('LoginCustomer');
+    // }
     public function form()
     {
         return view('frontend.cart.checkout');
@@ -28,6 +32,7 @@ class CheckoutController extends Controller
         date_default_timezone_set("Asia/Ho_Chi_Minh");
 
         $cus_id = Auth::guard('customer')->user()->id;
+        $auth = Auth::guard('customer')->user();
         $order = new Order;
         $order->user_id = $cus_id;
         $order->name = $request->name;
@@ -48,8 +53,16 @@ class CheckoutController extends Controller
                 $order_detail->amount = (int)$item['price'] * (int)$item['quantity'];
                 $order_detail->save();
             }
-            session(['cart' => '']);
-            return redirect()->route('checkout.success')->with('successMessage', 'Đặt hàng thành công! Chân thành cảm ơn quý khách!!!');
+            //gửi mail chi tiết đơn hàng
+            Mail::send('frontend.mail.order', compact('auth', 'cart', 'order'), function ($email) use ($auth) {
+                $email->subject('TrangShop - Đặt hàng thành công');
+                $email->to($auth->email, $auth->name);
+            });
+
+            return redirect()->route('checkout.success');
+                //xóa cart
+                session(['cart' => '']);
+
         } else {
             return redirect()->back()->with('errorMessage', 'Đặt hàng không thành công! Vui lòng liên hệ bộ phận CSKH.');
         }
@@ -57,5 +70,13 @@ class CheckoutController extends Controller
     public function checkout_success()
     {
         return view('frontend.cart.checkout-success');
+    }
+    public function mail()
+    {
+        $name = Auth::guard('customer')->user()->name;
+        Mail::send('frontend.mail.order', compact('name'), function ($email) use ($name) {
+            $email->subject('Shop Phụ kiện & Túi xách TrangShop');
+            $email->to('hothutrang421@gmail.com', $name);
+        });
     }
 }

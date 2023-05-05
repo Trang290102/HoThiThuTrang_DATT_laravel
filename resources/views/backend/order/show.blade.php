@@ -73,7 +73,7 @@
             </table>
             <h3 class="py-3">CHI TIẾT ĐƠN HÀNG</h3>
             @php
-                $total =0;
+                $total = 0;
             @endphp
             <table class="table table-bordered table-striped" id="myTable">
                 <thead>

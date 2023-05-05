@@ -15,19 +15,22 @@ use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\AuthController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\CustomerController;
+use App\Http\Controllers\backend\ContactController;
 
 use App\Http\Controllers\frontend\SiteController;
 use App\Http\Controllers\frontend\SearchController;
 use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\frontend\LoginController;
-use App\Http\Controllers\frontend\ContactController;
+use App\Http\Controllers\frontend\LienheController;
 use App\Http\Controllers\frontend\CheckoutController;
 
 use App\Http\Middleware\LoginAdminMiddelware;
 use Illuminate\Auth\Middleware\Authenticate;
 
 Route::get('/', [SiteController::class, 'index'])->name('frontend.home');
-Route::get('lien-he', [ContactController::class, 'index'])->name('frontend.contact');
+// Xử lý contact
+Route::get('lien-he', [LienheController::class, 'getcontact'])->name('frontend.contact');
+Route::post('post-lien-he', [LienheController::class, 'postcontact'])->name('postcontact');
 
 //Xử lý login user
 Route::get('dang-nhap', [LoginController::class, 'getdangnhap'])->name('getdangnhap'); //link cố định( ví dụ)
@@ -156,6 +159,15 @@ Route::prefix('admin')->middleware('LoginAdmin')->group(function () {
         route::get('restore/{customer}', [CustomerController::class, 'restore'])->name('customer.restore');
         route::get('destroy/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
     });
+    //customer
+    Route::resource('contact', ContactController::class);
+    route::get('contact_trash', [ContactController::class, 'trash'])->name('contact.trash');
+    route::prefix('contact')->group(function () {
+        route::get('status/{contact}', [ContactController::class, 'status'])->name('contact.status');
+        route::get('delete/{contact}', [ContactController::class, 'delete'])->name('contact.delete');
+        route::get('restore/{contact}', [ContactController::class, 'restore'])->name('contact.restore');
+        route::get('destroy/{contact}', [ContactController::class, 'destroy'])->name('contact.destroy');
+    });
 });
 
 //Xử lý giỏ hàng
@@ -168,7 +180,7 @@ route::prefix('cart')->group(function () {
 });
 
 //Xử lý đặt hàng
-route::prefix('checkout')->group(function () {
+route::prefix('checkout')->middleware('LoginCustomer')->group(function () {
     Route::get('/', [CheckoutController::class, 'form'])->name('checkout');
     route::post('/', [CheckoutController::class, 'submit_form'])->name('checkout');
     Route::get('checkout-success', [CheckoutController::class, 'checkout_success'])->name('checkout.success'); //link cố định( ví dụ)

@@ -118,9 +118,9 @@ class CustomerController extends Controller
         }
         //end upload
         if ($customer->save()) {
-            return redirect()->route('customer.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật thương hiệu thành công!']);
+            return redirect()->route('customer.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật khách hàng thành công!']);
         }
-        return redirect()->route('customer.index')->with('message', ['type' => 'danger', 'msg' => 'Cập nhật thương hiệu không thành công!']);
+        return redirect()->route('customer.index')->with('message', ['type' => 'danger', 'msg' => 'Cập nhật khách hàng không thành công!']);
     }
 
     #GET:admin/user/destroy/{id}
@@ -138,9 +138,9 @@ class CustomerController extends Controller
             if (File::exists($path_image_delete)) {
                 File::delete($path_image_delete);
             }
-            return redirect()->route('customer.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa thương hiệu thành công!']);
+            return redirect()->route('customer.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa khách hàng thành công!']);
         }
-        return redirect()->route('customer.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa thương hiệu không thành công!']);
+        return redirect()->route('customer.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa khách hàng không thành công!']);
     }
     #GET:admin/user/status/{id}
     public function status($id)

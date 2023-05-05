@@ -22,7 +22,7 @@ class LoginCustomerMiddelware
                 return redirect()->route('getdangnhap');
             }
         } else {
-            return redirect()->route('frontend.home')->with('errorMessage', 'Bạn cần đăng nhập để tiếp tục!!!');
+            return redirect()->route('getdangnhap')->with('errorMessage', 'Bạn cần đăng nhập để tiếp tục!!!');
         }
         return $next($request);
     }

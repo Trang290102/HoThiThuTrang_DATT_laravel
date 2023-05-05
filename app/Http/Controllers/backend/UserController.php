@@ -119,9 +119,9 @@ class UserController extends Controller
         }
         //end upload
         if ($user->save()) {
-            return redirect()->route('user.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật thương hiệu thành công!']);
+            return redirect()->route('user.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật admin thành công!']);
         }
-        return redirect()->route('user.index')->with('message', ['type' => 'danger', 'msg' => 'Cập nhật thương hiệu không thành công!']);
+        return redirect()->route('user.index')->with('message', ['type' => 'danger', 'msg' => 'Cập nhật admin không thành công!']);
     }
 
     #GET:admin/user/destroy/{id}
@@ -139,9 +139,9 @@ class UserController extends Controller
             if (File::exists($path_image_delete)) {
                 File::delete($path_image_delete);
             }
-            return redirect()->route('user.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa thương hiệu thành công!']);
+            return redirect()->route('user.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa admin thành công!']);
         }
-        return redirect()->route('user.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa thương hiệu không thành công!']);
+        return redirect()->route('user.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa admin không thành công!']);
     }
     #GET:admin/user/status/{id}
     public function status($id)

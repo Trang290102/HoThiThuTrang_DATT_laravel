@@ -108,14 +108,14 @@
     </form>
 
         <div class="review-payment">
-            <h2>Giỏ hàng của bạn</h2>
+            <h2>Chi tiết đơn hàng</h2>
         </div>
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
                 <thead>
                     <tr class="cart_menu">
                         <td class="image" style="width:15%;">Hình ảnh</td>
-                        <td class="description" style="width:30%;" >Tên sản phẩm</td>
+                        <td class="description" style="width:30%;" >Sản phẩm</td>
                         <td class="price" style="width:20%; text-align:center;">Giá</td>
                         <td class="quantity" style="width:15%; text-align:center;">Số lượng</td>
                         <td class="total" style="width:20%; text-align:center;">Thành tiền</td>
@@ -144,7 +144,7 @@
                         </td>
                         <td class="cart_quantity">
                             <p style="margin-bottom:0px;" class="text-center">
-                                {{$item['quantity']}}
+                               x {{$item['quantity']}}
                             </p>
                         </td>
                         <td class="cart_total">

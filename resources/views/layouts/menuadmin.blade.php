@@ -99,6 +99,12 @@
         </ul>
       </li>
       <li class="nav-item">
+        <a href="{{ route('contact.index')}}" class="nav-link">
+          <i class="nav-icon far fa-circle text-warning"></i>
+          <p>Liên hệ</p>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
@@ -110,7 +116,7 @@
           <li class="nav-item">
             <a href="{{ route('user.index')}}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Quản trị viên</p>
+              <p>Quản trị admin</p>
             </a>
           </li>
           <li class="nav-item">
@@ -120,7 +126,7 @@
             </a>
           </li>
         </ul>
-      </li>      
+      </li>
 
       {{-- <li class="nav-header">LABELS</li>
       <li class="nav-item">
