@@ -179,15 +179,16 @@ class SiteController extends Controller
     }
     private function post_page($slug)
     {
+        $page_list = Post::where([['status', '=', 1], ['type', '=', 'page']])->get();
         $page = Post::where([['status', '=', 1], ['type', '=', 'page'], ['slug', '=', $slug]])->first();
-        return view('frontend.post-page', compact('page'));
+        return view('frontend.post-page', compact('page', 'page_list'));
     }
     private function post_detail($post)
     {
         $list_topic_id = array();
         array_push($list_topic_id, $post->id);
         //xet cap con
-        $list_topic1 = Topic::where([['parent_id', '=', $post->id], ['status', '=', '1']])
+        $list_topic1 = Topic::where([['parent_id', '=', $post->id], ['status', '=', 1]])
             ->orderBy('updated_at', 'desc')
             ->get();
         if (count($list_topic1) > 0) {
@@ -213,7 +214,15 @@ class SiteController extends Controller
         //     ->whereIn('topic_id', $list_topic_id)
         //     ->orderBy('httt_post.created_at', 'desc')
         //     ->take(4)->get();
-        return view('frontend.post-detail', compact('post'));
+        $post_list = Post::join('httt_topic', 'httt_topic.id', '=', 'httt_post.topic_id')
+            ->select('httt_post.*', 'httt_topic.name as topic_name', 'httt_topic.slug as topic_slug')
+
+            ->where([['httt_post.status', '=', 1], ['httt_post.type', '=', 'post'], ['httt_post.id', '!=', $post->id]])
+
+            // ->whereIn('topic_id', $list_topic_id)
+            ->orderBy('created_at', 'desc')
+            ->take(3)->get();
+        return view('frontend.post-detail', compact('post', 'post_list'));
     }
     private function error_404($slug)
     {

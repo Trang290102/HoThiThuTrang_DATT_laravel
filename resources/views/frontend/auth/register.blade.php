@@ -4,8 +4,8 @@
     
 <div class="container my-4">
     <div class="row">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4">
+        {{-- <div class="col-sm-4"></div> --}}
+        <div class="col-sm-6">
             <div class="login-form"><!--login form-->
                 <h2 class="text-center">Đăng ký tài khoản </h2>
                 <form action="{{ route('postregister')}}" method="post" enctype="multipart/form-data">
@@ -64,7 +64,9 @@
                 </form>
             </div><!--/login form-->
         </div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-6">
+            <img class="img-fluid" style="width: 600px;" src="{{asset('public/images/about-01.jpg')}}" alt="about-01.jpg" />
+        </div>
     </div>
 </div>
 @endsection

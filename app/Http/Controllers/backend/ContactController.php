@@ -34,15 +34,15 @@ class contactController extends Controller
         return view('backend.contact.trash', compact('list_contact'));
     }
 
-    public function show(string $id)
-    {
+    // public function show(string $id)
+    // {
 
-        $contact = Contact::find($id);
-        if ($contact == null) {
-            return redirect()->route('contact.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
-        }
-        return view('backend.contact.show', compact('contact'));
-    }
+    //     $contact = Contact::find($id);
+    //     if ($contact == null) {
+    //         return redirect()->route('contact.index')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
+    //     }
+    //     return view('backend.contact.show', compact('contact'));
+    // }
 
     public function edit(string $id)
     {
@@ -52,40 +52,24 @@ class contactController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $contact_id = Auth::contact()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $contact = Contact::find($id); //lấy mẫu tin
-        $contact->name = $request->name; //tên có thể đăng nhâp
-        $contact->contactname = $request->contactname;
-        $contact->phone = $request->phone;
-        $contact->password = bcrypt($request->password);
-        //mật khẩu nên có 1 trang riêng để thay đổi mật khẩu, cần xác nhận mật khẩu cũ trước khi encode
-        $contact->roles = $request->roles;
-        $contact->address = $request->address;
-        $contact->email = $request->email;
-        $contact->gender = $request->gender;
-        $contact->status = $request->status;
+        $contact = new Contact; //lấy mẫu tin
+        $contact->name = $contact->name;
+        $contact->email = $contact->email;
+        $contact->status = 1;
+        $contact->title = $request->title;
+        $contact->content = $request->content;
+
         $contact->updated_at = date('Y-m-d H:i:s');
-        $contact->updated_by = $contact_id;
-        //upload image
-        $slug = Str::slug($contact->name = $request->name, '-');
-        if ($request->has('image')) {
-            $path_dir = "public/images/contact/";
-            if (File::exists(($path_dir . $contact->image))) {
-                File::delete(($path_dir . $contact->image));
-            }
-            $file =  $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = $contact->slug . '.' . $extension;
-            $file->move($path_dir, $filename);
-            //echo $filename;
-            $contact->image = $filename;
-        }
+        $contact->updated_by = $user_id;
+        $contact->replay_id = $user_id;
+
         //end upload
         if ($contact->save()) {
-            return redirect()->route('contact.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật liên hệ thành công!']);
+            return redirect()->route('contact.index')->with('message', ['type' => 'success', 'msg' => 'Trả lời liên hệ thành công!']);
         }
-        return redirect()->route('contact.index')->with('message', ['type' => 'danger', 'msg' => 'Cập nhật liên hệ không thành công!']);
+        return redirect()->route('contact.index')->with('message', ['type' => 'danger', 'msg' => 'Trả lời liên hệ thất bại!']);
     }
 
     #GET:admin/contact/destroy/{id}
@@ -103,7 +87,7 @@ class contactController extends Controller
     #GET:admin/contact/status/{id}
     public function status($id)
     {
-        $contact_id = Auth::contact()->id;
+        $user_id = Auth::user()->id;
         date_default_timezone_set("Asia/Ho_Chi_Minh");
         $contact = Contact::find($id);
         if ($contact == null) {
@@ -111,7 +95,7 @@ class contactController extends Controller
         }
         $contact->status = ($contact->status == 1) ? 2 : 1;
         $contact->updated_at = date('Y-m-d H:i:s');
-        $contact->updated_by = $contact_id;
+        $contact->updated_by = $user_id;
         $contact->save();
         return redirect()->route('contact.index')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }
@@ -119,14 +103,14 @@ class contactController extends Controller
     public function delete($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $contact_id = Auth::contact()->id;
+        $user_id = Auth::user()->id;
         $contact = Contact::find($id);
         if ($contact == null) {
             return redirect()->route('contact.index')->with('message', ['type' => 'danger', 'msg' => 'Xóa vào thùng rác không thành công!']);
         }
         $contact->status = 0;
         $contact->updated_at = date('Y-m-d H:i:s');
-        $contact->updated_by = $contact_id;
+        $contact->updated_by = $user_id;
         $contact->save();
         return redirect()->route('contact.index')->with('message', ['type' => 'success', 'msg' => 'Xóa vào thùng rác thành công!']);
     }
@@ -134,14 +118,14 @@ class contactController extends Controller
     public function restore($id)
     {
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $contact_id = Auth::contact()->id;
+        $user_id = Auth::user()->id;
         $contact = Contact::find($id);
         if ($contact == null) {
             return redirect()->route('contact.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
         $contact->status = 2;
         $contact->updated_at = date('Y-m-d H:i:s');
-        $contact->updated_by = $contact_id;
+        $contact->updated_by = $user_id;
         $contact->save();
         return redirect()->route('contact.trash')->with('message', ['type' => 'success', 'msg' => 'Thay đổi trạng thái thành công!']);
     }

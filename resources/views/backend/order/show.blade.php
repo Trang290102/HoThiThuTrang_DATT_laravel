@@ -75,7 +75,7 @@
             @php
                 $total = 0;
             @endphp
-            <table class="table table-bordered table-striped" id="myTable">
+            <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th style="width:50px;">#</th>

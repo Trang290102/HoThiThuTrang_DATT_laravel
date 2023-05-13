@@ -33,12 +33,12 @@
                         <div class="contactinfo">
                             <ul class="nav nav-pills">
                                 <li><a href="#"><i class="fa fa-phone"></i> +097 503 0513</a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                                <li><a href="#"><i class="fa fa-envelope"></i> hothutrang421@gmail.com</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="social-icons pull-right">
+                        {{-- <div class="social-icons pull-right">
                             <ul class="nav navbar-nav">
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -46,7 +46,7 @@
                                 <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                                 <li><a href="#"><i class="fa fa-user"></i> {{Auth('customer')->user()->name}}</a></li>
                                 <li><a href="{{route('dangxuat')}}"><i class="fa fa-sign-out"></i> Đăng Xuất</a></li>
                                 @else
-                                <li><a href="{{route('getdangnhap')}}"><i class="fa fa-lock"></i> Đăng Nhập</a></li>
+                                <li><a href="{{route('getdangnhap')}}"><i class="fa fa-user"></i> Đăng Nhập</a></li>
                                 @endif
                                 <li><a href="{{route('frontend.cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng ({{$cart->total_quantity}})</a></li>
                             </ul>
@@ -209,7 +209,18 @@
         swal("Gửi liên hệ thành công!", "{{Session::get('contactMessage')}}", "success");
     </script>
     @endif
-
+    {{-- <script>
+        function AddCart(id){
+            // console.log(id);
+            $.ajax({
+                url:'cart/add/'+id,
+                type:'GET',
+            }).done(function(){
+				swal("Here's the title!", "...and here's the text!");
+			});
+        }
+    </script>
+ --}}
 
     @yield('footer')
 </body>

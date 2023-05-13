@@ -38,12 +38,29 @@
 
         <div class="col-sm-3 col-sm-offset-1">
             <div class="single-widget">
-                <h2>Giới thiệu về TRANG</h2>
-                <form action="#" class="searchform">
-                    <input type="text" placeholder="Vui lòng điền email" />
-                    <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-                    <p>Nhận các bản cập nhật mới nhất từ<br />trang web của chúng tôi và cập nhật bản thân của bạn ...</p>
-                </form>
+                <h2>THông tin liên hệ</h2>
+                <address>
+                    <p>TrangShop Inc.</p>
+                    <p>SĐT: +0975 030 513</p>
+                    <p>Email: hothutrang421@gmail.com</p>
+                    <p>Địa chỉ: 103 Tăng Nhơn Phú, Phước Long B, tp.Thủ Đức, TP.HCM</p>
+                </address>
+                <div class="social-networks">
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-youtube"></i></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 

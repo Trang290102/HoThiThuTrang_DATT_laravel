@@ -44,7 +44,9 @@
                     <span class="product-price">{{number_format($product->price_buy)}}<sup>đ</sup></span> 
                     <del>{{number_format($product->price_buy)}}<sup>đ</sup></del>
                 </strong>
-                <p class = "product-description">{!!$product->metadesc!!}</p>
+                <div style="height:150px;">
+                    <p class = "product-description">{!!$product->metadesc!!}</p>
+                </div>
                 {{-- <span>
                     <label>Quantity:</label>
                     <input type="text" value="3" />

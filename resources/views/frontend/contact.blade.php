@@ -37,12 +37,10 @@
                 <div class="contact-info">
                     <h2 class="title text-center">Liên hệ trực tiếp</h2>
                     <address>
-                        <p>E-Shopper Inc.</p>
-                        <p>935 W. Webster Ave New Streets Chicago, IL 60614, NY</p>
-                        <p>Newyork USA</p>
-                        <p>Mobile: +2346 17 38 93</p>
-                        <p>Fax: 1-714-252-0026</p>
-                        <p>Email: info@e-shopper.com</p>
+                        <p>TrangShop Inc.</p>
+                        <p>103 Tăng Nhơn Phú, Phước Long B, tp.Thủ Đức, TP.HCM</p>
+                        <p>Mobile: +0975 030 513</p>
+                        <p>Email: hothutrang421@gmail.com</p>
                     </address>
                     <div class="social-networks">
                         <h2 class="title text-center">Mạng xã hội</h2>

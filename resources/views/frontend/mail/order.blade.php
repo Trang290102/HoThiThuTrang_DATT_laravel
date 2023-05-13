@@ -60,7 +60,7 @@
         </thead>
         <tbody>
             @php
-                $i=0;
+                $i=1;
             @endphp
             @foreach ($cart->items as $item)
             <tr>

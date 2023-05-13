@@ -63,13 +63,26 @@
 
 
 
-              <div class="col-md-6"> 
-                <h2>Trả lời</h2>
-
+                <div class="col-md-6"> 
+                  <h2>Trả lời</h2>
+                  <div class="mb-3">
+                    <input type="text" name="title" value="{{ old('title') }}"" id="name" class="form-control" placeholder="Nhập tiêu đề email"> 
+                    {{-- @if ($errors->has('title'))
+                      <div class="text-danger">{{$errors->first('title')}}</div>
+                    @endif  --}}
+                </div>
+                <div class="mb-3">
+                  <label for="content">Trả lời</label>
+                  <textarea name="content" id="content" class="form-control" rows="5"
+                  placeholder="Nhập câu trả lời">{{ old('content') }}</textarea>
+                  {{-- @if ($errors->has('content'))
+                  <div class="text-danger">{{$errors->first('content')}}</div>
+                  @endif  --}}
+                </div>
               </div>
 
             </div>
-           
+          
           </div>
 
         </div>

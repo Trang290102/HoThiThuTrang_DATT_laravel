@@ -24,12 +24,28 @@
             </div><!--product_category_items-->
         </div>
         <div class="col-md-3"><!--cột trái-->
-            <div class="left-sidebar">
-                <x-category-list/>
-                <x-brand-list/>
-                <div class="shipping text-center" ><!--shipping-->
-                    <img src="public/images/festive-2022-2-b-2.gif" alt="" width="260" height="350" />
-                </div><!--/shipping-->
+            {{-- <div class="left-sidebar" style="border: 1px solid #e3e5ec;"> --}}
+                <div class="left-sidebar">
+                <h4 style="border-bottom: 1px solid;margin-bottom:15px;width: 240px;">Tin liên quan</h4>
+                @foreach($post_list as $row)
+                @php
+                $tieude=substr($row->title, 0, 150). '...';
+                @endphp
+                <div class="single-post">
+                    <div class="post">
+                        <a href="{{route('slug.home',['slug'=>$row->slug])}}">
+                            <img class="img-fluid" style="width: 240px;" src="{{asset('public/images/post/'.$row->images)}}" alt="{{$row->images}}" />
+                        </a>
+                    </div>
+                    <div class="post-title" style="height:30px; width:240px;">
+                        <a href="{{route('slug.home',['slug'=>$row->slug])}}"><h6 style="font-style: initial; color:black;">{{$tieude}}</h6></a>
+                    </div>
+                    @php
+                        $date = !empty($row->updated_at) ? (new DateTime($row->updated_at))->format('d/m/Y') : "";
+                    @endphp
+                    <p>{{$date}}</p>
+                </div>
+                @endforeach
             </div>
         </div>
     </div>

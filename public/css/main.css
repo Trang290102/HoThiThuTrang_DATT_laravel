@@ -2628,6 +2628,13 @@ h2.category {
 }
 
 
+.post-title h6:hover {
+	color:#f448b2;
+	background:#fff;
+}
+
+
+
 .post-title p{
   background: #FFFFFF;
   color: #110c02;

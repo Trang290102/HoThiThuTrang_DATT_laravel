@@ -37,7 +37,7 @@
                                             <div class="col-md-8"><!--cột trái-->
                                                 <div class="post-title">
                                                     <a href="{{route('slug.home',['slug'=>$post->slug])}}">
-                                                        <h2 > {{$post->title}}</h2>
+                                                        <h2> {{$post->title}}</h2>
                                                     </a>
                                                     @php
                                                         $date = !empty($post->updated_at) ? (new DateTime($post->updated_at))->format('H:i d/m/Y') : "";
