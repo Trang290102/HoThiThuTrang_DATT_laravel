@@ -162,8 +162,10 @@ Route::prefix('admin')->middleware('LoginAdmin')->group(function () {
     //customer
     Route::resource('contact', ContactController::class);
     route::get('contact_trash', [ContactController::class, 'trash'])->name('contact.trash');
+    route::get('no_reply', [ContactController::class, 'noreply'])->name('contact.noreply');
+
     route::prefix('contact')->group(function () {
-        route::get('status/{contact}', [ContactController::class, 'status'])->name('contact.status');
+        // route::get('status/{contact}', [ContactController::class, 'status'])->name('contact.status');
         route::get('delete/{contact}', [ContactController::class, 'delete'])->name('contact.delete');
         route::get('restore/{contact}', [ContactController::class, 'restore'])->name('contact.restore');
         route::get('destroy/{contact}', [ContactController::class, 'destroy'])->name('contact.destroy');
@@ -186,6 +188,5 @@ route::prefix('checkout')->middleware('LoginCustomer')->group(function () {
     Route::get('checkout-success', [CheckoutController::class, 'checkout_success'])->name('checkout.success'); //link cố định( ví dụ)
 });
 
-
-Route::get('{slug}', [SiteController::class, 'index'])->name('slug.home');
 Route::post('search', [SearchController::class, 'index'])->name('search.home');
+Route::get('{slug}', [SiteController::class, 'index'])->name('slug.home');

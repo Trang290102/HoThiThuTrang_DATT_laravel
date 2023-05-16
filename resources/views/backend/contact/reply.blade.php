@@ -60,9 +60,6 @@
                   </tr>
               </table>
               </div>
-
-
-
                 <div class="col-md-6"> 
                   <h2>Trả lời</h2>
                   <div class="mb-3">

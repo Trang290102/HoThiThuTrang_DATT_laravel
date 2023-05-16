@@ -66,9 +66,6 @@
                     @endif   
                 </div>
             </div><!--product_category_items-->
-            {{-- <div><!--phân trang -->
-                {{ $list_search_product->links() }}
-            </div> --}}
         </div>
 
     </div>

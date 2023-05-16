@@ -11,7 +11,7 @@
 ">
     <h2>Xin chào {{$auth->name}}</h2>
     <p>Cảm ơn bạn đã đặt hàng tại website của chúng tôi, vui lòng kiểm tra lại thông tin đơn hàng. Mọi thắc mắc, xin vui lòng liên hệ qua website hoặc hotline: 097 503 0513.</p>
-    <h3>Thông tin người đặt hàng</h3>
+    <h3>Thông tin đơn hàng</h3>
     <table border="1" cellspacing="0" cellpadding="10"  style="width:100%">
         <tr>
             <th>Họ và tên</th>
@@ -29,27 +29,27 @@
             <th>Địa chỉ giao hàng</th>
             <td>{{$order->address}}</td>
         </tr>
+        <tr>
+            <th>Mã đơn hàng</th>
+            <td>{{$order->id}}</td>
+        </tr>
+        <tr>
+            <th>Ngày đặt hàng</th>
+            <td>{{$order->created_at}}</td>
+        </tr>
+        <tr>
+            <th>Hình thức thanh toán</th>
+            <td>COD</td>
+        </tr>
+        <tr>
+            <th>Ghi chú đơn hàng</th>
+            <td>{{$order->note}}</td>
+        </tr>
     </table>
-    <h3>Thông tin chi tiết đơn hàng</h3>
+    <h3>Chi tiết đơn hàng</h3>
 
     <table border="1" cellspacing="0" cellpadding="10" style="width:100%">
         <thead>
-            <tr>
-                <th>Mã đơn hàng</th>
-                <td>{{$order->id}}</td>
-            </tr>
-            <tr>
-                <th>Ngày đặt hàng</th>
-                <td>{{$order->created_at}}</td>
-            </tr>
-            <tr>
-                <th>Hình thức thanh toán</th>
-                <td>COD</td>
-            </tr>
-            <tr>
-                <th>Ghi chú đơn hàng</th>
-                <td>{{$order->note}}</td>
-            </tr>
             <tr>
                 <td>STT</td>
                 <td>Tên sản phẩm</td>

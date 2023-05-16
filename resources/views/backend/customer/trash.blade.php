@@ -73,7 +73,6 @@
                   <i class="fas fa-trash-restore"></i></a>
                 <a href="{{ route('customer.destroy',['customer'=>$customer->id]) }}" class="btn btn-danger btn-sm">
                   <i class="fas fa-ban"></i> </a>
-
               </td>
               <td class="text-center">{{$customer->id}}</td>
             </tr>

@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Danh sách liên hệ')
+@section('title', 'Danh sách liên hệ chưa trả lời')
 
 @section('header')
 <link rel="stylesheet" href="{{asset ('public/jquery.dataTables.min.css')}}">
@@ -17,12 +17,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Danh sách liên hệ</h1>
+            <h1>Danh sách liên hệ chưa trả lời</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">bảng điều khiển</a></li>
-              <li class="breadcrumb-item active">Danh sách liên hệ</li>
+              <li class="breadcrumb-item active">Danh sách liên hệ chưa trả lời </li>
             </ol>
           </div>
         </div>
@@ -38,8 +38,6 @@
            <div class="row">
             <div class="col-md-6">
               <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-times"></i>  Xóa</button>
-              <a href="{{ route('contact.noreply') }}" class="btn btn-sm btn-warning"><i class="fas fa-clipboard-list"></i>  Chưa trả lời</a>
-
             </div>
             <div class="col-md-6 text-right">
                 <a href="{{ route('contact.trash') }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Thùng rác</a>
@@ -65,13 +63,13 @@
                 @foreach ($list_contact as $contact)
                 <tr>
                     <td class="text-center">
-                      @if ($contact->email==null)
-                      <a  href="#" class="btn btn-primary btn-sm">
-                        <i class="fas fa-check"></i>
-                      </a>
-                      @else
+                      @if ($contact->replay_id==null)
                       <a  href="#" class="btn btn-warning btn-sm">
                         <i class="fas fa-question"></i>
+                      </a>
+                      @else
+                      <a  href="#" class="btn btn-primary btn-sm">
+                        <i class="fas fa-check"></i>
                       </a>
                       @endif
                     </td>

@@ -58,7 +58,6 @@ class CheckoutController extends Controller
                 $email->subject('TrangShop - Đặt hàng thành công');
                 $email->to($auth->email, $auth->name);
             });
-
             return redirect()->route('checkout.success');
                 //xóa cart
                 session(['cart' => '']);

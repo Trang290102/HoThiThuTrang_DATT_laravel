@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Khôi phục khách hàng')
+@section('title', 'Khôi phục liên hệ')
 @section('content')
 
 @section('header')
@@ -17,12 +17,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Khôi phục khách hàng</h1>
+          <h1>Khôi phục liên hệ</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">bảng điều khiển</a></li>
-            <li class="breadcrumb-item active">Khôi phục khách hàng</li>
+            <li class="breadcrumb-item active">Khôi phục liên hệ</li>
           </ol>
         </div>
       </div>
@@ -40,7 +40,7 @@
             <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-times"></i> Xóa</button>
           </div>
           <div class="col-md-6 text-right">
-            <a href="{{ route('customer.index') }}" class="btn btn-sm btn-info"><i class="fas fa-reply"></i> Quay về dánh sách</a>
+            <a href="{{ route('contact.index') }}" class="btn btn-sm btn-info"><i class="fas fa-reply"></i> Quay về dánh sách</a>
           </div>
         </div>
       </div>
@@ -49,37 +49,45 @@
         <table class="table table-bordered table-striped" id="myTable">
           <thead>
             <tr>
-              <th style="width:20px;" class="text-center">#</th>
-                    <th style="width:100px;" class="text-center">Hình ảnh</th>
-                    <th style="width:150px;">Tên đăng nhập</th>
-                    <th>Email</th>
-                    <th>Số điện thoại</th>
-                    <th style="width:160px;" class="text-center">Ngày đăng</th>
-                    <th style="width:150px;" class="text-center">Chức năng</th>
-                    <th style="width:20px;" class="text-center">ID</th>
+                <th style="width:20px;" class="text-center">Loại</th>
+                <th style="width:150px;">Họ và tên</th>
+                <th>Email</th>
+                <th>Chủ đề</th>
+                <th style="width:160px;" class="text-center">Ngày gửi</th>
+                <th style="width:150px;" class="text-center">Chức năng</th>
+                <th style="width:20px;" class="text-center">ID</th>
+                
             </tr>
-          </thead>
-          <tbody>
-            @foreach ($list_customer as $customer)
+        </thead>
+        <tbody>
+            @foreach ($list_contact as $contact)
             <tr>
-              <td class="text-center"><input type="checkbox"></td>
-                    <td><img class="img-fluid" src="{{ asset('public/images/customer/'.$customer->image)}}" alt="{{$customer->image}}"></td>
-                    <td>{{ $customer->name }}</td>
-                    <td>{{ $customer->email }}</td>
-                    <td>{{ $customer->phone }}</td>
-                    <td>{{ $customer->created_at }}</td>
-              <td class="text-center">
-                <a href="{{ route('customer.restore',['customer'=>$customer->id]) }}" class="btn btn-primary btn-sm">
-                  <i class="fas fa-trash-restore"></i></a>
-                <a href="{{ route('customer.destroy',['customer'=>$customer->id]) }}" class="btn btn-danger btn-sm">
-                  <i class="fas fa-ban"></i> </a>
-
-              </td>
-              <td class="text-center">{{$customer->id}}</td>
+                <td class="text-center">
+                  @if ($contact->replay_id==null)
+                  <a  href="#" class="btn btn-warning btn-sm">
+                    <i class="fas fa-question"></i>
+                  </a>
+                  @else
+                  <a  href="#" class="btn btn-primary btn-sm">
+                    <i class="fas fa-check"></i>
+                  </a>
+                  @endif
+                </td>
+                <td>{{ $contact->name}}</td>
+                <td>{{ $contact->email}}</td>
+                <td>{{$contact->title}}</td>
+                <td>{{ $contact->created_at }}</td>
+                  <td class="text-center">
+                    <a href="{{ route('contact.restore',['contact'=>$contact->id]) }}" class="btn btn-primary btn-sm">
+                      <i class="fas fa-trash-restore"></i></a>
+                    <a href="{{ route('contact.destroy',['contact'=>$contact->id]) }}" class="btn btn-danger btn-sm">
+                      <i class="fas fa-ban"></i> </a>
+                  </td>
+                <td class="text-center">{{ $contact->id }}</td>
             </tr>
             @endforeach
-          </tbody>
-        </table>
+        </tbody>
+    </table>
       </div>
       <!-- /.card-body -->
       <div class="card-footer">

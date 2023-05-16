@@ -21,7 +21,9 @@ class LoginCustomerMiddelware
             } else {
                 return redirect()->route('getdangnhap');
             }
-        } else {
+        }
+        
+        else {
             return redirect()->route('getdangnhap')->with('errorMessage', 'Bạn cần đăng nhập để tiếp tục!!!');
         }
         return $next($request);
