@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     <title>@yield('title')</title>
     <link href="{{asset('public/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -64,15 +65,24 @@
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
+                                @php
+                                    $total = '0';
+                                    if ($cart != null) {
+                                        $total = $cart->total_quantity;
+                                    }
+                                @endphp
                                 {{-- <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li> --}}
                                 {{-- <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li> --}}
                                 @if(Auth::guard('customer')->check())
                                 <li><a href="#"><i class="fa fa-user"></i> {{Auth('customer')->user()->name}}</a></li>
                                 <li><a href="{{route('dangxuat')}}"><i class="fa fa-sign-out"></i> Đăng Xuất</a></li>
+                                <li><a href="{{route('order.list')}}"><i class="fa fa-truck"></i> Đơn hàng</a></li>
+
                                 @else
                                 <li><a href="{{route('getdangnhap')}}"><i class="fa fa-user"></i> Đăng Nhập</a></li>
                                 @endif
-                                <li><a href="{{route('frontend.cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng ({{$cart->total_quantity}})</a></li>
+                                <li><a href="{{route('frontend.cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng
+                                    <span id="total-quantity-show">({{$total}})</span> </a></li>
                             </ul>
                         </div>
                     </div>
@@ -88,88 +98,6 @@
         @yield('content')
     </section>
     <footer id="footer"><!--Footer-->
-        {{-- <div class="footer-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <div class="companyinfo">
-                            <div class="logo pull-left">
-                                <a href="{{URL::to('/trang-chu')}}"><img src="{{('public/images/logo2.png')}}" alt="" width="170" height="60" /></a>
-                            </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-7">
-                        <div class="col-sm-3">
-                            <div class="video-gallery text-center">
-                                <a href="#">
-                                    <div class="iframe-img">
-                                        <img src="{{('public/images/iframe1.png')}}" alt="" />
-                                    </div>
-                                    <div class="overlay-icon">
-                                        <i class="fa fa-play-circle-o"></i>
-                                    </div>
-                                </a>
-                                <p>Circle of Hands</p>
-                                <h2>24 DEC 2014</h2>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="video-gallery text-center">
-                                <a href="#">
-                                    <div class="iframe-img">
-                                        <img src="{{('public/images/iframe2.png')}}" alt="" />
-                                    </div>
-                                    <div class="overlay-icon">
-                                        <i class="fa fa-play-circle-o"></i>
-                                    </div>
-                                </a>
-                                <p>Circle of Hands</p>
-                                <h2>24 DEC 2014</h2>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="video-gallery text-center">
-                                <a href="#">
-                                    <div class="iframe-img">
-                                        <img src="{{('public/images/iframe3.png')}}" alt="" />
-                                    </div>
-                                    <div class="overlay-icon">
-                                        <i class="fa fa-play-circle-o"></i>
-                                    </div>
-                                </a>
-                                <p>Circle of Hands</p>
-                                <h2>24 DEC 2014</h2>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="video-gallery text-center">
-                                <a href="#">
-                                    <div class="iframe-img">
-                                        <img src="{{('public/images/iframe4.png')}}" alt="" />
-                                    </div>
-                                    <div class="overlay-icon">
-                                        <i class="fa fa-play-circle-o"></i>
-                                    </div>
-                                </a>
-                                <p>Circle of Hands</p>
-                                <h2>24 DEC 2014</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="address">
-                            <img src="images/home/map.png" alt="" />
-                            <p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
         <div class="footer-widget">
             <x-footer-menu />
         </div>
@@ -206,7 +134,7 @@
     @endif
     @if(Session::has('contactMessage'))
     <script>
-        swal("Gửi liên hệ thành công!", "{{Session::get('contactMessage')}}", "success");
+        swal("Gửi tin thành công!", "{{Session::get('contactMessage')}}", "success");
     </script>
     @endif
     {{-- <script>
@@ -215,12 +143,18 @@
             $.ajax({
                 url:'cart/add/'+id,
                 type:'GET',
-            }).done(function(){
+            }).done(function(response){
+                RenderCart(response);
 				swal("Here's the title!", "...and here's the text!");
 			});
         }
-    </script>
- --}}
+        function RenderCart(response) {
+            // $("#change-item-cart").empty();
+            // $("#change-item-cart").html(response);
+            $("#total-quantity-show").text($("#total-quantity-cart").val());
+        }
+    </script> --}}
+
 
     @yield('footer')
 </body>

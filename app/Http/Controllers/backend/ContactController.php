@@ -18,12 +18,14 @@ class ContactController extends Controller
     #GET:admin/contact, admin/contact/index
     public function index()
     {
-        $list_contact = Contact::where('status', '!=', 0)->get();
+        $list_contact = Contact::where('status', '!=', 0)
+            ->orderBy('created_at', 'desc')->get();
         return view('backend.contact.index', compact('list_contact'));
     }
     public function noreply()
     {
-        $list_contact = Contact::where([['email', '!=', null], ['replay_id', '=', null]])->get();
+        $list_contact = Contact::where([['email', '!=', null], ['replay_id', '=', null]])
+            ->orderBy('created_at', 'desc')->get();
         return view('backend.contact.contact', compact('list_contact'));
     }
 
@@ -37,7 +39,8 @@ class ContactController extends Controller
     #GET:admin/contact/trash
     public function trash()
     {
-        $list_contact = Contact::where('status', '=', 0)->orderBy('created_at', 'desc')->get();
+        $list_contact = Contact::where('status', '=', 0)
+            ->orderBy('created_at', 'desc')->get();
         return view('backend.contact.trash', compact('list_contact'));
     }
 
@@ -67,22 +70,22 @@ class ContactController extends Controller
         $contact_reply->status = 1;
         $contact_reply->title = $request->title;
         $contact_reply->content = $request->content;
-        $contact_reply->updated_at = date('Y-m-d H:i:s');
-        $contact_reply->updated_by = $user_id;
+        $contact_reply->created_at = date('Y-m-d H:i:s');
         $contact_reply->replay_id = $id;
 
         //end upload
         if ($contact_reply->save()) {
             $contact = Contact::find($id);
-            $contact->replay_id = $user_id;
+            $contact->replay_id = $contact_reply->id;
             $contact->status = 1;
-            if($contact->save())
-            {
-            //gửi mail chi tiết đơn hàng
-            Mail::send('backend.mail.contact', compact('contact', 'contact_reply'), function ($email) use ($contact) {
-                $email->subject('TrangShop - Trả lời liên hệ');
-                $email->to($contact->email, $contact->name);
-            });
+            $contact->updated_by = $user_id;
+            $contact->updated_at = date('Y-m-d H:i:s');
+            if ($contact->save()) {
+                //gửi mail chi tiết đơn hàng
+                Mail::send('backend.mail.contact', compact('contact', 'contact_reply'), function ($email) use ($contact) {
+                    $email->subject('TrangShop - Trả lời liên hệ');
+                    $email->to($contact->email, $contact->name);
+                });
             }
             return redirect()->route('contact.index')->with('message', ['type' => 'success', 'msg' => 'Trả lời liên hệ thành công!']);
         }

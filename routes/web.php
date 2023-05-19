@@ -23,6 +23,8 @@ use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\frontend\LoginController;
 use App\Http\Controllers\frontend\LienheController;
 use App\Http\Controllers\frontend\CheckoutController;
+use App\Http\Controllers\frontend\DonHangController;
+
 
 use App\Http\Middleware\LoginAdminMiddelware;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -179,13 +181,18 @@ route::prefix('cart')->group(function () {
     route::get('remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     route::get('update/{id}', [CartController::class, 'update'])->name('cart.update');
     route::get('clear', [CartController::class, 'clear'])->name('cart.clear');
+    route::post('update-all', [CartController::class, 'updateall'])->name('cart.updateall');
+
 });
+
 
 //Xử lý đặt hàng
 route::prefix('checkout')->middleware('LoginCustomer')->group(function () {
     Route::get('/', [CheckoutController::class, 'form'])->name('checkout');
     route::post('/', [CheckoutController::class, 'submit_form'])->name('checkout');
     Route::get('checkout-success', [CheckoutController::class, 'checkout_success'])->name('checkout.success'); //link cố định( ví dụ)
+    Route::get('order', [DonHangController::class, 'index'])->name('order.list'); //link cố định( ví dụ)
+
 });
 
 Route::post('search', [SearchController::class, 'index'])->name('search.home');

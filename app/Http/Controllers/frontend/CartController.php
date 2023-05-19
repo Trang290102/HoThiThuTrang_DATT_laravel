@@ -35,6 +35,18 @@ class CartController extends Controller
         $cart->update($id, $quantity);
         return redirect()->route('frontend.cart')->with('successMessage', 'Cập nhật giỏ hàng thành công!');
     }
+    public function updateall(Request $request, CartHelper $cart)
+    {
+        // dd($request->data);
+        // $data = $request->data;
+        foreach ($request->data as $item) {
+            // $quantity = request()->quantity ? request()->quantity : 1;
+            $cart->update($item["key"], $item["value"]);
+        }
+        // return view('frontend.cart.index');
+
+    }
+
     public function clear(CartHelper $cart)
     {
         $cart->clear();

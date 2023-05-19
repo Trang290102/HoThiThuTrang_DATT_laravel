@@ -44,6 +44,7 @@ class ProductHome extends Component
             }
         }
         $product_list = Product::join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
+        // ->join('httt_product_sale', 'httt_brand.id', '=', 'httt_product.brand_id')
             ->select('httt_product.*', 'httt_brand.name as brand_name','httt_brand.slug as brand_slug')
             ->orderBy('updated_at', 'desc')
             ->where('httt_product.status', 1)

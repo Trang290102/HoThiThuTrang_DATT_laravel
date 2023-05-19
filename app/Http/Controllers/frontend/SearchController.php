@@ -15,8 +15,13 @@ class SearchController extends Controller
     public function index(Request $request)
     {
         $keywords = $request->keywordsearch;
-        $list_search_product = Product::where('httt_product.status', 1)
+        $list_search_product = Product::join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
+            ->join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
+            ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_brand.slug as brand_slug')
+            ->where('httt_product.status', 1)
             ->where('httt_product.name', 'like', '%' . $keywords . '%')
+            ->orwhere('httt_brand.name', 'like', '%' . $keywords . '%')
+            ->orwhere('httt_category.name', 'like', '%' . $keywords . '%')
             ->orderBy('httt_product.created_at', 'desc')
             // ->paginate(9);
             ->get();

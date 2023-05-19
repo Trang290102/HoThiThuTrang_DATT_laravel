@@ -31,7 +31,7 @@
         <span style="text-align:center;"><img class="ripple-success" src="{{asset('public/images/success.png')}}" alt="success.png"></span>
         <h2 >Đặt hàng hành công!</h2>
         <h3>Vui lòng kiểm tra gmail <span>{{Auth()->guard('customer')->user()->email}}</span> để xem lại thông tin đơn hàng.</h3>
-        <div style="margin-bottom:30px;">
+        {{-- <div style="margin-bottom:30px;">
             <h2>Chi tiết đơn đặt hàng</h2>
             <table border="1" cellspacing="0" cellpadding="10" style="width:100%">
                 <thead>
@@ -69,6 +69,10 @@
                 </tbody>
             </table>
             <h3 style="text-align:right;">Tổng giá trị: {{number_format($cart->total_price)}} VNĐ</h3>
-        </div>          
+        </div> --}}
+        <div class="alert alert-success mt-3">
+            <p class="icontext text-left"><i class="icon text-success fa fa-truck"></i> Giao hàng miễn phí trong vòng 1-2 tuần.</p>
+        </div>
+              
     </div>     
 @endsection

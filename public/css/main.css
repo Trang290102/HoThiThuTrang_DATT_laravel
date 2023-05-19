@@ -1304,7 +1304,7 @@ h2.category {
 .product-information span {
   display: inline-block;
   margin-bottom: 8px;
-  margin-top: 18px;
+  /* margin-top: 18px; */
 }
 
 .product-information span span {
@@ -2058,8 +2058,49 @@ h2.category {
 .shipping-cost {
   border-bottom: 1px solid #F7F7F0;
 }
+/*thêm css quantity cart*/
+.qua-col {
+	width: 16%;
+}
 
+.qua-col .quantity {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	/* justify-content: center; */
+}
+.qua-col .pro-qty {
+	width: 123px;
+	height: 46px;
+	border: 2px solid #ebebeb;
+	padding: 0 15px;
+	float: left;
+}
+.qua-col .pro-qty .qtybtn {
+	font-size: 24px;
+	color: #b2b2b2;
+	float: left;
+	line-height: 38px;
+	cursor: pointer;
+	width: 18px;
+}
 
+.qua-col .pro-qty .qtybtn.dec {
+	font-size: 30px;
+}
+
+.qua-col .pro-qty input {
+	text-align: center;
+	width: 52px;
+	font-size: 14px;
+	font-weight: 700;
+	border: none;
+	color: #4c4c4c;
+	line-height: 40px;
+	float: left;
+}
 
 
 /*************************

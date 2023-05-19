@@ -79,9 +79,12 @@ class OrderController extends Controller
             return redirect()->route('order.trash')->with('message', ['type' => 'danger', 'msg' => 'Mẫu tin không tồn tại!']);
         }
         if ($order->delete()) {
-            return redirect()->route('order.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa thương hiệu thành công!']);
+            //xoa order-detail
+            OrderDetail::where('order_id', '=', $id)->delete();
+
+            return redirect()->route('order.trash')->with('message', ['type' => 'success', 'msg' => 'Xóa đơn hàng thành công!']);
         }
-        return redirect()->route('order.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa thương hiệu không thành công!']);
+        return redirect()->route('order.trash')->with('message', ['type' => 'danger', 'msg' => 'Xóa đơn hàng không thành công!']);
     }
     #GET:admin/order/status/{id}
     public function status($id)

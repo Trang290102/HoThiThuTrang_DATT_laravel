@@ -13,7 +13,13 @@
                 if(count($product_image)>0)
                 {
                     $hinh=$product_image[0]["image"];
-                } 
+                }
+
+                $sale=$product->price_buy;
+                if($product->productsale)
+                {
+                    $sale=$product->productsale["price_sale"];
+                }
             @endphp
             <div class="item">
                 <div class="product-image-wrapper">
@@ -32,12 +38,11 @@
                             </div>
                             <div class="price text-center">
                                 <strong>
-                                    <span class="price">{{number_format($product->price_buy)}}<sup>đ</sup></span> 
+                                    <span class="price">{{number_format($sale)}}<sup>đ</sup></span> 
                                     <del>{{number_format($product->price_buy)}}<sup>đ</sup></del>
                                 </strong>
                                 <a href="{{route('cart.add',['id'=>$product->id])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
                                 {{-- <a onclick="AddCart({{$product->id}})" href="javascript:" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a> --}}
-
                             </div>
                         </div>
                     </div>

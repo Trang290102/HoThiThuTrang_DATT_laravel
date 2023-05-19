@@ -25,7 +25,7 @@ class ProductController extends Controller
     #GET:admin/product, admin/product/index
     public function index()
     {
-        
+
         //cách 1: truy vấn từ csdl dùng groupby
         // $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
         //     ->join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
@@ -50,7 +50,7 @@ class ProductController extends Controller
     #GET:admin/product/trash
     public function trash()
     {
-        
+
 
         //cách 1: truy vấn từ csdl dùng groupby
         // $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
@@ -73,7 +73,7 @@ class ProductController extends Controller
     #GET: admin/product/create
     public function create()
     {
-        
+
 
         $list_category = Category::where('status', '!=', 0)->get();
         $list_brand = Brand::where('status', '!=', 0)->get();
@@ -149,7 +149,7 @@ class ProductController extends Controller
 
     public function show(string $id)
     {
-        
+
         $product = Product::find($id);
         if ($product == null) {
             return redirect()->route('product.index')->with('message', ['type' => 'danger', 'msg' => 'Sản phẩm không tồn tại!']);
@@ -159,7 +159,7 @@ class ProductController extends Controller
 
     public function edit(string $id)
     {
-        
+
         $product = Product::find($id);
         $list_category = Category::where('status', '!=', 0)->get();
         $list_brand = Brand::where('status', '!=', 0)->get();
@@ -227,19 +227,41 @@ class ProductController extends Controller
                 }
             }
             //khuyến mãi
-            if ($product_sale = ProductSale::where('product_id', '=', $id)->first()) {
-                $product_sale->price_sale = $request->price_sale;
-                $product_sale->date_begin = $request->date_begin;
-                $product_sale->date_end = $request->date_end;
-                $product_sale->save();
+            if (strlen($request->price_sale) && strlen($request->date_begin) && strlen($request->date_end)) {
+                if ($product_sale = ProductSale::where('product_id', '=', $id)->first()) {
+                    $product_sale->price_sale = $request->price_sale;
+                    $product_sale->date_begin = $request->date_begin;
+                    $product_sale->date_end = $request->date_end;
+                    $product_sale->save();
+                }
+                else
+                {
+                    $product_sale = new ProductSale();
+                    $product_sale->product_id = $product->id;
+                    $product_sale->price_sale = $request->price_sale;
+                    $product_sale->date_begin = $request->date_begin;
+                    $product_sale->date_end = $request->date_end;
+                    $product_sale->save();
+                }
             }
+
             //Nhập kho
-            if ($product_store = ProductStore::where('product_id', '=', $id)->first()) {
-                $product_store->price = $request->price;
-                $product_store->qty = $request->qty;
-                $product_store->created_at = date('Y-m-d H:i:s');
-                $product_store->created_by = $user_id;
-                $product_store->save();
+            if (strlen($request->price) && strlen($request->qty)) {
+                if ($product_store = ProductStore::where('product_id', '=', $id)->first()) {
+                    $product_store->price = $request->price;
+                    $product_store->qty = $request->qty;
+                    $product_store->updated_at = date('Y-m-d H:i:s');
+                    $product_store->updated_by = $user_id;
+                    $product_store->save();
+                } else {
+                    $product_store = new ProductStore();
+                    $product_store->product_id = $id;
+                    $product_store->price = $request->price;
+                    $product_store->qty = $request->qty;
+                    $product_store->created_at = date('Y-m-d H:i:s');
+                    $product_store->created_by = $user_id;
+                    $product_store->save();
+                }
             }
         }
         return redirect()->route('product.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật thông tin sản phẩm thành công!']);

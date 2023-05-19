@@ -16,9 +16,13 @@
     {
         $hinh=$product_image[0]["image"];
     }
+    $sale=$product->price_buy;
+    if($product->productsale)
+    {
+        $sale=$product->productsale["price_sale"];
+    }
 @endphp
 @section('content')
-
 <div class="container my-4">
     <div class = "product-div">
         <div class = "product-div-left">
@@ -41,7 +45,7 @@
             <div class="product-information">
                 <span class = "product-name">{{$product->name}}</span>
                 <strong>
-                    <span class="product-price">{{number_format($product->price_buy)}}<sup>đ</sup></span> 
+                    <span class="product-price">{{number_format($sale)}}<sup>đ</sup></span> 
                     <del>{{number_format($product->price_buy)}}<sup>đ</sup></del>
                 </strong>
                 <div style="height:150px;">
@@ -51,11 +55,24 @@
                     <label>Quantity:</label>
                     <input type="text" value="3" />
                 </span> --}}
-                <div class="row">
-                    <div class="quantity_button">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="qua-col">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <input type="text" name="quantity" value="1">
+                                    </div>
+                                    {{-- <button type="submit" class="btn btn-default" style="height:46px;"><i class="fa fa-arrow-circle-o-right"></i></button> --}}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                    
+                    {{-- <div class="quantity_button">
                         <input class="cart_quantity_input" style="width:60px;height:33px;border-radius:4px;border: 1px solid;margin-left:15px;" type="number" min="1" name="quantity" value="1" autocomplete="off" size="1">
-                    </div>
-                </div>                
+                    </div> --}}
                 <div class = "btn-groups">
                     <button type = "submit" class = "add-cart-btn"><i class = "fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
                     <button type = "button" class = "buy-now-btn"><i class="fas fa-wallet"></i> Mua ngay</button>
