@@ -70,9 +70,66 @@
             </table>
             <h3 style="text-align:right;">Tổng giá trị: {{number_format($cart->total_price)}} VNĐ</h3>
         </div> --}}
+        <div style="margin-bottom:30px;">
+            <h3 class="py-3">CHI TIẾT ĐƠN HÀNG</h3>
+            @php
+                $total = 0;
+            @endphp
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        {{-- <th style="width:50px;">#</th> --}}
+                        <th>Tên sản phẩm</th>
+                        <th>Giá sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  @foreach ($orderdetail as $item)
+                  @php
+                    $product=$item->productdetail;
+                    $ten=$product["name"];
+
+                    // $product_image= $product->productimg;
+                    // if(count($product_image)>0)
+                    // $hinh="";
+                    // {
+                    //     $hinh=$product_image[0]["image"];
+                    // }
+                    $total+=$item->amount;
+                  @endphp       
+
+                    <tr> 
+                        {{-- <td style="text-align:center;">{{$item->product_id}}</td> --}}
+                        {{-- <td>
+                        <img class="img-fluid" src="{{asset('public/images/product/'.$hinh)}}" alt="{{ $hinh }}">
+                        </td> --}}
+                        <td>{{$ten}}</td>
+                        <td>{{number_format($item->price)}} VNĐ</td>
+                        <td>{{$item->qty}}</td>
+                        <td>{{number_format($item->amount)}} VNĐ</td>
+                    </tr>
+                    {{-- <tr>
+                        <th>Tổng Tiền</th>
+                        <th> {{number_format($total)}} VNĐ</th>
+                    </tr> --}}
+                  @endforeach
+                </tbody>
+                {{-- <tfoot>
+                    <tr>
+                        <th colspan="4" class="text-center py-2">
+                        </th>
+                        <th>Tổng Tiền</th>
+                        <th> {{number_format($total)}} VNĐ</th>
+                    </tr>
+                </tfoot> --}}
+            </table>
+            <h3 style="text-align:right;">Tổng giá trị: {{number_format($total)}} VNĐ</h3>
+        </div>
         <div class="alert alert-success mt-3">
             <p class="icontext text-left"><i class="icon text-success fa fa-truck"></i> Giao hàng miễn phí trong vòng 1-2 tuần.</p>
         </div>
-              
+               
     </div>     
 @endsection

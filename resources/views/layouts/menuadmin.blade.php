@@ -2,7 +2,7 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <li class="nav-item">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <i class="nav-icon fas fa-th"></i>
           <p>
             Sản phẩm
             <i class="right fas fa-angle-left"></i>
@@ -31,7 +31,7 @@
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <i class="nav-icon fas fa-book"></i>
           <p>
             Bài viết
             <i class="right fas fa-angle-left"></i>
@@ -60,7 +60,7 @@
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <i class="nav-icon far fa-image"></i>
           <p>
             Giao diện
             <i class="right fas fa-angle-left"></i>
@@ -83,7 +83,7 @@
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <i class="nav-icon fas fa-table"></i>
           <p>
             Đơn hàng
             <i class="right fas fa-angle-left"></i>
@@ -100,13 +100,13 @@
       </li>
       <li class="nav-item">
         <a href="{{ route('contact.index')}}" class="nav-link">
-          <i class="nav-icon far fa-circle text-warning"></i>
+          <i class="nav-icon far fa-envelope text-warning"></i>
           <p>Liên hệ</p>
         </a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <i class="fas fa-users mr-2"></i>
           <p>
             Quản lý người dùng
             <i class="right fas fa-angle-left"></i>

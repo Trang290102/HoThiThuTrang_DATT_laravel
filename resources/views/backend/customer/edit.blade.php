@@ -77,7 +77,7 @@
 
                 <div class="mb-3">
                   <label for="phone">Số điện thoại</label> 
-                  <input type="text" name="phone" value="{{ old('phone',$customer->phone) }}" id="phone" class="form-control"
+                  <input type="text" name="phone" spellcheck="false" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{ old('phone',$customer->phone) }}" id="phone" class="form-control"
                    placeholder="Nhập số điện thoại">
                    @if($errors->has('phone'))
                    <div class="text-danger">

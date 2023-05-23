@@ -55,7 +55,7 @@
         </div> 
         <div class="mb-3">
             <label for="price_buy">Giá bán</label>
-            <input type="text" name="price_buy" value="{{ old('price_buy') }}"" id="price_buy" class="form-control" placeholder="Nhập giá bán"> 
+            <input type="text" name="price_buy" spellcheck="false" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{ old('price_buy') }}" id="price_buy" class="form-control" placeholder="Nhập giá bán"> 
             @if ($errors->has('price_buy'))
               <div class="text-danger">{{$errors->first('price_buy')}}</div>
             @endif 

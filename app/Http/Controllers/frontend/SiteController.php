@@ -65,7 +65,7 @@ class SiteController extends Controller
     //Sanr pham thuoc thuong hieu
     private function product_brand($slug)
     {
-        $row_brand = Brand::where([['slug', '=', $slug], ['status', '=', '1']])->first();
+        $row_brand = Brand::where([['slug', '=', $slug], ['status', '=', 1]])->first();
         $product_list = Product::where([['status', '=', '1'], ['brand_id', '=', $row_brand->id]])
             ->orderBy('created_at', 'desc')
             ->paginate(9);
@@ -76,11 +76,11 @@ class SiteController extends Controller
     }
     private function product_category($slug)
     {
-        $row_cat = Category::where([['slug', '=', $slug], ['status', '=', '1']])->first();
+        $row_cat = Category::where([['slug', '=', $slug], ['status', '=', 1]])->first();
         $list_category_id = array();
         array_push($list_category_id, $row_cat->id);
         //xet cap con
-        $list_category1 = Category::where([['parent_id', '=', $row_cat->id], ['status', '=', '1']])
+        $list_category1 = Category::where([['parent_id', '=', $row_cat->id], ['status', '=', 1]])
             ->orderBy('updated_at', 'desc')
             ->get();
         if (count($list_category1) > 0) {

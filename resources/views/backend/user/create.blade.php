@@ -111,7 +111,7 @@
               <div class="col-md-6">
                 <div class="mb-3">
                  <label for="phone">Điện thoại</label> 
-                 <input type="text" name="phone" value="{{old('phone')}}" id="phone" class="form-control"
+                 <input type="text" name="phone" spellcheck="false" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('phone')}}" id="phone" class="form-control"
                   placeholder="Nhập phone">
                   @if($errors->has('phone'))
                   <div class="text-danger">

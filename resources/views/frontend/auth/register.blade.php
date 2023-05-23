@@ -22,7 +22,7 @@
                         {{$errors->first('username')}}
                     </div>
                     @endif
-                    <input type="text" name="phone" style="border-radius:4px;border: 1px solid #cecece;" value="{{old('phone')}}" placeholder="Số điện thoại" />
+                    <input type="text" name="phone" style="border-radius:4px;border: 1px solid #cecece;" spellcheck="false" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('phone')}}" placeholder="Số điện thoại" />
                     @if($errors->has('phone'))
                     <div class="text-danger">
                         {{$errors->first('phone')}}

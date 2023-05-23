@@ -74,7 +74,7 @@
                                 {{-- <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li> --}}
                                 {{-- <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li> --}}
                                 @if(Auth::guard('customer')->check())
-                                <li><a href="#"><i class="fa fa-user"></i> {{Auth('customer')->user()->name}}</a></li>
+                                <li><a href="{{route('profile')}}"><i class="fa fa-user"></i> {{Auth('customer')->user()->name}}</a></li>
                                 <li><a href="{{route('dangxuat')}}"><i class="fa fa-sign-out"></i> Đăng Xuất</a></li>
                                 <li><a href="{{route('order.list')}}"><i class="fa fa-truck"></i> Đơn hàng</a></li>
 
@@ -89,6 +89,7 @@
                 </div>
             </div>
         </div><!--/header-middle-->
+        
         <x-main-menu />
     </header><!--/header-->
 

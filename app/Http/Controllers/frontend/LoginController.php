@@ -72,7 +72,14 @@ class LoginController extends Controller
         $user->save();
         return redirect()->route('getdangnhap')->with('successMessage', 'Đăng ký tài khoản thành công!');
     }
+
+    public function profile()
+    {
+        return view('frontend.auth.profile');
+    }
+
 }
+
 
 
 

@@ -42,6 +42,7 @@ Route::get('dang-xuat', [LoginController::class, 'dangxuat'])->name('dangxuat');
 //Xử lý register
 Route::get('register', [LoginController::class, 'register'])->name('register'); //link cố định( ví dụ)
 Route::post('register', [LoginController::class, 'postregister'])->name('postregister'); //link cố định( ví dụ)
+Route::get('profile', [LoginController::class, 'profile'])->name('profile'); //link cố định( ví dụ)
 
 
 //Xử lý login admin
@@ -190,7 +191,7 @@ route::prefix('cart')->group(function () {
 route::prefix('checkout')->middleware('LoginCustomer')->group(function () {
     Route::get('/', [CheckoutController::class, 'form'])->name('checkout');
     route::post('/', [CheckoutController::class, 'submit_form'])->name('checkout');
-    Route::get('checkout-success', [CheckoutController::class, 'checkout_success'])->name('checkout.success'); //link cố định( ví dụ)
+    // Route::get('checkout-success', [CheckoutController::class, 'checkout_success'])->name('checkout.success'); //link cố định( ví dụ)
     Route::get('order', [DonHangController::class, 'index'])->name('order.list'); //link cố định( ví dụ)
 
 });

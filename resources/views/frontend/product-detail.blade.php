@@ -8,6 +8,37 @@
 @section('footer')
     <script src="{{asset('public/js/script-product-detail.js')}}"></script>
     <script src="{{asset('public/owlcarousel/owl.carousel.min.js')}}"></script>
+    <script>
+        /*-------------------
+        Quantity change
+        --------------------- */
+        (function ($) {
+        var proQty = $('.pro-qty');
+        proQty.prepend('<span class="dec qtybtn">-</span>');
+        proQty.append('<span class="inc qtybtn">+</span>');
+        proQty.on('click', '.qtybtn', function () {
+            var $button = $(this);
+            var oldValue = $button.parent().find('input').val();
+            if ($button.hasClass('inc')) {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                // if(oldValue > $qty)
+                // {
+                //     newVal = $qty;
+                // }
+                // Don't allow decrementing below zero
+                if (oldValue > 1) {
+                    var newVal = parseFloat(oldValue) - 1;
+                } else {
+                    newVal = 1;
+                }
+            }
+            $button.parent().find('input').val(newVal);
+        });
+        
+        })(jQuery);
+    </script>
+    
 @endsection
 @php
     $product_image= $product->productimg;
@@ -20,6 +51,11 @@
     if($product->productsale)
     {
         $sale=$product->productsale["price_sale"];
+    }
+    $qty=0;
+    if($product->productstore)
+    {
+        $qty=$product->productstore["qty"];
     }
 @endphp
 @section('content')
@@ -51,17 +87,18 @@
                 <div style="height:150px;">
                     <p class = "product-description">{!!$product->metadesc!!}</p>
                 </div>
-                {{-- <span>
-                    <label>Quantity:</label>
-                    <input type="text" value="3" />
-                </span> --}}
+
+                @if ($qty!=0)
+                <span>
+                    <label>Số lượng còn lại: {{$qty}}</label>
+                </span>
                 <table>
                     <tbody>
                         <tr>
                             <td class="qua-col">
                                 <div class="quantity">
                                     <div class="pro-qty">
-                                        <input type="text" name="quantity" value="1">
+                                        <input type="text" name="quantity" spellcheck="false" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="1">
                                     </div>
                                     {{-- <button type="submit" class="btn btn-default" style="height:46px;"><i class="fa fa-arrow-circle-o-right"></i></button> --}}
                                 </div>
@@ -75,8 +112,13 @@
                     </div> --}}
                 <div class = "btn-groups">
                     <button type = "submit" class = "add-cart-btn"><i class = "fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
+                    {{-- <button type = "button" class = "buy-now-btn"><i class="fas fa-wallet"></i><a href="{{route('checkout')}}"> Mua ngay</a></button> --}}
                     <button type = "button" class = "buy-now-btn"><i class="fas fa-wallet"></i> Mua ngay</button>
                 </div>
+
+                @else
+                    <img class="img-fluid w-100" style="height:160px;width:270px;margin:auto;" src="{{asset('public/images/sold_out.png')}}" alt="sold_out.png" />
+                @endif
             </div>
         </form>
         </div>
@@ -100,7 +142,17 @@
                 if(count($product_image)>0)
                 {
                     $hinh=$product_image[0]["image"];
-                } 
+                }
+                $sale_sub=$row->price_buy;
+                if($row->productsale)
+                {
+                    $sale=$row->productsale["price_sale"];
+                }
+                $qty=0;
+                if($row->productstore)
+                {
+                    $qty=$row->productstore["qty"];
+                }
             @endphp
             <div class="item">
                 <div class="product-image-wrapper">
@@ -118,11 +170,16 @@
                                 </a>    
                             </div>
                             <div class="price text-center">
+                                @if ($qty!=0)
                                 <strong>
-                                    <span>{{number_format($row->price_buy)}}<sup>đ</sup></span> 
+                                    <span>{{number_format($sale_sub)}}<sup>đ</sup></span> 
                                     <del>{{number_format($row->price_buy)}}<sup>đ</sup></del>
                                 </strong>
                                 <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
+                                @else
+                                <img class="img-fluid w-100" style="height:78px;width:180px;margin:auto;" src="{{asset('public/images/sold_out.png')}}" alt="sold_out.png" />
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -133,3 +190,4 @@
     </div>
 </div>
 @endsection
+

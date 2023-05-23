@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="mb-3">
             <label for="price_sale">Giá khuyến mãi</label>
-            <input type="text" name="price_sale" value="{{ old('price_sale') }}"" id="price_sale" class="form-control" placeholder="Nhập giá khuyến mãi"> 
+            <input type="text" name="price_sale" spellcheck="false" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{ old('price_sale') }}"" id="price_sale" class="form-control" placeholder="Nhập giá khuyến mãi"> 
             @if ($errors->has('price_sale'))
               <div class="text-danger">{{$errors->first('price_sale')}}</div>
             @endif 

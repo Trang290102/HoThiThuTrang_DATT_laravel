@@ -50,7 +50,7 @@
                             <div class="quantity" style="justify-content: center;">
                                 <form action="{{route('cart.update',['id'=>$item['id']])}}" method="get" accept-charset="utf-8">
                                     <div class="pro-qty">
-                                        <input type="text" name="quantity" data-id="{{$item['id']}}" value="{{$item['quantity']}}">
+                                        <input type="text" name="quantity" spellcheck="false" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" data-id="{{$item['id']}}" value="{{$item['quantity']}}">
                                     </div>
                                     <button type="submit" class="btn btn-default" style="height:46px;"><i class="fa fa-arrow-circle-o-right"></i></button>
                                 </form>
@@ -153,6 +153,32 @@
         });
      
     });
+</script>
+<script>
+/*-------------------
+Quantity change
+--------------------- */
+(function ($) {
+var proQty = $('.pro-qty');
+proQty.prepend('<span class="dec qtybtn">-</span>');
+proQty.append('<span class="inc qtybtn">+</span>');
+proQty.on('click', '.qtybtn', function () {
+    var $button = $(this);
+    var oldValue = $button.parent().find('input').val();
+    if ($button.hasClass('inc')) {
+        var newVal = parseFloat(oldValue) + 1;
+    } else {
+        // Don't allow decrementing below zero
+        if (oldValue > 1) {
+            var newVal = parseFloat(oldValue) - 1;
+        } else {
+            newVal = 1;
+        }
+    }
+    $button.parent().find('input').val(newVal);
+});
+
+})(jQuery);
 </script>
    
 @endsection
