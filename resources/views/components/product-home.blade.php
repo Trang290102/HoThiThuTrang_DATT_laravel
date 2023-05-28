@@ -20,11 +20,10 @@
                 {
                     $sale=$product->productsale["price_sale"];
                 }
-                $qty=0;
-                if($product->productstore)
-                {
-                    $qty=$product->productstore["qty"];
-                }
+                // $qty=0;
+                // $qty_store=(int)$product->qtystore;
+                // $qty_buy=(int)$product->qtybuy;
+                // $qty=qty_store-$qty_buy;
             @endphp
             <div class="item">
                 <div class="product-image-wrapper">
@@ -42,19 +41,16 @@
                                 </a>    
                             </div>
                             <div class="price text-center" style="height:80px;">
-                                @if ($qty!=0)
+                                {{-- @if ($qty!=0) --}}
                                 <strong>
                                     <span class="price">{{number_format($sale)}}<sup>đ</sup></span> 
                                     <del>{{number_format($product->price_buy)}}<sup>đ</sup></del>
                                 </strong>
                                 <a href="{{route('cart.add',['id'=>$product->id])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
                                 {{-- <a onclick="AddCart({{$product->id}})" href="javascript:" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a> --}}
-                                @else
+                                {{-- @else
                                 <img class="img-fluid w-100" style="height:78px;width:180px;margin:auto;" src="{{asset('public/images/sold_out.png')}}" alt="sold_out.png" />
-                                @endif
-
-                                {{-- <a href="{{route('cart.add',['id'=>$product->id])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a> --}}
-                                {{-- <a onclick="AddCart({{$product->id}})" href="javascript:" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a> --}}
+                                @endif --}}
                             </div>
                         </div>
                     </div>

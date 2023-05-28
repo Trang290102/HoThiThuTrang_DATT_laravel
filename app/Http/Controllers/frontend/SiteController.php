@@ -9,6 +9,9 @@ use App\Models\Link;
 use App\Models\Product;
 use App\Models\Post;
 use App\Models\Brand;
+use App\Models\OrderDetail;
+use App\Models\ProductStore;
+
 use App\Models\Topic;
 
 
@@ -100,6 +103,7 @@ class SiteController extends Controller
                 }
             }
         }
+        
         $product_list = Product::join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
             ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_brand.slug as brand_slug')
             ->where('httt_product.status', 1)
@@ -135,13 +139,22 @@ class SiteController extends Controller
                 }
             }
         }
+        $qty_buy = 0;
+        $qty_buy= OrderDetail::join('httt_order', 'httt_order.id', '=', 'httt_orderdetail.order_id')
+        ->where([['httt_order.status', '!=', 1], ['httt_order.status', '!=', 0]])
+        ->where('product_id','=', $product->id)
+        ->sum('httt_orderdetail.qty');
+        $qty_store=0;
+        $qty_store= ProductStore::where('product_id','=', $product->id)
+        ->sum('qty');
+
         $product_list = Product::join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
             ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_brand.slug as brand_slug')
             ->where([['httt_product.status', '=', 1], ['httt_product.id', '!=', $product->id]])
             ->whereIn('category_id', $list_category_id)
             ->orderBy('httt_product.created_at', 'desc')
             ->take(10)->get();
-        return view('frontend.product-detail', compact('product', 'product_list'));
+        return view('frontend.product-detail', compact('product', 'product_list', 'qty_buy','qty_store'));
     }
     private function post_topic($slug)
     {
@@ -232,13 +245,13 @@ class SiteController extends Controller
     public function product()
     {
         $product_list = Product::join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
-        ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_brand.slug as brand_slug')
-        ->where('httt_product.status', 1)
-        ->paginate(12);
+            ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_brand.slug as brand_slug')
+            ->where('httt_product.status', 1)
+            ->paginate(12);
         $count_list = Product::join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
-        ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_brand.slug as brand_slug')
-        ->where('httt_product.status', 1)
-        ->get();
-    return view('frontend.product-all', compact('product_list', 'count_list'));
+            ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_brand.slug as brand_slug')
+            ->where('httt_product.status', 1)
+            ->get();
+        return view('frontend.product-all', compact('product_list', 'count_list'));
     }
 }

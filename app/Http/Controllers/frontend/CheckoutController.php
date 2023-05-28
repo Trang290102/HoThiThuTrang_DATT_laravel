@@ -31,8 +31,15 @@ class CheckoutController extends Controller
     public function submit_form(Request $request, CartHelper $cart)
     {
         foreach ($cart->items as $product_id => $item) {
-            $productstore = ProductStore::where('product_id', '=', $item['id'])->first();
-            if ($item['quantity'] > $productstore->qty) {
+            $qty_buy = 0;
+            $qty_buy= OrderDetail::join('httt_order', 'httt_order.id', '=', 'httt_orderdetail.order_id')
+            ->where([['httt_order.status', '!=', 1], ['httt_order.status', '!=', 0]])
+            ->where('product_id','=',  $item['id'])
+            ->sum('httt_orderdetail.qty');
+            $qty_store=0;
+            $qty_store= ProductStore::where('product_id','=', $item['id'])
+            ->sum('qty');
+            if ($item['quantity'] > ($qty_store - $qty_buy)) {
                 return redirect()->back()->with('errorMessage', 'Số lượng sản phẩm vượt quá số lượng hàng tồn kho! Vui lòng kiểm tra chi tiết số lượng các sản phẩm.');
             }
         }
@@ -58,12 +65,11 @@ class CheckoutController extends Controller
                 $order_detail->price = $item['price'];
                 $order_detail->amount = (int)$item['price'] * (int)$item['quantity'];
                 $order_detail->save();
-                $product_store = ProductStore::where('product_id', '=', $item['id'])->first();
-                // $product_store = ProductStore::find($item['id'])->first();
-                $t = $product_store->qty;
-                $t -= $item['quantity'];
-                $product_store->qty = $t;
-                $product_store->save();
+                // $product_store = ProductStore::where('product_id', '=', $item['id'])->first();
+                // $t = $product_store->qty;
+                // $t -= $item['quantity'];
+                // $product_store->qty = $t;
+                // $product_store->save();
             }
             // foreach ($cart->items as $product_id => $item) {
             //     $product_store = ProductStore::where('product_id', '=', $item['id'])->first();

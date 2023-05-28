@@ -5,6 +5,8 @@ namespace App\View\Components;
 use Closure;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\OrderDetail;
+use App\Models\ProductStore;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -49,6 +51,15 @@ class ProductHome extends Component
             ->orderBy('updated_at', 'desc')
             ->where('httt_product.status', 1)
             ->whereIn('category_id', $list_category_id)->take(10)->get();
+        // $qty_buy = 0;
+        // $qty_buy= OrderDetail::join('httt_order', 'httt_order.id', '=', 'httt_orderdetail.order_id')
+        // ->where([['httt_order.status', '!=', 1], ['httt_order.status', '!=', 0]])
+        // ->where('product_id','=', $product->id)
+        // ->sum('httt_orderdetail.qty');
+        // $qty_store=0;
+        // $qty_store= ProductStore::where('product_id','=', $product->id)
+        // ->sum('qty');
+
         return view('components.product-home', compact('row_cat', 'product_list'));
         // $product_list = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
         //     ->where('status', 1)

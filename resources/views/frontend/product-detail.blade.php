@@ -52,11 +52,17 @@
     {
         $sale=$product->productsale["price_sale"];
     }
-    $qty=0;
-    if($product->productstore)
-    {
-        $qty=$product->productstore["qty"];
-    }
+    // $qty=0;
+    // if($product->productstore)
+    // {
+    //     $qty=$product->productstore["qty"];
+    // }
+// $qty_buy=0;
+//     $buy=$product->productbuy;
+//     if($buy->orderbuy[])
+//     {
+        
+//     }
 @endphp
 @section('content')
 <div class="container my-4">
@@ -95,9 +101,10 @@
                 </div>
                 <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="300" data-layout="" data-action="" data-size="large" data-share="true"></div>
 
-                @if ($qty!=0)
+                @if ($qty_store-$qty_buy!=0)
                 <span>
-                    <label>Số lượng còn lại: {{$qty}}</label>
+                    <label>Số lượng còn lại: {{$qty_store - $qty_buy}}</label></br>
+                    <label>Số lượng đã bán: {{$qty_buy}}</label>
                 </span>
                 <table>
                     <tbody>
@@ -164,17 +171,15 @@
                 {
                     $sale=$row->productsale["price_sale"];
                 }
-                $qty=0;
-                if($row->productstore)
-                {
-                    $qty=$row->productstore["qty"];
-                }
+                // $qty=0;
+                // $qty_store=(int)$product->qtystore;
+                // $qty_buy=(int)$product->qtybuy;
+                // $qty=qty_store-$qty_buy;
             @endphp
             <div class="item">
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo ">
-                            {{-- <img src="{{asset('public/images/product/'.$product->image)}}" alt="" /> --}}
                             <a href="{{route('slug.home',['slug'=>$row->slug])}}">
                                 <img class="img-fluid w-100" src="{{asset('public/images/product/'.$hinh)}}" alt="{{$hinh}}" />
                             </a>
@@ -186,15 +191,15 @@
                                 </a>    
                             </div>
                             <div class="price text-center">
-                                @if ($qty!=0)
+                                {{-- @if ($qty!=0) --}}
                                 <strong>
                                     <span>{{number_format($sale_sub)}}<sup>đ</sup></span> 
                                     <del>{{number_format($row->price_buy)}}<sup>đ</sup></del>
                                 </strong>
                                 <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
-                                @else
+                                {{-- @else
                                 <img class="img-fluid w-100" style="height:78px;width:180px;margin:auto;" src="{{asset('public/images/sold_out.png')}}" alt="sold_out.png" />
-                                @endif
+                                @endif --}}
 
                             </div>
                         </div>

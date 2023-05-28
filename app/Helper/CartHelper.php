@@ -3,6 +3,8 @@
 namespace App\Helper;
 
 use App\Models\ProductStore;
+use App\Models\OrderDetail;
+
 
 class CartHelper
 {
@@ -28,10 +30,20 @@ class CartHelper
             'price' => $product['price_buy'],
         ];
         if (isset($this->items[$product->id])) {
-            $productstore = ProductStore::where('product_id', '=', $product['id'])->first();
-            if (($this->items[$product->id]['quantity'] + $quantity) > $productstore->qty) {
+            //số lượng sản phẩm đã bán và tổng nhập kho
+            $qty_buy = 0;
+            $qty_buy = OrderDetail::join('httt_order', 'httt_order.id', '=', 'httt_orderdetail.order_id')
+                ->where([['httt_order.status', '!=', 1], ['httt_order.status', '!=', 0]])
+                ->where('product_id', '=', $product->id)
+                ->sum('httt_orderdetail.qty');
+            $qty_store = 0;
+            $qty_store = ProductStore::where('product_id', '=', $product->id)
+                ->sum('qty');
+            //cho trường hợp thêm sản phẩm từ item nhỏ của sản phẩm
+            if (($this->items[$product->id]['quantity'] + $quantity) > ($qty_store - $qty_buy)) {
                 return redirect()->back()->with('errorMessage', 'Số lượng sản phẩm vượt quá số lượng hàng tồn kho!');
-            } else {
+            }
+            else {
                 $this->items[$product->id]['quantity'] += $quantity;
             }
         } else {

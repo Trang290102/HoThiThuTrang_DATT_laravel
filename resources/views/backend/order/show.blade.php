@@ -135,38 +135,15 @@
                                   <i class="fas fa-dolly-flatbed"></i>
                                   Chuẩn bị
                                 </a>
-                                <a href="{{ route('order.giaohang',['order'=>$order->id]) }}" class="btn btn-sm btn-info" style="margin-right:5px">
-                                  <i class="fas fa-truck"></i>
-                                    Giao hàng
-                                </a>
-                                {{-- <a href="{{ route('order.ghtc',['order'=>$order->id]) }}" class="btn btn-sm btn-success">
-                                  <i class="fas fa-check"></i>
-                                    Giao hàng thành công
-                                </a>
-                                <a href="{{ route('order.ghtb',['order'=>$order->id]) }}" class="btn btn-sm btn-secondary">
-                                  <i class="fas fa-exclamation-circle"></i>
-                                    Giao hàng thất bại
-                                </a> --}}
                                 @break
                             @case(3)
                                 <a href="{{ route('order.giaohang',['order'=>$order->id]) }}" class="btn btn-sm btn-info" style="margin-right:5px">
                                   <i class="fas fa-truck"></i>
                                     Giao hàng
                                 </a>
-                                {{-- <a href="{{ route('order.ghtc',['order'=>$order->id]) }}" class="btn btn-sm btn-success">
-                                  <i class="fas fa-check"></i>
-                                    Giao hàng thành công
-                                </a>
-                                <a href="{{ route('order.ghtb',['order'=>$order->id]) }}" class="btn btn-sm btn-secondary">
-                                  <i class="fas fa-check"></i>
-                                    Giao hàng thất bạ<iframe src="" frameborder="0"></iframe>
-                                </a> --}}
                                 @break
                             @case(4)
-                                {{-- <a href="{{ route('order.giaohang',['order'=>$order->id]) }}" class="btn btn-sm btn-info" style="margin-right:5px">
-                                  <i class="fas fa-truck"></i>
-                                    Giao hàng
-                                </a> --}}
+                                
                                 <a href="{{ route('order.ghtc',['order'=>$order->id]) }}" class="btn btn-sm btn-success">
                                   <i class="fas fa-check"></i>
                                     Giao hàng thành công
@@ -175,6 +152,12 @@
                                   <i class="fas fa-exclamation-circle"></i>
                                     Giao hàng thất bại
                                 </a>
+                                @break
+                            @case(5)
+                                <p style="color:rgb(7, 220, 82)"><b>Giao hàng thành công</b></p>
+                                @break
+                            @case(6)
+                                <p style="color:gray"><b>Giao hàng thất bại</b></p>
                                 @break
                               
                             {{-- @default --}}

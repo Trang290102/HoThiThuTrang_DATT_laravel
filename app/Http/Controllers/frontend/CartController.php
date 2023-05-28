@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductStore;
 use App\Helper\CartHelper;
+use App\Models\OrderDetail;
+
 
 class CartController extends Controller
 {
@@ -29,7 +31,16 @@ class CartController extends Controller
         $product = Product::find($id);
         $productstore = ProductStore::where('product_id', '=', $id)->first();
         if (request()->quantity) {
-            if (request()->quantity > $productstore->qty) {
+            $qty_buy = 0;
+            $qty_buy = OrderDetail::join('httt_order', 'httt_order.id', '=', 'httt_orderdetail.order_id')
+                ->where([['httt_order.status', '!=', 1], ['httt_order.status', '!=', 0]])
+                ->where('product_id', '=', $product->id)
+                ->sum('httt_orderdetail.qty');
+            $qty_store = 0;
+            $qty_store = ProductStore::where('product_id', '=', $product->id)
+                ->sum('qty');
+            //cho trường hợp nhập số lượng sản phẩm từ detail
+            if (request()->quantity > ($qty_store - $qty_buy)) {
                 return redirect()->back()->with('errorMessage', 'Số lượng sản phẩm vượt quá số lượng hàng tồn kho!');
             } else {
                 $quantity = request()->quantity;
@@ -50,9 +61,15 @@ class CartController extends Controller
     }
     public function update(CartHelper $cart, $id)
     {
-        // $product = Product::find($id);
-        $productstore = ProductStore::where('product_id', '=', $id)->first();
-        if (request()->quantity > $productstore->qty) {
+        $qty_buy = 0;
+        $qty_buy = OrderDetail::join('httt_order', 'httt_order.id', '=', 'httt_orderdetail.order_id')
+            ->where([['httt_order.status', '!=', 1], ['httt_order.status', '!=', 0]])
+            ->where('product_id', '=', $id)
+            ->sum('httt_orderdetail.qty');
+        $qty_store = 0;
+        $qty_store = ProductStore::where('product_id', '=', $id)
+            ->sum('qty');
+        if (request()->quantity > ($qty_store - $qty_buy)) {
             return redirect()->back()->with('errorMessage', 'Số lượng sản phẩm vượt quá số lượng hàng tồn kho!');
         } else {
             $quantity = request()->quantity ? request()->quantity : 1;
@@ -66,14 +83,13 @@ class CartController extends Controller
             // $quantity = request()->quantity ? request()->quantity : 1;
             // $product_store = ProductStore::where('product_id', '=', $item["key"])->first();
             // if ($item["value"] < $product_store->qty || $item["value"] = $product_store->qty) {
-                $cart->update($item["key"], $item["value"]);
+            $cart->update($item["key"], $item["value"]);
             // }
             //  else {
             //     return redirect()->back()->with('errorMessage', 'Số lượng sản phẩm vượt quá số lượng hàng tồn kho!');
             // }
         }
         // return view('frontend.cart.index');
-
     }
 
     public function clear(CartHelper $cart)

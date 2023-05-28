@@ -37,7 +37,7 @@
           <div class="card-header">
            <div class="row">
             <div class="col-md-6">
-              <a href="{{ route('order.new') }}" class="btn btn-sm btn-secondary"> <i class="fas fa-check"></i>Chưa xác nhận</a>
+              <a href="{{ route('order.new') }}" class="btn btn-sm btn-secondary"> <i class="fas fa-exclamation"></i>Chưa xác nhận</a>
               <a href="{{ route('order.trash') }}" class="btn btn-sm btn-info"> <i class="fas fa-check"></i>Đã xác nhận</a>
             </div>
             <div class="col-md-6 text-right">

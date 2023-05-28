@@ -236,38 +236,23 @@ class ProductController extends Controller
             }
             //khuyến mãi
             if (strlen($request->price_sale) && strlen($request->date_begin) && strlen($request->date_end)) {
-                if ($product_sale = ProductSale::where('product_id', '=', $id)->first()) {
-                    $product_sale->price_sale = $request->price_sale;
-                    $product_sale->date_begin = $request->date_begin;
-                    $product_sale->date_end = $request->date_end;
-                    $product_sale->save();
-                } else {
-                    $product_sale = new ProductSale();
-                    $product_sale->product_id = $product->id;
-                    $product_sale->price_sale = $request->price_sale;
-                    $product_sale->date_begin = $request->date_begin;
-                    $product_sale->date_end = $request->date_end;
-                    $product_sale->save();
-                }
+                $product_sale = new ProductSale();
+                $product_sale->product_id = $product->id;
+                $product_sale->price_sale = $request->price_sale;
+                $product_sale->date_begin = $request->date_begin;
+                $product_sale->date_end = $request->date_end;
+                $product_sale->save();
             }
 
             //Nhập kho
             if (strlen($request->price) && strlen($request->qty)) {
-                if ($product_store = ProductStore::where('product_id', '=', $id)->first()) {
-                    $product_store->price = $request->price;
-                    $product_store->qty = $request->qty;
-                    $product_store->updated_at = date('Y-m-d H:i:s');
-                    $product_store->updated_by = $user_id;
-                    $product_store->save();
-                } else {
-                    $product_store = new ProductStore();
-                    $product_store->product_id = $id;
-                    $product_store->price = $request->price;
-                    $product_store->qty = $request->qty;
-                    $product_store->created_at = date('Y-m-d H:i:s');
-                    $product_store->created_by = $user_id;
-                    $product_store->save();
-                }
+                $product_store = new ProductStore();
+                $product_store->product_id = $id;
+                $product_store->price = $request->price;
+                $product_store->qty = $request->qty;
+                $product_store->created_at = date('Y-m-d H:i:s');
+                $product_store->created_by = $user_id;
+                $product_store->save();
             }
         }
         return redirect()->route('product.index')->with('message', ['type' => 'success', 'msg' => 'Cập nhật thông tin sản phẩm thành công!']);

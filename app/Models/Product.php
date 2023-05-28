@@ -23,7 +23,22 @@ class Product extends Model
 
     public function productstore()
     {
-        return $this->hasOne(ProductStore::class, 'product_id', 'id');
+        return $this->hasMany(ProductStore::class, 'product_id', 'id');
     }
-
+    public function qtybuy($id)
+    {
+        $qty_buy = 0;
+        $qty_buy = OrderDetail::join('httt_order', 'httt_order.id', '=', 'httt_orderdetail.order_id')
+            ->where([['httt_order.status', '!=', 1], ['httt_order.status', '!=', 0]])
+            ->where('product_id', '=', $id)
+            ->sum('httt_orderdetail.qty');
+        return $qty_buy;
+    }
+    public function qtystore($id)
+    {
+        $qty_store = 0;
+        $qty_store = ProductStore::where('product_id', '=', $id)
+            ->sum('qty');
+        return $qty_store;
+    }
 }
