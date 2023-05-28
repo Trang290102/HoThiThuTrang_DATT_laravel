@@ -17,15 +17,20 @@
                             $date = !empty($post->updated_at) ? (new DateTime($post->updated_at))->format('H:i d/m/Y') : "";
                         @endphp
                         <p>{{$date}}</p>
+                        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="300" data-layout="" data-action="" data-size="large" data-share="true"></div>
                     </div>
                     <p class = "product-description">
                         {!!$post->metadesc!!}
                         {!!$post->detail!!}</p>           
             </div><!--product_category_items-->
+            <div class="comment_fb">
+                <div class="fb-comments" data-href="http://127.0.0.1:81/HoThiThuTrang_2120110029/" data-width="800" data-numposts="5">
+                </div>
+            </div>
         </div>
         <div class="col-md-3"><!--cột trái-->
             {{-- <div class="left-sidebar" style="border: 1px solid #e3e5ec;"> --}}
-                <div class="left-sidebar">
+            <div class="left-sidebar">
                 <h4 style="border-bottom: 1px solid;margin-bottom:15px;width: 240px;">Tin liên quan</h4>
                 @foreach($post_list as $row)
                 @php
@@ -47,7 +52,6 @@
                 </div>
                 @endforeach
             </div>
-        </div>
     </div>
 </div>
 @endsection

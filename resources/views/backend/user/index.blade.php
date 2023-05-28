@@ -55,7 +55,7 @@
                     <th style="width:150px;">Tên đăng nhập</th>
                     <th>Email</th>
                     <th>Số điện thoại</th>
-                    <th style="width:160px;" class="text-center">Ngày đăng</th>
+                    <th style="width:160px;" class="text-center">Ngày tạo</th>
                     <th style="width:150px;" class="text-center">Chức năng</th>
                     <th style="width:20px;" class="text-center">ID</th>
                     

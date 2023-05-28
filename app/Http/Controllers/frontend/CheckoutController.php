@@ -30,8 +30,13 @@ class CheckoutController extends Controller
 
     public function submit_form(Request $request, CartHelper $cart)
     {
+        foreach ($cart->items as $product_id => $item) {
+            $productstore = ProductStore::where('product_id', '=', $item['id'])->first();
+            if ($item['quantity'] > $productstore->qty) {
+                return redirect()->back()->with('errorMessage', 'Số lượng sản phẩm vượt quá số lượng hàng tồn kho! Vui lòng kiểm tra chi tiết số lượng các sản phẩm.');
+            }
+        }
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-
         $cus_id = Auth::guard('customer')->user()->id;
         $auth = Auth::guard('customer')->user();
         $order = new Order;
@@ -45,7 +50,6 @@ class CheckoutController extends Controller
         $order->created_at = date('Y-m-d H:i:s');
         if ($order->save()) {
             $order_id = $order->id;
-
             foreach ($cart->items as $product_id => $item) {
                 $order_detail = new OrderDetail();
                 $order_detail->order_id =  $order_id;
@@ -56,11 +60,10 @@ class CheckoutController extends Controller
                 $order_detail->save();
                 $product_store = ProductStore::where('product_id', '=', $item['id'])->first();
                 // $product_store = ProductStore::find($item['id'])->first();
-                $t=$product_store->qty;
-                $t-=$item['quantity'];
+                $t = $product_store->qty;
+                $t -= $item['quantity'];
                 $product_store->qty = $t;
                 $product_store->save();
-
             }
             // foreach ($cart->items as $product_id => $item) {
             //     $product_store = ProductStore::where('product_id', '=', $item['id'])->first();
@@ -77,12 +80,11 @@ class CheckoutController extends Controller
                 $email->to($auth->email, $auth->name);
             });
             //xóa cart
-            session(['cart' => '']); //xóa sesion nằm đây ko thể lấy danh sách sang trang checkout đc
+            session(['cart' => '']);
             // return redirect()->route('checkout.success');
             $orderdetail = OrderDetail::where('order_id', '=', $order->id)->get();
             return view('frontend.cart.checkout-success', compact('orderdetail'));
-        }
-         else {
+        } else {
             return redirect()->back()->with('errorMessage', 'Đặt hàng không thành công! Vui lòng liên hệ bộ phận CSKH.');
         }
     }

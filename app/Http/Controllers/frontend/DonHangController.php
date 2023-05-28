@@ -5,6 +5,10 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderDetail;
+
+
 use App\Helper\CartHelper;
 
 class DonHangController extends Controller
@@ -15,6 +19,7 @@ class DonHangController extends Controller
     // }
     public function index()
     {
+
         return view('frontend.order.list-order');
     }
 }

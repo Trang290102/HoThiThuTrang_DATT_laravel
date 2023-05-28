@@ -89,7 +89,7 @@
                 </div> 
                     <div class="mb-3">
                         <label for="images">Hình ảnh</label>
-                        <input type="file" name="images" id="images" class="form-control-file"> 
+                        <input type="file" name="" id="images" class="form-contimagesrol-file"> 
                         @if ($errors->has('images'))
                         <div class="text-danger">{{$errors->first('images')}}</div>
                       @endif 

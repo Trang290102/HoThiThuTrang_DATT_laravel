@@ -2,6 +2,7 @@
 
 namespace App\Helper;
 
+use App\Models\ProductStore;
 
 class CartHelper
 {
@@ -22,11 +23,17 @@ class CartHelper
             'name' => $product['name'],
             'slug' => $product['slug'],
             'image' => $product->productimg,
+            // 'store' => $product->productstore,
             'quantity' => $quantity,
             'price' => $product['price_buy'],
         ];
         if (isset($this->items[$product->id])) {
-            $this->items[$product->id]['quantity'] += $quantity;
+            $productstore = ProductStore::where('product_id', '=', $product['id'])->first();
+            if (($this->items[$product->id]['quantity'] + $quantity) > $productstore->qty) {
+                return redirect()->back()->with('errorMessage', 'Số lượng sản phẩm vượt quá số lượng hàng tồn kho!');
+            } else {
+                $this->items[$product->id]['quantity'] += $quantity;
+            }
         } else {
             $this->items[$product->id]['quantity'] = $quantity;
             $this->items[$product->id] = $item;

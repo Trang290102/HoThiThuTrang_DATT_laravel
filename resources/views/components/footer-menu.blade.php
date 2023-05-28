@@ -46,7 +46,7 @@
                     <p>Địa chỉ: 103 Tăng Nhơn Phú, Phước Long B, tp.Thủ Đức, TP.HCM</p>
                 </address>
                 <div class="social-networks">
-                    <ul>
+                    {{-- <ul>
                         <li>
                             <a href="#"><i class="fa fa-facebook"></i></a>
                         </li>
@@ -59,7 +59,8 @@
                         <li>
                             <a href="#"><i class="fa fa-youtube"></i></a>
                         </li>
-                    </ul>
+                    </ul> --}}
+                    <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-width="300" data-height="70" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
                 </div>
             </div>
         </div>

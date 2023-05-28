@@ -25,6 +25,7 @@
         </div>
         <div class="col-md-9"><!--cột phải-->
             <div class="features_items">
+                
                     <div class="post-title">
                             <h3> {{$page->title}}</h3>
                         {{-- @php
@@ -32,7 +33,7 @@
                         @endphp
                         <p>{{$date}}</p> --}}
                     </div>
-                    <p class = "product-description">{!!$page->detail!!}</p>           
+                    <p class = "product-description">{!!$page->detail!!}</p>        
             </div><!--product_category_items-->
         </div>
     </div>

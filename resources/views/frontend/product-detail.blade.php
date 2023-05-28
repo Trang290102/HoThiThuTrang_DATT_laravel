@@ -80,13 +80,20 @@
             <form action="{{route('cart.add',['id'=>$product->id])}}" method="get" accept-charset="utf-8">
             <div class="product-information">
                 <span class = "product-name">{{$product->name}}</span>
-                <strong>
-                    <span class="product-price">{{number_format($sale)}}<sup>đ</sup></span> 
-                    <del>{{number_format($product->price_buy)}}<sup>đ</sup></del>
-                </strong>
+                <div class="price">
+                    <strong>
+                        {{-- <span class="price">{{number_format($sale)}}<sup>đ</sup></span>  --}}
+                        <span class="product-price">{{number_format($sale)}}<sup>đ</sup></span> 
+                        <del>{{number_format($product->price_buy)}}<sup>đ</sup></del>
+                    </strong>
+                </div>
+                {{-- <span>
+                    <label>Thương hiệu: {{$product->brand_name}}</label>
+                </span> --}}
                 <div style="height:150px;">
                     <p class = "product-description">{!!$product->metadesc!!}</p>
                 </div>
+                <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="300" data-layout="" data-action="" data-size="large" data-share="true"></div>
 
                 @if ($qty!=0)
                 <span>
@@ -117,19 +124,28 @@
                 </div>
 
                 @else
-                    <img class="img-fluid w-100" style="height:160px;width:270px;margin:auto;" src="{{asset('public/images/sold_out.png')}}" alt="sold_out.png" />
+                    <img class="img-fluid w-100" style="height:160px;width:290px;margin:auto;" src="{{asset('public/images/sold_out.png')}}" alt="sold_out.png" />
                 @endif
             </div>
         </form>
         </div>
     </div>
     <div class = "product-div-right">
-        <div class="product-information">
-            <h3>Thông tin chi tiết</h3>
-            <p class = "product-description">{!!$product->detail!!}</p>           
+        <div class="row">
+            <div class="col-md-8">
+                <div class="product-information">
+                    <h3>Thông tin chi tiết</h3>
+                    <p class = "product-description">{!!$product->detail!!}</p>           
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="comment_fb">
+                    <div class="fb-comments" data-href="http://127.0.0.1:81/HoThiThuTrang_2120110029/tui-tote-double-pocket" data-width="350" data-numposts="5">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
     <div class="my-4">
         <div class="headline">
             <h2 class="category text-center">SẢN PHẨM CÙNG LOẠI</h2>

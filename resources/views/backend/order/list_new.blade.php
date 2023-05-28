@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Tất cả đơn hàng')
+@section('title', 'Danh sách đơn hàng mới')
 @section('content')
 
 @section('header')
@@ -22,7 +22,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">bảng điều khiển</a></li>
-              <li class="breadcrumb-item active">Tất cả đơn hàng</li>
+              <li class="breadcrumb-item active">Danh sách đơn hàng mới</li>
             </ol>
           </div>
         </div>
@@ -41,6 +41,8 @@
               <a href="{{ route('order.listxacnhan') }}" class="btn btn-sm btn-info"> <i class="fas fa-check"></i>Đã xác nhận</a>
             </div>
             <div class="col-md-6 text-right">
+              <a href="{{ route('order.index') }}" class="btn btn-sm btn-info"><i class="fas fa-reply"></i> Quay về dánh sách</a>
+
                 <a href="{{ route('order.trash') }}" class="btn btn-sm btn-danger"> <i class="fas fa-times"></i> Thùng rác</a>
             </div>
            </div>
@@ -72,7 +74,7 @@
                     <td>
                       @switch($order->status)
                         @case(1)
-                          <p style="color:rgb(208, 43, 25)"><b>Chờ xác nhận</b></p>
+                          <p style="color:rgb(254, 100, 54)"><b>Chờ xác nhận</b></p>
                           @break
                         @case(2)
                           <p style="color:rgb(11, 104, 233)"><b>Đã xác nhận</b></p>
@@ -81,21 +83,18 @@
                           <p style="color:rgb(7, 158, 145)"><b>Chuẩn bị</b></p>
                           @break
                         @case(4)
-                          <p style="color:rgb(245, 199, 16)"><b>Giao hàng</b></p>
-                          @break
+                        <p style="color:rgb(245, 199, 16)"><b>Giao hàng</b></p>
+                        @break
                         @case(5)
                           <p style="color:rgb(7, 220, 82)"><b>Giao hàng thành công</b></p>
                           @break
                         @case(6)
-                        <p style="color:gray"><b>Giao hàng thất bại</b></p>                          @break
+                          <p style="color:gray"><b>Giao hàng thất bại</b></p>
+                          @break
                       
                         @default
                           
                       @endswitch
-
-
-                    
-                    
                     </td>
                     <td class="text-center">{{$order->created_at}}</td>
                     <td class="text-center">
@@ -103,14 +102,14 @@
                             <i class="fas fa-eye"></i>Xem
                         </a>
                         
-                        {{-- <a href="{{ route('order.delete',['order'=>$order->id]) }}" class="btn btn-sm btn-danger " style="margin-right:5px">
+                        <a href="{{ route('order.delete',['order'=>$order->id]) }}" class="btn btn-sm btn-danger " style="margin-right:5px">
                           <i class="fas fa-times"></i>
                           Hủy
                       </a>
                       <a href="{{ route('order.xacnhan',['order'=>$order->id]) }}" class="btn btn-sm btn-success " style="margin-right:5px">
                         <i class="fas fa-clipboard-check"></i>
                           Xác Nhận
-                      </a> --}}
+                      </a>
                     </td>
                     <td class="text-center">{{$order->id}}</td>
                 </tr>

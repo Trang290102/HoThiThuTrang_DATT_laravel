@@ -43,7 +43,7 @@
               <div class="col-md-6">
                 
                 <div class="mb-3">
-                 <label for="username">Họ tên thông tin khách hàng</label> 
+                 <label for="username">Họ tên khách hàng</label> 
                  <input type="text" name="username" value="{{ old('username',$customer->username) }}" id="username" class="form-control"
                   placeholder="Nhập họ tên thông tin khách hàng">
                   @if($errors->has('username'))

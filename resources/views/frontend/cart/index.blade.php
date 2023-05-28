@@ -33,7 +33,20 @@
                         if(count($product_image)>0)
                         {
                             $hinh=$product_image[0]["image"];
-                        } 
+                        }
+                        // $qty=0;
+                        // if($product->productstore)
+                        // {
+                        //     $qty=$product->productstore["qty"];
+                        // }
+
+
+                        // $store=$productstore->qty;
+                       
+                        // if($item["quantity"] > $store)
+                        // {
+                        //     $qty=-1;
+                        // }
                     @endphp
                     <tr>
                         {{-- <td>{{$item['id']}}</td> --}}
@@ -47,26 +60,32 @@
                             <p style="margin-bottom:0px;">{{number_format($item['price'])}} VNĐ</p>
                         </td>
                         <td class="qua-col">
-                            <div class="quantity" style="justify-content: center;">
-                                <form action="{{route('cart.update',['id'=>$item['id']])}}" method="get" accept-charset="utf-8">
-                                    <div class="pro-qty">
-                                        <input type="text" name="quantity" spellcheck="false" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" data-id="{{$item['id']}}" value="{{$item['quantity']}}">
+                            {{-- @if($store!=0)
+                                @if ($item["quantity"] > $store)
+                                    <div class="quantity" style="justify-content: center;">
+                                        <form action="{{route('cart.update',['id'=>$item['id']])}}" method="get" accept-charset="utf-8">
+                                            <div class="pro-qty">
+                                                <input type="text" name="quantity" spellcheck="false" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" data-id="{{$item['id']}}" value="{{$item['quantity']}}">
+                                            </div>
+                                            <button type="submit" class="btn btn-default" style="height:46px;"><i class="fa fa-arrow-circle-o-right"></i></button>
+                                        </form>
                                     </div>
-                                    <button type="submit" class="btn btn-default" style="height:46px;"><i class="fa fa-arrow-circle-o-right"></i></button>
-                                </form>
-                            </div>
-                        </td>
-                    
-                        </td>
-                        
-                        {{-- <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <form action="{{route('cart.update',['id'=>$item['id']])}}" method="get" accept-charset="utf-8">
-                                    <input class="cart_quantity_input" data-id="{{$item['id']}}" style="width:60px;height:33px;border-radius:4px;border: 1px solid;" type="number" min="1" name="quantity" value="{{$item['quantity']}}" autocomplete="off" size="1">
-                                    <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-                                </form>
-                            </div>
-                        </td> --}}
+                                    <p style="font-color:red;">Số lượng hàng trong kho không đủ!!!</p>
+                                    {{$productstore->qty}}
+                                @else --}}
+                                    <div class="quantity" style="justify-content: center;">
+                                        <form action="{{route('cart.update',['id'=>$item['id']])}}" method="get" accept-charset="utf-8">
+                                            <div class="pro-qty">
+                                                <input type="text" name="quantity" spellcheck="false" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" data-id="{{$item['id']}}" value="{{$item['quantity']}}">
+                                            </div>
+                                            <button type="submit" class="btn btn-default" style="height:46px;"><i class="fa fa-arrow-circle-o-right"></i></button>
+                                        </form>
+                                    </div>
+                                {{-- @endif
+                            @else
+                                <img class="img-fluid w-100" style="margin:auto;" src="{{asset('public/images/sold_out.png')}}" alt="sold_out.png" />
+                            @endif --}}
+                        </td>          
                         <td class="cart_total" style="text-align: center;">
                             <p class="cart_total_price" style="margin-bottom:0px;">{{number_format((int)$item['price']*(int)$item['quantity'])}} VNĐ</p>
                         </td>

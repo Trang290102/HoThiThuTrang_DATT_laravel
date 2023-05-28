@@ -32,7 +32,7 @@ class LoginController extends Controller
         if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
             $data = ['email' => $username, 'password' => $password];
         } else {
-            $data = ['name' => $username, 'password' => $password];
+            $data = ['username' => $username, 'password' => $password];
         }
         // var_dump($data);
         if (Auth::guard('customer')->attempt(($data), $request->has('remember'))) {
@@ -76,6 +76,42 @@ class LoginController extends Controller
     public function profile()
     {
         return view('frontend.auth.profile');
+    }
+
+    public function postprofile(Request $request)
+    {
+        date_default_timezone_set("Asia/Ho_Chi_Minh");
+        $user_id = Auth::guard('customer')->user()->id;
+        $customer = User::find(Auth::guard('customer')->user()->id); //lấy mẫu tin
+        $customer->name = $request->name; //tên có thể đăng nhâp
+        $customer->username = $request->username;
+        $customer->phone = $request->phone;
+        // $customer->password = bcrypt($request->password);
+        //mật khẩu nên có 1 trang riêng để thay đổi mật khẩu, cần xác nhận mật khẩu cũ trước khi encode
+        $customer->address = $request->address;
+        $customer->email = $request->email;
+        $customer->gender = $request->gender;
+        $customer->updated_at = date('Y-m-d H:i:s');
+        $customer->updated_by = $user_id;
+        //upload image
+        // $slug = Str::slug($customer->name = $request->name, '-');
+        // if ($request->has('image')) {
+        //     $path_dir = "public/images/customer/";
+        //     if (File::exists(($path_dir . $customer->image))) {
+        //         File::delete(($path_dir . $customer->image));
+        //     }
+        //     $file =  $request->file('image');
+        //     $extension = $file->getClientOriginalExtension();
+        //     $filename = $customer->slug . '.' . $extension;
+        //     $file->move($path_dir, $filename);
+        //     //echo $filename;
+        //     $customer->image = $filename;
+        // }
+        //end upload
+        if ($customer->save()) {
+            return redirect()->back()->with('accessMessage','Cập nhật thông tin thành công!');
+        }
+        return redirect()->back()->with('errorMessage', 'Cập nhật thông tin không thành công!');
     }
 
 }

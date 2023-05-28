@@ -228,4 +228,17 @@ class SiteController extends Controller
     {
         return view('frontend.404');
     }
+
+    public function product()
+    {
+        $product_list = Product::join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
+        ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_brand.slug as brand_slug')
+        ->where('httt_product.status', 1)
+        ->paginate(12);
+        $count_list = Product::join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
+        ->select('httt_product.*', 'httt_brand.name as brand_name', 'httt_brand.slug as brand_slug')
+        ->where('httt_product.status', 1)
+        ->get();
+    return view('frontend.product-all', compact('product_list', 'count_list'));
+    }
 }

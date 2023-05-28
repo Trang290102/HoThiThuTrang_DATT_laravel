@@ -42,7 +42,6 @@ Route::get('dang-xuat', [LoginController::class, 'dangxuat'])->name('dangxuat');
 //Xử lý register
 Route::get('register', [LoginController::class, 'register'])->name('register'); //link cố định( ví dụ)
 Route::post('register', [LoginController::class, 'postregister'])->name('postregister'); //link cố định( ví dụ)
-Route::get('profile', [LoginController::class, 'profile'])->name('profile'); //link cố định( ví dụ)
 
 
 //Xử lý login admin
@@ -137,11 +136,24 @@ Route::prefix('admin')->middleware('LoginAdmin')->group(function () {
     //order
     Route::resource('order', OrderController::class);
     route::get('order_trash', [OrderController::class, 'trash'])->name('order.trash');
+    route::get('order_new', [OrderController::class, 'list_new'])->name('order.new');
+    route::get('order_xacnhan', [OrderController::class, 'list_xacnhan'])->name('order.listxacnhan');
+
     route::prefix('order')->group(function () {
-        route::get('status/{order}', [OrderController::class, 'status'])->name('order.status');
+        //hủy đơn
         route::get('delete/{order}', [OrderController::class, 'delete'])->name('order.delete');
-        route::get('restore/{order}', [OrderController::class, 'restore'])->name('order.restore');
+        //xóa đơn hàng khỏi DB
         route::get('destroy/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
+        //Xác nhận
+        route::get('xacnhan/{order}', [OrderController::class, 'xacnhan'])->name('order.xacnhan');
+        //chuẩn bị
+        route::get('chuanbi/{order}', [OrderController::class, 'chuanbi'])->name('order.chuanbi');
+        //giao hàng
+        route::get('giaohang/{order}', [OrderController::class, 'giaohang'])->name('order.giaohang');
+        //giao hàng thành công
+        route::get('ghtc/{order}', [OrderController::class, 'ghtc'])->name('order.ghtc');
+        //giao hàng thất bại
+        route::get('ghtb/{order}', [OrderController::class, 'ghtb'])->name('order.ghtb');
     });
 
     //user
@@ -162,7 +174,7 @@ Route::prefix('admin')->middleware('LoginAdmin')->group(function () {
         route::get('restore/{customer}', [CustomerController::class, 'restore'])->name('customer.restore');
         route::get('destroy/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
     });
-    //customer
+    //contact
     Route::resource('contact', ContactController::class);
     route::get('contact_trash', [ContactController::class, 'trash'])->name('contact.trash');
     route::get('no_reply', [ContactController::class, 'noreply'])->name('contact.noreply');
@@ -191,10 +203,13 @@ route::prefix('cart')->group(function () {
 route::prefix('checkout')->middleware('LoginCustomer')->group(function () {
     Route::get('/', [CheckoutController::class, 'form'])->name('checkout');
     route::post('/', [CheckoutController::class, 'submit_form'])->name('checkout');
+    Route::get('profile', [LoginController::class, 'profile'])->name('profile'); //link cố định( ví dụ)
+    Route::post('profile', [LoginController::class, 'postprofile'])->name('postprofile'); //link cố định( ví dụ)
+
     // Route::get('checkout-success', [CheckoutController::class, 'checkout_success'])->name('checkout.success'); //link cố định( ví dụ)
     Route::get('order', [DonHangController::class, 'index'])->name('order.list'); //link cố định( ví dụ)
 
 });
-
+Route::get('product', [SiteController::class, 'product'])->name('product.home');
 Route::post('search', [SearchController::class, 'index'])->name('search.home');
 Route::get('{slug}', [SiteController::class, 'index'])->name('slug.home');

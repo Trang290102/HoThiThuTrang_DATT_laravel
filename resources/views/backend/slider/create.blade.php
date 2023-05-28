@@ -49,7 +49,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="link">Liên kết</label>
-                      <input type="text" name="link" value="{{ old('link') }}"" id="link" class="form-control" placeholder="Nhập liên kết"> 
+                      <input type="text" name="link" value="{{ old('link') }}" id="link" class="form-control" placeholder="Nhập liên kết"> 
                       @if ($errors->has('link'))
                         <div class="text-danger">{{$errors->first('link')}}</div>
                       @endif 

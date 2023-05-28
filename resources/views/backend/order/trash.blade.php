@@ -21,7 +21,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">bảng điều khiển</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
             <li class="breadcrumb-item active">Thùng rác đơn hàng</li>
           </ol>
         </div>
@@ -37,7 +37,6 @@
       <div class="card-header">
         <div class="row">
           <div class="col-md-6">
-            <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-times"></i> Xóa</button>
           </div>
           <div class="col-md-6 text-right">
             <a href="{{ route('order.index') }}" class="btn btn-sm btn-info"><i class="fas fa-reply"></i> Quay về dánh sách</a>
@@ -71,10 +70,8 @@
               <td>{{$order->note}}</td>
               <td class="text-center">{{$order->created_at}}</td>
               <td class="text-center">
-                <a href="{{ route('order.restore',['order'=>$order->id]) }}" class="btn btn-primary btn-sm">
-                  <i class="fas fa-trash-restore"></i></a>
                 <a href="{{ route('order.destroy',['order'=>$order->id]) }}" class="btn btn-danger btn-sm">
-                  <i class="fas fa-ban"></i> </a>
+                  <i class="fas fa-ban"></i> Xóa khỏi CSDL </a>
 
               </td>
               <td class="text-center">{{$order->id}}</td>

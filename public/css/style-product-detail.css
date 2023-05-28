@@ -8,8 +8,29 @@
 
 html, body{
     font-family: 'Roboto', sans-serif;
-}
+} 
 
+/* price nhấp nháy*/
+@-webkit-keyframes my {
+    0% {
+      color: #ffaa00;
+    } 
+    50% {
+      color: #ed1a1a;
+    }
+    100%{
+      color: #fff;
+    }
+  }
+  .price strong span{
+    /* color:red; */
+    -webkit-animation: my 1000ms infinite;
+    -moz-animation: my 1000ms infinite; 
+    -o-animation: my 1000ms infinite; 
+    animation: my 1000ms infinite;
+  }
+/**/
+  
 img{
     width: 100%;
     display: block;

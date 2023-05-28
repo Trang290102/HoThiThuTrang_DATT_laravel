@@ -26,8 +26,13 @@
 </head><!--/head-->
 
 <body>
-    <header id="header"><!--header-->
-        <div class="header_top"><!--header_top-->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0" nonce="EsrfMtBZ"></script>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0" nonce="rUcsMT76"></script>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0" nonce="ha9ZKzoB"></script>    
+    <div class="header_top"><!--header_top-->
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">

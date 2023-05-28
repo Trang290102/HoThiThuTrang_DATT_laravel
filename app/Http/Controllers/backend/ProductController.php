@@ -142,6 +142,14 @@ class ProductController extends Controller
                 $product_store->created_at = date('Y-m-d H:i:s');
                 $product_store->created_by = $user_id;
                 $product_store->save();
+            } else {
+                $product_store = new ProductStore();
+                $product_store->product_id = $product->id;
+                $product_store->price = 0;
+                $product_store->qty = 0;
+                $product_store->created_at = date('Y-m-d H:i:s');
+                $product_store->created_by = $user_id;
+                $product_store->save();
             }
         }
         return redirect()->route('product.index')->with('message', ['type' => 'success', 'msg' => 'Thêm sản phẩm thành công!']);
@@ -233,9 +241,7 @@ class ProductController extends Controller
                     $product_sale->date_begin = $request->date_begin;
                     $product_sale->date_end = $request->date_end;
                     $product_sale->save();
-                }
-                else
-                {
+                } else {
                     $product_sale = new ProductSale();
                     $product_sale->product_id = $product->id;
                     $product_sale->price_sale = $request->price_sale;

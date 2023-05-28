@@ -37,7 +37,6 @@
           <div class="card-header">
            <div class="row">
             <div class="col-md-6">
-              <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-times"></i> Xóa</button>
             </div>
             <div class="col-md-6 text-right">
               <a href="{{ route('order.index') }}" class="btn btn-sm btn-info"><i class="fas fa-reply"></i> Quay về dánh sách</a>
@@ -49,8 +48,8 @@
             <h3>THÔNG TIN KHÁCH HÀNG</h3>
             <table class="table table-bordered table-striped">
                 <tr>
-                    <td>Mã Khách Hàng</td>
-                    <td>{{ $order->user_id}}</td>
+                    <td>Mã đơn hàng</td>
+                    <td><b>{{$order->id}}</b></td>
                 </tr>
                 <tr>
                     <td>Họ Tên Khách Hàng</td>
@@ -69,6 +68,10 @@
                 <tr>
                   <td>Chi chú của khách hàng</td>
                   <td>{{ $order->note}}</td>
+                </tr>
+                <tr>
+                  <td>Thời gian đặt hàng</td>
+                  <td>{{ $order->created_at }}</td>
                 </tr>
             </table>
             <h3 class="py-3">CHI TIẾT ĐƠN HÀNG</h3>
@@ -116,15 +119,76 @@
                 <tfoot>
                     <tr>
                         <th colspan="4" class="text-center py-2">
-                            <a href="{{ route('order.delete',['order'=>$order->id]) }}" class="btn btn-sm btn-danger " style="margin-right:5px">
+                          @switch($order->status)
+                            @case(1)
+                                <a href="{{ route('order.delete',['order'=>$order->id]) }}" class="btn btn-sm btn-danger " style="margin-right:5px">
+                                  <i class="fas fa-times"></i>
+                                    Hủy
+                                </a>
+                                <a href="{{ route('order.xacnhan',['order'=>$order->id]) }}" class="btn btn-sm btn-success " style="margin-right:5px">
+                                  <i class="fas fa-clipboard-check"></i>
+                                    Xác Nhận
+                                </a>
+                                @break
+                            @case(2)
+                                <a href="{{ route('order.chuanbi',['order'=>$order->id]) }}" class="btn btn-sm btn-primary " style="margin-right:5px">
+                                  <i class="fas fa-dolly-flatbed"></i>
+                                  Chuẩn bị
+                                </a>
+                                <a href="{{ route('order.giaohang',['order'=>$order->id]) }}" class="btn btn-sm btn-info" style="margin-right:5px">
+                                  <i class="fas fa-truck"></i>
+                                    Giao hàng
+                                </a>
+                                {{-- <a href="{{ route('order.ghtc',['order'=>$order->id]) }}" class="btn btn-sm btn-success">
+                                  <i class="fas fa-check"></i>
+                                    Giao hàng thành công
+                                </a>
+                                <a href="{{ route('order.ghtb',['order'=>$order->id]) }}" class="btn btn-sm btn-secondary">
+                                  <i class="fas fa-exclamation-circle"></i>
+                                    Giao hàng thất bại
+                                </a> --}}
+                                @break
+                            @case(3)
+                                <a href="{{ route('order.giaohang',['order'=>$order->id]) }}" class="btn btn-sm btn-info" style="margin-right:5px">
+                                  <i class="fas fa-truck"></i>
+                                    Giao hàng
+                                </a>
+                                {{-- <a href="{{ route('order.ghtc',['order'=>$order->id]) }}" class="btn btn-sm btn-success">
+                                  <i class="fas fa-check"></i>
+                                    Giao hàng thành công
+                                </a>
+                                <a href="{{ route('order.ghtb',['order'=>$order->id]) }}" class="btn btn-sm btn-secondary">
+                                  <i class="fas fa-check"></i>
+                                    Giao hàng thất bạ<iframe src="" frameborder="0"></iframe>
+                                </a> --}}
+                                @break
+                            @case(4)
+                                {{-- <a href="{{ route('order.giaohang',['order'=>$order->id]) }}" class="btn btn-sm btn-info" style="margin-right:5px">
+                                  <i class="fas fa-truck"></i>
+                                    Giao hàng
+                                </a> --}}
+                                <a href="{{ route('order.ghtc',['order'=>$order->id]) }}" class="btn btn-sm btn-success">
+                                  <i class="fas fa-check"></i>
+                                    Giao hàng thành công
+                                </a>
+                                <a href="{{ route('order.ghtb',['order'=>$order->id]) }}" class="btn btn-sm btn-secondary">
+                                  <i class="fas fa-exclamation-circle"></i>
+                                    Giao hàng thất bại
+                                </a>
+                                @break
+                              
+                            {{-- @default --}}
+                              
+                          @endswitch
+                            {{-- <a href="{{ route('order.delete',['order'=>$order->id]) }}" class="btn btn-sm btn-danger " style="margin-right:5px">
                                 <i class="fas fa-times"></i>
                                 Hủy
                             </a>
                             <a href="#" class="btn btn-sm btn-secondary " style="margin-right:5px">
                               <i class="fas fa-clipboard-check"></i>
                                 Xác Nhận
-                            </a>
-                            <a href="#" class="btn btn-sm btn-primary " style="margin-right:5px">
+                            </a> --}}
+                            {{-- <a href="#" class="btn btn-sm btn-primary " style="margin-right:5px">
                               <i class="fas fa-dolly-flatbed"></i>
                               Chuẩn bị
                             </a>
@@ -135,11 +199,11 @@
                             <a href="#" class="btn btn-sm btn-success">
                               <i class="fas fa-check"></i>
                                 Giao hàng thành công
-                            </a>
-                            <a href="#" class="btn btn-sm btn-warning">
+                            </a> --}}
+                            {{-- <a href="#" class="btn btn-sm btn-warning">
                               <i class="fas fa-file-invoice-dollar"></i>
                                 Xuất Hóa Đơn
-                            </a>
+                            </a> --}}
                         </th>
                         <th>Tổng Tiền</th>
                         <th> {{number_format($total)}} VNĐ</th>

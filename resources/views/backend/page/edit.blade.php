@@ -50,7 +50,7 @@
                 <div class="col-md-9">
                     <div class="mb-3">
                         <label for="title">Tiêu đề trang đơn</label>
-                        <input type="text" name="title" value="{{ old('title',$page->title) }}"" id="title" class="form-control" placeholder="Nhập tên trang đơn"> 
+                        <input type="text" name="title" value="{{ old('title',$page->title) }}" id="title" class="form-control" placeholder="Nhập tên trang đơn"> 
                         @if ($errors->has('title'))
                           <div class="text-danger">{{$errors->first('title')}}</div>
                         @endif 
