@@ -47,7 +47,7 @@ class OrderController extends Controller
 
 
 
-    #GET:admin/order/show/{id} tất cả đơn hàng
+    #GET:admin/order/show/{id}đơn hàng
     public function show(string $id)
     {
         $orderdetail = OrderDetail::where('order_id', '=', $id)->get();
@@ -58,8 +58,6 @@ class OrderController extends Controller
             return view('backend.order.show', compact('order', 'orderdetail'));
         }
     }
-
-
 
 
     #GET:admin/order/destroy/{id}
@@ -92,15 +90,6 @@ class OrderController extends Controller
         $order->updated_at = date('Y-m-d H:i:s');
         $order->updated_by = $user_id;
         $order->save();
-        // $orderdetail = OrderDetail::where('order_id', '=', $id)->get();
-        // foreach ($orderdetail as $item) {
-        //     $product_store = ProductStore::where('product_id', '=', $item['product_id'])->first();
-        //     // $product_store = ProductStore::find($item['id'])->first();
-        //     $t = $product_store->qty;
-        //     $t += $item['qty'];
-        //     $product_store->qty = $t;
-        //     $product_store->save();
-        // }
         return redirect()->route('order.index')->with('message', ['type' => 'success', 'msg' => 'Xóa vào thùng rác thành công!']);
     }
     #GET:admin/order/xac-nhan/{id}

@@ -81,7 +81,7 @@
                                 @if(Auth::guard('customer')->check())
                                 <li><a href="{{route('profile')}}"><i class="fa fa-user"></i> {{Auth('customer')->user()->name}}</a></li>
                                 <li><a href="{{route('dangxuat')}}"><i class="fa fa-sign-out"></i> Đăng Xuất</a></li>
-                                <li><a href="{{route('order.list')}}"><i class="fa fa-truck"></i> Đơn hàng</a></li>
+                                <li><a href="{{route('donhang.list')}}"><i class="fa fa-truck"></i> Đơn hàng</a></li>
 
                                 @else
                                 <li><a href="{{route('getdangnhap')}}"><i class="fa fa-user"></i> Đăng Nhập</a></li>

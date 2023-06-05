@@ -29,8 +29,8 @@ class AuthController extends Controller
             return redirect('admin');
             // echo "thanh cong";
         } else {
-            // return redirect()->route('admin/login')->with('message', ['type' => 'danger', 'msg' => 'Email hoặc password không đúng. Vui lòng nhập lại!']);
-            return redirect('admin/login');
+            return redirect('admin/login')->with('message', ['type' => 'danger', 'msg' => 'Email hoặc password không đúng. Vui lòng nhập lại!']);
+            // return redirect('admin/login');
             // echo bcrypt('123456'); //mã hóa 
         }
     }

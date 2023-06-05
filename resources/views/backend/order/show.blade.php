@@ -17,7 +17,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Danh sách đơn hàng</h1>
+            <h1>Chi tiết đơn hàng</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -66,7 +66,7 @@
                   <td>{{ $order->address}}</td>
                 </tr>
                 <tr>
-                  <td>Chi chú của khách hàng</td>
+                  <td>Ghi chú của khách hàng</td>
                   <td>{{ $order->note}}</td>
                 </tr>
                 <tr>

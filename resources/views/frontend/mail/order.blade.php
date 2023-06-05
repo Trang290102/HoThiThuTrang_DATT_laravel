@@ -84,5 +84,5 @@
         </tbody>
     </table>
     <h3>Tổng giá trị đơn hàng: {{number_format($cart->total_price)}} VNĐ</h3>
-
+    <p>Xem lại lịch sử đơn đặt hàng tại: <a target="_blank" href="{{route('donhang.list')}}">Đơn hàng của tôi</a></p>
 </div>

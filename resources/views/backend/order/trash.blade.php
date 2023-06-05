@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Thùng rác đơn hàng')
+@section('title', 'Danh sách đơn hàng hủy')
 @section('content')
 
 @section('header')
@@ -17,12 +17,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Thùng rác đơn hàng</h1>
+          <h1>Danh sách đơn hàng hủy</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
-            <li class="breadcrumb-item active">Thùng rác đơn hàng</li>
+            <li class="breadcrumb-item active">Danh sách đơn hàng hủy</li>
           </ol>
         </div>
       </div>

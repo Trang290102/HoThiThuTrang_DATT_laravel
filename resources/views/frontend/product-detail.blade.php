@@ -196,7 +196,7 @@
                                     <span>{{number_format($sale_sub)}}<sup>đ</sup></span> 
                                     <del>{{number_format($row->price_buy)}}<sup>đ</sup></del>
                                 </strong>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
+                                <a href="{{route('cart.add',['id'=>$row->id])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
                                 {{-- @else
                                 <img class="img-fluid w-100" style="height:78px;width:180px;margin:auto;" src="{{asset('public/images/sold_out.png')}}" alt="sold_out.png" />
                                 @endif --}}

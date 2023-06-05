@@ -52,15 +52,6 @@ class ProductController extends Controller
     {
 
 
-        //cách 1: truy vấn từ csdl dùng groupby
-        // $list_product = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
-        //     ->join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
-        //     ->join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
-        //     ->select('httt_product.*', 'httt_product_image.*', 'httt_brand.name as brand_name', 'httt_category.name as category_name')
-        //     ->where('httt_product.status', '=', 0)
-        //     ->groupBy('httt_product_image.product_id')
-        //     ->orderBy('httt_product.created_at', 'desc')
-        //     ->get();
         //cách 2: quan hệ một-nhiều
         $list_product = Product::join('httt_category', 'httt_category.id', '=', 'httt_product.category_id')
             ->join('httt_brand', 'httt_brand.id', '=', 'httt_product.brand_id')
@@ -145,7 +136,7 @@ class ProductController extends Controller
             } else {
                 $product_store = new ProductStore();
                 $product_store->product_id = $product->id;
-                $product_store->price = 0;
+                $product_store->price = $request->price_buy;
                 $product_store->qty = 0;
                 $product_store->created_at = date('Y-m-d H:i:s');
                 $product_store->created_by = $user_id;
@@ -188,7 +179,8 @@ class ProductController extends Controller
                 $html_brand_id .= '<option value="' . $item->id . '">' . $item->name . '</option>';
             }
         }
-        return view('backend.product.edit', compact('product', 'html_brand_id', 'html_category_id'));
+        $product_store = ProductStore::where('product_id', '=', $id)->orderBy('created_at', 'desc')->first();
+        return view('backend.product.edit', compact('product', 'html_brand_id', 'html_category_id', 'product_store'));
     }
 
     public function update(ProductUpdateRequest $request, string $id)

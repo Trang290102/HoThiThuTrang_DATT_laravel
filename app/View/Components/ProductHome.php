@@ -50,7 +50,7 @@ class ProductHome extends Component
             ->select('httt_product.*', 'httt_brand.name as brand_name','httt_brand.slug as brand_slug')
             ->orderBy('updated_at', 'desc')
             ->where('httt_product.status', 1)
-            ->whereIn('category_id', $list_category_id)->take(10)->get();
+            ->whereIn('category_id', $list_category_id)->take(8)->get();
         // $qty_buy = 0;
         // $qty_buy= OrderDetail::join('httt_order', 'httt_order.id', '=', 'httt_orderdetail.order_id')
         // ->where([['httt_order.status', '!=', 1], ['httt_order.status', '!=', 0]])
@@ -61,12 +61,5 @@ class ProductHome extends Component
         // ->sum('qty');
 
         return view('components.product-home', compact('row_cat', 'product_list'));
-        // $product_list = Product::join('httt_product_image', 'httt_product_image.product_id', '=', 'httt_product.id')
-        //     ->where('status', 1)
-        //     ->groupBy('httt_product_image.product_id')
-        //     ->whereIn('category_id', $list_category_id)
-        //     ->orderBy('created_at', 'desc')
-        //     ->take(10)->get();
-        // return view('components.product-home', compact('row_cat', 'product_list'));
     }
 }

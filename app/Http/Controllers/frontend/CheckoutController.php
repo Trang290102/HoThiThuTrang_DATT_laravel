@@ -71,15 +71,6 @@ class CheckoutController extends Controller
                 // $product_store->qty = $t;
                 // $product_store->save();
             }
-            // foreach ($cart->items as $product_id => $item) {
-            //     $product_store = ProductStore::where('product_id', '=', $item['id'])->first();
-            //     // $product_store = ProductStore::find($item['id'])->first();
-            //     $t=$product_store->qty;
-            //     $t-=$item['quantity'];
-            //     $product_store->qty = $t;
-            //     $product_store->save();
-            // }
-            // dd($order);
             //gửi mail chi tiết đơn hàng
             Mail::send('frontend.mail.order', compact('auth', 'cart', 'order'), function ($email) use ($auth) {
                 $email->subject('TrangShop - Đặt hàng thành công');
@@ -87,17 +78,12 @@ class CheckoutController extends Controller
             });
             //xóa cart
             session(['cart' => '']);
-            // return redirect()->route('checkout.success');
             $orderdetail = OrderDetail::where('order_id', '=', $order->id)->get();
             return view('frontend.cart.checkout-success', compact('orderdetail'));
         } else {
             return redirect()->back()->with('errorMessage', 'Đặt hàng không thành công! Vui lòng liên hệ bộ phận CSKH.');
         }
     }
-    // public function checkout_success()
-    // {
-    //     return view('frontend.cart.checkout-success');
-    // }
     public function mail()
     {
         $name = Auth::guard('customer')->user()->name;

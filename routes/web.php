@@ -195,7 +195,6 @@ route::prefix('cart')->group(function () {
     route::get('update/{id}', [CartController::class, 'update'])->name('cart.update');
     route::get('clear', [CartController::class, 'clear'])->name('cart.clear');
     route::post('update-all', [CartController::class, 'updateall'])->name('cart.updateall');
-
 });
 
 
@@ -205,11 +204,17 @@ route::prefix('checkout')->middleware('LoginCustomer')->group(function () {
     route::post('/', [CheckoutController::class, 'submit_form'])->name('checkout');
     Route::get('profile', [LoginController::class, 'profile'])->name('profile'); //link cố định( ví dụ)
     Route::post('profile', [LoginController::class, 'postprofile'])->name('postprofile'); //link cố định( ví dụ)
-
     // Route::get('checkout-success', [CheckoutController::class, 'checkout_success'])->name('checkout.success'); //link cố định( ví dụ)
-    Route::get('order', [DonHangController::class, 'index'])->name('order.list'); //link cố định( ví dụ)
+});
+//Xử lý đơn hàng
+route::prefix('donhang')->middleware('LoginCustomer')->group(function () {
+    Route::get('/', [DonHangController::class, 'index'])->name('donhang.list'); //link cố định( ví dụ)
+    Route::get('huy/{order}', [DonHangController::class, 'huy'])->name('donhang.huy'); //link cố định( ví dụ)
+    Route::get('chitiet/{order}', [DonHangController::class, 'chitiet'])->name('donhang.chitiet'); //link cố định( ví dụ)
 
 });
+
+
 Route::get('product', [SiteController::class, 'product'])->name('product.home');
 Route::post('search', [SearchController::class, 'index'])->name('search.home');
 Route::get('{slug}', [SiteController::class, 'index'])->name('slug.home');

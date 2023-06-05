@@ -43,7 +43,7 @@
                 <div class="col-md-9">
                     <div class="mb-3">
                         <label for="name">Tên danh mục</label>
-                        <input type="text" name="name" value="{{ old('name',$category->name) }}"" id="name" class="form-control" placeholder="Nhập tên danh mục"> 
+                        <input type="text" name="name" value="{{ old('name',$category->name) }}" id="name" class="form-control" placeholder="Nhập tên danh mục"> 
                         @if ($errors->has('name'))
                           <div class="text-danger">{{$errors->first('name')}}</div>
                         @endif 
